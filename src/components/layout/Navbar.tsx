@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Heart, Menu, X } from "lucide-react";
+import { ShieldCheck, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const Navbar = () => {
@@ -13,7 +13,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg gradient-hero flex items-center justify-center">
-            <Heart className="w-4 h-4 text-primary-foreground" />
+            <ShieldCheck className="w-4 h-4 text-primary-foreground" />
           </div>
           <span className="font-heading font-bold text-lg text-foreground">Entre Nós</span>
         </Link>

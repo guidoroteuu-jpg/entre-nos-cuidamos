@@ -1,5 +1,5 @@
 import TeacherLayout from "@/components/layout/TeacherLayout";
-import { Users } from "lucide-react";
+import { Users, Lightbulb } from "lucide-react";
 
 const students = [
   { id: 1, status: "good" },{ id: 2, status: "good" },{ id: 3, status: "attention" },
@@ -46,7 +46,7 @@ const TeacherDashboard = () => (
         <p className="text-sm text-muted-foreground">Turma 5A · 20 alunos</p>
       </div>
 
-      {/* Stats */}
+      {/* Estatísticas */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {stats.map((s) => (
           <div key={s.label} className="bg-card rounded-xl p-4 border border-border shadow-card">
@@ -89,9 +89,11 @@ const TeacherDashboard = () => (
         </div>
       </div>
 
-      {/* Suggestions */}
+      {/* Sugestões de dinâmicas */}
       <div className="bg-card rounded-2xl p-6 border border-border shadow-card">
-        <h2 className="font-heading font-bold text-foreground mb-4">💡 Sugestões de Dinâmicas</h2>
+        <h2 className="font-heading font-bold text-foreground mb-4 flex items-center gap-2">
+          <Lightbulb className="w-5 h-5 text-secondary" /> Sugestões de Dinâmicas
+        </h2>
         <div className="space-y-3">
           {suggestions.map((s, i) => (
             <div key={i} className="bg-accent rounded-lg p-3 text-sm text-foreground">

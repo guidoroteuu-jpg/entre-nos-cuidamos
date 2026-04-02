@@ -1,7 +1,7 @@
 import { useState } from "react";
 import StudentLayout from "@/components/layout/StudentLayout";
 import { Button } from "@/components/ui/button";
-import { Users, Heart, CheckCircle } from "lucide-react";
+import { Users, ShieldCheck, CheckCircle } from "lucide-react";
 
 const classmates = [
   { id: 1, name: "Colega A" },
@@ -48,7 +48,7 @@ const StudentConfident = () => {
           <>
             <div className="bg-accent/50 rounded-xl p-4 border border-border">
               <div className="flex items-start gap-3">
-                <Heart className="w-5 h-5 text-secondary mt-0.5 flex-shrink-0" />
+                <ShieldCheck className="w-5 h-5 text-secondary mt-0.5 flex-shrink-0" />
                 <p className="text-sm text-foreground leading-relaxed">
                   Seu confidente pode ser qualquer colega da turma em quem você confia. 
                   Ele não saberá que foi escolhido por você — apenas receberá dicas de como ser um bom amigo.

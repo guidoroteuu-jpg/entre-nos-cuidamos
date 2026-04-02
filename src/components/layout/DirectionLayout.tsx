@@ -1,27 +1,28 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ShieldCheck, LayoutDashboard, Bell, FileText, CalendarDays, AlertTriangle, LogOut } from "lucide-react";
+import { ShieldCheck, LayoutDashboard, Users, AlertTriangle, CalendarDays, Settings, LogOut } from "lucide-react";
 
-/* Itens de navegação do professor */
+/* Itens de navegação da direção */
 const navItems = [
-  { path: "/professor/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { path: "/professor/alertas", label: "Alertas", icon: Bell },
-  { path: "/professor/denuncias", label: "Denúncias", icon: AlertTriangle },
-  { path: "/professor/relatorio", label: "Relatório", icon: FileText },
-  { path: "/professor/ano-letivo", label: "Ano Letivo", icon: CalendarDays },
+  { path: "/direcao/painel", label: "Início", icon: LayoutDashboard },
+  { path: "/direcao/turmas", label: "Turmas", icon: Users },
+  { path: "/direcao/denuncias", label: "Denúncias", icon: AlertTriangle },
+  { path: "/direcao/ano-letivo", label: "Ano Letivo", icon: CalendarDays },
+  { path: "/direcao/configuracoes", label: "Configurações", icon: Settings },
 ];
 
-const TeacherLayout = ({ children }: { children: ReactNode }) => {
+const DirectionLayout = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
 
   return (
     <div className="min-h-screen bg-background flex">
       {/* Sidebar - desktop */}
       <aside className="hidden md:flex w-60 gradient-hero flex-col p-4">
-        <div className="flex items-center gap-2 mb-8">
+        <div className="flex items-center gap-2 mb-2">
           <ShieldCheck className="w-5 h-5 text-primary-foreground" />
           <span className="font-heading font-bold text-primary-foreground">Entre Nós</span>
         </div>
+        <span className="text-xs text-primary-foreground/50 mb-8 ml-7">Direção</span>
         <nav className="space-y-1 flex-1">
           {navItems.map((item) => {
             const active = location.pathname === item.path;
@@ -53,6 +54,7 @@ const TeacherLayout = ({ children }: { children: ReactNode }) => {
             <ShieldCheck className="w-3.5 h-3.5 text-primary-foreground" />
           </div>
           <span className="font-heading font-bold text-sm text-foreground">Entre Nós</span>
+          <span className="text-xs text-muted-foreground">Direção</span>
         </div>
       </div>
 
@@ -63,7 +65,7 @@ const TeacherLayout = ({ children }: { children: ReactNode }) => {
 
       {/* Navegação inferior mobile */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border px-2 py-1 flex justify-around">
-        {navItems.map((item) => {
+        {navItems.slice(0, 4).map((item) => {
           const active = location.pathname === item.path;
           return (
             <Link
@@ -83,4 +85,4 @@ const TeacherLayout = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default TeacherLayout;
+export default DirectionLayout;

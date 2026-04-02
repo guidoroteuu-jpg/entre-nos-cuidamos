@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Heart, Shield, BarChart3, MessageCircle, Users, Eye, CheckCircle, ArrowRight } from "lucide-react";
+import { ShieldCheck, Shield, BarChart3, MessageCircle, Users, Eye, CheckCircle, ArrowRight } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 
 const features = [
   {
-    icon: Heart,
+    icon: ShieldCheck,
     title: "Check-in Emocional",
     description: "Alunos registram como se sentem diariamente com emojis simples. Padrões são detectados automaticamente.",
   },
   {
     icon: MessageCircle,
-    title: "Chat Anônimo Seguro",
-    description: "Espaço para se expressar sem medo. Palavras-chave de risco são sinalizadas discretamente ao professor.",
+    title: "Chat Seguro da Turma",
+    description: "Espaço para se expressar. Palavras-chave de risco são sinalizadas discretamente ao professor.",
   },
   {
     icon: Users,
@@ -42,7 +42,7 @@ const plans = [
     price: "R$299",
     period: "/mês",
     description: "Para escolas individuais",
-    features: ["Até 500 alunos", "Dashboard do professor", "Alertas em tempo real", "Relatórios semanais", "Chat anônimo", "Suporte por email"],
+    features: ["Até 500 alunos", "Dashboard do professor", "Alertas em tempo real", "Relatórios semanais", "Chat da turma", "Suporte por email"],
     highlighted: false,
   },
   {
@@ -64,7 +64,7 @@ const Landing = () => {
       <section className="pt-28 pb-20 px-4">
         <div className="container mx-auto text-center max-w-4xl">
           <div className="inline-flex items-center gap-2 bg-accent rounded-full px-4 py-1.5 mb-6 animate-fade-in">
-            <Heart className="w-4 h-4 text-secondary" />
+            <ShieldCheck className="w-4 h-4 text-secondary" />
             <span className="text-sm font-medium text-accent-foreground">Bem-estar escolar inteligente</span>
           </div>
           <h1 className="font-heading text-4xl md:text-6xl font-extrabold text-foreground mb-6 animate-fade-in" style={{ animationDelay: "0.1s" }}>
@@ -76,7 +76,7 @@ const Landing = () => {
             de forma discreta e preventiva, antes que o problema se torne grave.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: "0.3s" }}>
-            <Link to="/login">
+            <Link to="/cadastro">
               <Button variant="hero" size="lg" className="text-base px-8">
                 Começar grátis por 30 dias
                 <ArrowRight className="w-4 h-4 ml-1" />
@@ -94,7 +94,7 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Stats bar */}
+      {/* Stats */}
       <section className="py-12 gradient-hero">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -113,7 +113,7 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Funcionalidades */}
       <section id="como-funciona" className="py-20 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
@@ -142,7 +142,7 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Plans */}
+      {/* Planos */}
       <section id="planos" className="py-20 px-4 bg-accent">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-16">
@@ -179,19 +179,21 @@ const Landing = () => {
                     </li>
                   ))}
                 </ul>
-                <Button
-                  variant={plan.highlighted ? "hero-outline" : "hero"}
-                  className={`w-full ${plan.highlighted ? "border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground" : ""}`}
-                >
-                  Começar grátis
-                </Button>
+                <Link to="/cadastro">
+                  <Button
+                    variant={plan.highlighted ? "hero-outline" : "hero"}
+                    className={`w-full ${plan.highlighted ? "border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground" : ""}`}
+                  >
+                    Começar grátis
+                  </Button>
+                </Link>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Privacy */}
+      {/* Privacidade */}
       <section id="privacidade" className="py-20 px-4">
         <div className="container mx-auto max-w-3xl text-center">
           <Shield className="w-12 h-12 text-secondary mx-auto mb-6" />
@@ -209,12 +211,12 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Rodapé */}
       <footer className="gradient-hero py-12 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-2">
-              <Heart className="w-5 h-5 text-primary-foreground" />
+              <ShieldCheck className="w-5 h-5 text-primary-foreground" />
               <span className="font-heading font-bold text-primary-foreground">Entre Nós</span>
             </div>
             <div className="flex gap-6">

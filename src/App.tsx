@@ -3,8 +3,18 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import Index from "./pages/Index.tsx";
-import NotFound from "./pages/NotFound.tsx";
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Privacy from "./pages/Privacy";
+import StudentHome from "./pages/student/StudentHome";
+import StudentChat from "./pages/student/StudentChat";
+import StudentDiary from "./pages/student/StudentDiary";
+import StudentConfident from "./pages/student/StudentConfident";
+import TeacherDashboard from "./pages/teacher/TeacherDashboard";
+import TeacherAlerts from "./pages/teacher/TeacherAlerts";
+import TeacherReport from "./pages/teacher/TeacherReport";
+import DirectionPanel from "./pages/direction/DirectionPanel";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -15,8 +25,17 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/privacidade" element={<Privacy />} />
+          <Route path="/aluno/home" element={<StudentHome />} />
+          <Route path="/aluno/chat" element={<StudentChat />} />
+          <Route path="/aluno/diario" element={<StudentDiary />} />
+          <Route path="/aluno/confidente" element={<StudentConfident />} />
+          <Route path="/professor/dashboard" element={<TeacherDashboard />} />
+          <Route path="/professor/alertas" element={<TeacherAlerts />} />
+          <Route path="/professor/relatorio" element={<TeacherReport />} />
+          <Route path="/direcao/painel" element={<DirectionPanel />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

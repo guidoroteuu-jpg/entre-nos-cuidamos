@@ -47,6 +47,7 @@ const App = () => (
           <Route path="/professor/relatorio" element={<TeacherReport />} />
           <Route path="/professor/ano-letivo" element={<TeacherSchoolYear />} />
           <Route path="/direcao/painel" element={<DirectionPanel />} />
+          <Route path="/brand" element={<Brand />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

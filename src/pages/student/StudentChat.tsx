@@ -3,8 +3,8 @@ import StudentLayout from "@/components/layout/StudentLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, Lock } from "lucide-react";
+import { motion } from "framer-motion";
 
-/* Mensagens com nome do aluno (sem anonimato) */
 const mockMessages = [
   { id: 1, text: "Alguém mais achou a prova difícil?", time: "14:20", self: false, name: "Maria S." },
   { id: 2, text: "Sim, mas o professor explicou bem na revisão", time: "14:21", self: false, name: "João P." },
@@ -13,18 +13,13 @@ const mockMessages = [
   { id: 5, text: "Tô dentro! Pode ser na biblioteca", time: "14:26", self: false, name: "Carlos M." },
 ];
 
-/* Gera cor de avatar com base no nome */
 const getAvatarColor = (name: string) => {
-  const colors = [
-    "bg-secondary", "bg-status-good", "bg-status-attention",
-    "bg-purple-glow", "bg-primary",
-  ];
+  const colors = ["bg-secondary", "bg-status-good", "bg-status-attention", "bg-purple-glow", "bg-primary"];
   let hash = 0;
   for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
   return colors[Math.abs(hash) % colors.length];
 };
 
-/* Iniciais do nome */
 const getInitials = (name: string) => {
   const parts = name.split(" ");
   if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
@@ -60,17 +55,21 @@ const StudentChat = () => {
         </div>
 
         <div className="flex-1 overflow-y-auto space-y-3 mb-4">
-          {messages.map((msg) => (
-            <div key={msg.id} className={`flex ${msg.self ? "justify-end" : "justify-start"}`}>
+          {messages.map((msg, i) => (
+            <motion.div
+              key={msg.id}
+              className={`flex ${msg.self ? "justify-end" : "justify-start"}`}
+              initial={{ opacity: 0, x: msg.self ? 20 : -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.25, delay: i < 5 ? i * 0.05 : 0 }}
+            >
               <div className={`flex gap-2 max-w-[85%] ${msg.self ? "flex-row-reverse" : "flex-row"}`}>
-                {/* Avatar */}
                 {!msg.self && (
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold text-primary-foreground flex-shrink-0 ${getAvatarColor(msg.name)}`}>
                     {getInitials(msg.name)}
                   </div>
                 )}
                 <div>
-                  {/* Nome */}
                   {!msg.self && (
                     <p className="text-[10px] text-muted-foreground font-medium mb-0.5 ml-1">{msg.name}</p>
                   )}
@@ -84,7 +83,7 @@ const StudentChat = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
@@ -93,11 +92,13 @@ const StudentChat = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Escreva para a turma..."
-            className="flex-1 h-11 rounded-full"
+            className="flex-1 h-11 rounded-full micro-input"
           />
-          <Button type="submit" variant="hero" size="icon" className="h-11 w-11 rounded-full">
-            <Send className="w-4 h-4" />
-          </Button>
+          <motion.div whileHover={{ rotate: 15 }} whileTap={{ scale: 0.9 }}>
+            <Button type="submit" variant="hero" size="icon" className="h-11 w-11 rounded-full">
+              <Send className="w-4 h-4" />
+            </Button>
+          </motion.div>
         </form>
       </div>
     </StudentLayout>

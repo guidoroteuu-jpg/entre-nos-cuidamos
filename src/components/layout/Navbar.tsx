@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ShieldCheck, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import Logo from "@/components/Logo";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,11 +12,8 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg gradient-hero flex items-center justify-center">
-            <ShieldCheck className="w-4 h-4 text-primary-foreground" />
-          </div>
-          <span className="font-heading font-bold text-lg text-foreground">Entre Nós</span>
+        <Link to="/">
+          <Logo variante="clara" largura={130} />
         </Link>
 
         {isLanding && (
@@ -25,7 +23,7 @@ const Navbar = () => {
               <a href="#planos" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Planos</a>
               <a href="#privacidade" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Privacidade</a>
               <Link to="/login">
-                <Button variant="hero" size="sm">Entrar</Button>
+                <Button variant="hero" size="sm" className="micro-btn">Entrar</Button>
               </Link>
             </div>
 

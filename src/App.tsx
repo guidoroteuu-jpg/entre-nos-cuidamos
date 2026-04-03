@@ -19,6 +19,7 @@ import TeacherReport from "./pages/teacher/TeacherReport";
 import TeacherComplaints from "./pages/teacher/TeacherComplaints";
 import TeacherSchoolYear from "./pages/teacher/TeacherSchoolYear";
 import DirectionPanel from "./pages/direction/DirectionPanel";
+import Brand from "./pages/Brand";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,6 +47,7 @@ const App = () => (
           <Route path="/professor/relatorio" element={<TeacherReport />} />
           <Route path="/professor/ano-letivo" element={<TeacherSchoolYear />} />
           <Route path="/direcao/painel" element={<DirectionPanel />} />
+          <Route path="/brand" element={<Brand />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

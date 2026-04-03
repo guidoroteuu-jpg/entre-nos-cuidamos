@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import StudentLayout from "@/components/layout/StudentLayout";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, BookOpen, AlertTriangle, MessageSquare, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
-/* 6 opções de humor expandidas */
 const emojis = [
   { emoji: "😊", label: "Ótimo", desc: "Estou bem!", value: 6 },
   { emoji: "😐", label: "Neutro", desc: "Tá indo...", value: 5 },
@@ -25,15 +25,11 @@ const weekData = [
 ];
 
 const barColors: Record<number, string> = {
-  6: "bg-status-good",
-  5: "bg-status-good",
-  4: "bg-status-attention",
-  3: "bg-status-attention",
-  2: "bg-status-problem",
-  1: "bg-status-severe",
+  6: "bg-status-good", 5: "bg-status-good",
+  4: "bg-status-attention", 3: "bg-status-attention",
+  2: "bg-status-problem", 1: "bg-status-severe",
 };
 
-/* Tipos de denúncia */
 const complaintTypes = ["Bullying", "Assédio", "Exclusão", "Violência", "Outro"];
 
 const StudentHome = () => {
@@ -45,17 +41,20 @@ const StudentHome = () => {
   const [complaintDesc, setComplaintDesc] = useState("");
   const [complaintIdentify, setComplaintIdentify] = useState(false);
   const [complaintSent, setComplaintSent] = useState(false);
+  const [showCheckConfirm, setShowCheckConfirm] = useState(false);
 
   const handleSelect = (value: number) => {
     setSelected(value);
-    setSubmitted(true);
-    // Se escolheu "Excluído" ou "Muito triste", mostrar mensagem extra
+    setShowCheckConfirm(true);
     if (value <= 2) {
       setShowExtraMessage(true);
     } else {
       setShowExtraMessage(false);
     }
-    setTimeout(() => setSubmitted(false), 3000);
+    setTimeout(() => {
+      setShowCheckConfirm(false);
+      setSubmitted(true);
+    }, 1500);
   };
 
   const handleComplaintSubmit = () => {
@@ -76,60 +75,106 @@ const StudentHome = () => {
   return (
     <StudentLayout>
       <div className="space-y-6">
-        <div>
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="font-heading text-2xl font-bold text-foreground">Olá, {studentName}!</h1>
           <p className="text-muted-foreground text-sm mt-1">Como você está se sentindo hoje?</p>
-        </div>
+        </motion.div>
 
         {/* Check-in emocional — grid 3x2 */}
-        <div className="bg-card rounded-2xl p-6 border border-border shadow-card">
+        <motion.div
+          className="bg-card rounded-2xl p-6 border border-border shadow-card"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+        >
+          {/* Animação de confirmação */}
+          <AnimatePresence>
+            {showCheckConfirm && (
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0, opacity: 0 }}
+                className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/20"
+              >
+                <div className="w-20 h-20 rounded-full bg-secondary flex items-center justify-center check-circle">
+                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M10 20 L18 28 L30 12" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" className="check-mark" />
+                  </svg>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <div className="grid grid-cols-3 gap-3">
-            {emojis.map((e) => (
-              <button
+            {emojis.map((e, i) => (
+              <motion.button
                 key={e.value}
                 onClick={() => handleSelect(e.value)}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: i * 0.06, type: "spring", stiffness: 300 }}
+                whileHover={{ scale: 1.12 }}
+                whileTap={{ scale: 0.95 }}
                 className={`flex flex-col items-center gap-1 p-3 rounded-xl transition-all ${
                   selected === e.value
                     ? "bg-accent scale-105 shadow-card ring-2 ring-secondary"
-                    : "hover:bg-accent/50 hover:scale-105"
+                    : selected !== null ? "opacity-50 hover:opacity-100" : "hover:bg-accent/50"
                 }`}
               >
                 <span className="text-3xl">{e.emoji}</span>
                 <span className="text-xs font-medium text-foreground">{e.label}</span>
                 <span className="text-[10px] text-muted-foreground">{e.desc}</span>
-              </button>
+              </motion.button>
             ))}
           </div>
-          {submitted && !showExtraMessage && (
-            <p className="text-center text-sm text-status-good mt-4 animate-fade-in font-medium">
-              Registrado! Obrigado por compartilhar.
-            </p>
-          )}
-          {showExtraMessage && submitted && (
-            <div className="mt-4 bg-accent rounded-xl p-4 animate-fade-in">
-              <p className="text-sm text-foreground font-medium text-center mb-2">
-                Obrigado por compartilhar. Você não está sozinho. O orientador foi notificado de forma discreta.
-              </p>
-              <Link to="/aluno/chat-ia">
-                <Button variant="hero" size="sm" className="w-full">
-                  <MessageSquare className="w-4 h-4 mr-1" /> Quer conversar com a Lis agora?
-                </Button>
-              </Link>
-            </div>
-          )}
-        </div>
+          <AnimatePresence>
+            {submitted && !showExtraMessage && (
+              <motion.p
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="text-center text-sm text-status-good mt-4 font-medium"
+              >
+                Registrado! Obrigado por compartilhar.
+              </motion.p>
+            )}
+            {showExtraMessage && submitted && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-4 bg-accent rounded-xl p-4"
+              >
+                <p className="text-sm text-foreground font-medium text-center mb-2">
+                  Obrigado por compartilhar. Você não está sozinho. O orientador foi notificado de forma discreta.
+                </p>
+                <Link to="/aluno/chat-ia">
+                  <Button variant="hero" size="sm" className="w-full btn-shimmer">
+                    <MessageSquare className="w-4 h-4 mr-1" /> Quer conversar com a Lis agora?
+                  </Button>
+                </Link>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
 
         {/* Histórico da semana */}
-        <div className="bg-card rounded-2xl p-6 border border-border shadow-card">
+        <motion.div
+          className="bg-card rounded-2xl p-6 border border-border shadow-card"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
           <h2 className="font-heading font-bold text-foreground mb-4">Sua semana</h2>
           <div className="flex items-end justify-between gap-2 h-32">
-            {weekData.map((d) => (
+            {weekData.map((d, i) => (
               <div key={d.day} className="flex flex-col items-center gap-1 flex-1">
                 <div className="w-full flex flex-col justify-end h-24">
                   {d.value > 0 && (
-                    <div
-                      className={`w-full rounded-t-md ${barColors[d.value] || "bg-muted"} transition-all`}
-                      style={{ height: `${(d.value / 6) * 100}%` }}
+                    <motion.div
+                      className={`w-full rounded-t-md ${barColors[d.value] || "bg-muted"}`}
+                      initial={{ height: 0 }}
+                      animate={{ height: `${(d.value / 6) * 100}%` }}
+                      transition={{ duration: 0.6, delay: 0.3 + i * 0.08, ease: "easeOut" }}
                     />
                   )}
                 </div>
@@ -137,100 +182,125 @@ const StudentHome = () => {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Links rápidos */}
         <div className="grid grid-cols-2 gap-3">
-          <Link to="/aluno/chat" className="bg-card rounded-xl p-4 border border-border shadow-card hover:shadow-elevated transition-all text-center">
-            <MessageCircle className="w-6 h-6 text-secondary mx-auto" />
-            <p className="text-sm font-medium text-foreground mt-2">Chat da Turma</p>
-          </Link>
-          <Link to="/aluno/diario" className="bg-card rounded-xl p-4 border border-border shadow-card hover:shadow-elevated transition-all text-center">
-            <BookOpen className="w-6 h-6 text-secondary mx-auto" />
-            <p className="text-sm font-medium text-foreground mt-2">Meu Diário</p>
-          </Link>
+          {[
+            { to: "/aluno/chat", icon: MessageCircle, label: "Chat da Turma" },
+            { to: "/aluno/diario", icon: BookOpen, label: "Meu Diário" },
+          ].map((item, i) => (
+            <motion.div
+              key={item.to}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 + i * 0.08 }}
+            >
+              <Link to={item.to} className="bg-card rounded-xl p-4 border border-border shadow-card hover:shadow-elevated transition-all text-center block micro-card">
+                <item.icon className="w-6 h-6 text-secondary mx-auto" />
+                <p className="text-sm font-medium text-foreground mt-2">{item.label}</p>
+              </Link>
+            </motion.div>
+          ))}
         </div>
 
         {/* Botão de denúncia */}
-        <button
+        <motion.button
           onClick={() => setShowComplaintModal(true)}
-          className="w-full bg-destructive/10 hover:bg-destructive/15 text-destructive rounded-xl p-4 border border-destructive/20 transition-all flex items-center justify-center gap-2"
+          className="w-full bg-destructive/10 hover:bg-destructive/15 text-destructive rounded-xl p-4 border border-destructive/20 transition-all flex items-center justify-center gap-2 micro-btn"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
         >
           <AlertTriangle className="w-5 h-5" />
           <span className="font-medium text-sm">Fazer uma denúncia</span>
-        </button>
+        </motion.button>
       </div>
 
       {/* Modal de denúncia */}
-      {showComplaintModal && (
-        <div className="fixed inset-0 bg-foreground/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-card rounded-2xl p-6 w-full max-w-md border border-border shadow-elevated animate-fade-in">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="font-heading font-bold text-foreground">Fazer uma denúncia</h2>
-              <button onClick={() => setShowComplaintModal(false)} className="text-muted-foreground hover:text-foreground">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+      <AnimatePresence>
+        {showComplaintModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-foreground/50 z-50 flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-card rounded-2xl p-6 w-full max-w-md border border-border shadow-elevated"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="font-heading font-bold text-foreground">Fazer uma denúncia</h2>
+                <button onClick={() => setShowComplaintModal(false)} className="text-muted-foreground hover:text-foreground">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
 
-            {complaintSent ? (
-              <div className="text-center py-8">
-                <div className="w-12 h-12 rounded-full bg-status-good/10 flex items-center justify-center mx-auto mb-3">
-                  <AlertTriangle className="w-6 h-6 text-status-good" />
-                </div>
-                <p className="font-medium text-foreground">Denúncia enviada</p>
-                <p className="text-sm text-muted-foreground mt-1">Sua denúncia será analisada com cuidado.</p>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">Tipo</label>
-                  <div className="flex flex-wrap gap-2">
-                    {complaintTypes.map((t) => (
-                      <button
-                        key={t}
-                        onClick={() => setComplaintType(t)}
-                        className={`px-3 py-1.5 rounded-full text-sm transition-all ${
-                          complaintType === t
-                            ? "gradient-hero text-primary-foreground"
-                            : "bg-accent text-foreground hover:bg-accent/80"
-                        }`}
-                      >
-                        {t}
-                      </button>
-                    ))}
+              {complaintSent ? (
+                <div className="text-center py-8">
+                  <div className="w-12 h-12 rounded-full bg-status-good/10 flex items-center justify-center mx-auto mb-3 check-circle">
+                    <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+                      <path d="M8 16 L14 22 L24 10" stroke="hsl(142, 70%, 45%)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="check-mark" />
+                    </svg>
                   </div>
+                  <p className="font-medium text-foreground">Denúncia enviada</p>
+                  <p className="text-sm text-muted-foreground mt-1">Sua denúncia será analisada com cuidado.</p>
                 </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">Descrição</label>
-                  <textarea
-                    value={complaintDesc}
-                    onChange={(e) => setComplaintDesc(e.target.value)}
-                    placeholder="Conte o que aconteceu..."
-                    className="w-full min-h-[100px] bg-accent rounded-xl p-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-secondary resize-none"
-                  />
+              ) : (
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium text-foreground mb-2 block">Tipo</label>
+                    <div className="flex flex-wrap gap-2">
+                      {complaintTypes.map((t) => (
+                        <button
+                          key={t}
+                          onClick={() => setComplaintType(t)}
+                          className={`px-3 py-1.5 rounded-full text-sm transition-all micro-btn ${
+                            complaintType === t
+                              ? "gradient-hero text-primary-foreground"
+                              : "bg-accent text-foreground hover:bg-accent/80"
+                          }`}
+                        >
+                          {t}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-foreground mb-1.5 block">Descrição</label>
+                    <textarea
+                      value={complaintDesc}
+                      onChange={(e) => setComplaintDesc(e.target.value)}
+                      placeholder="Conte o que aconteceu..."
+                      className="w-full min-h-[100px] bg-accent rounded-xl p-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-secondary resize-none micro-input"
+                    />
+                  </div>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={complaintIdentify}
+                      onChange={(e) => setComplaintIdentify(e.target.checked)}
+                      className="rounded border-border"
+                    />
+                    <span className="text-sm text-foreground">Quero que o professor saiba que sou eu</span>
+                  </label>
+                  <Button
+                    variant="hero"
+                    className="w-full micro-btn"
+                    onClick={handleComplaintSubmit}
+                    disabled={!complaintType || !complaintDesc.trim()}
+                  >
+                    Enviar denúncia
+                  </Button>
                 </div>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={complaintIdentify}
-                    onChange={(e) => setComplaintIdentify(e.target.checked)}
-                    className="rounded border-border"
-                  />
-                  <span className="text-sm text-foreground">Quero que o professor saiba que sou eu</span>
-                </label>
-                <Button
-                  variant="hero"
-                  className="w-full"
-                  onClick={handleComplaintSubmit}
-                  disabled={!complaintType || !complaintDesc.trim()}
-                >
-                  Enviar denúncia
-                </Button>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </StudentLayout>
   );
 };

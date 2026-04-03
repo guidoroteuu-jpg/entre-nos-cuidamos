@@ -2,8 +2,8 @@ import { useState } from "react";
 import StudentLayout from "@/components/layout/StudentLayout";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Plus, Trash2, ChevronDown, ChevronUp, Lock } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
-/* Opções de humor para o diário */
 const moodOptions = [
   { emoji: "😊", label: "Ótimo", value: "otimo" },
   { emoji: "😐", label: "Neutro", value: "neutro" },
@@ -14,11 +14,7 @@ const moodOptions = [
 ];
 
 interface DiaryEntry {
-  id: number;
-  date: string;
-  content: string;
-  mood: string;
-  preview: string;
+  id: number; date: string; content: string; mood: string; preview: string;
 }
 
 const mockEntries: DiaryEntry[] = [
@@ -38,39 +34,25 @@ const StudentDiary = () => {
   const [savedText, setSavedText] = useState("");
 
   const handleSave = () => {
-    if (text.trim()) {
-      setSavedText(text);
-      setShowMoodPicker(true);
-    }
+    if (text.trim()) { setSavedText(text); setShowMoodPicker(true); }
   };
 
   const handleMoodSelect = (mood: string) => {
     const newEntry: DiaryEntry = {
-      id: Date.now(),
-      date: new Date().toLocaleDateString("pt-BR"),
-      content: savedText,
-      mood,
-      preview: savedText.slice(0, 50) + (savedText.length > 50 ? "..." : ""),
+      id: Date.now(), date: new Date().toLocaleDateString("pt-BR"), content: savedText,
+      mood, preview: savedText.slice(0, 50) + (savedText.length > 50 ? "..." : ""),
     };
     setEntries([newEntry, ...entries]);
-    setIsWriting(false);
-    setShowMoodPicker(false);
-    setText("");
-    setSavedText("");
+    setIsWriting(false); setShowMoodPicker(false); setText(""); setSavedText("");
   };
 
-  const handleDelete = (id: number) => {
-    setEntries(entries.filter((e) => e.id !== id));
-  };
-
-  const getMoodEmoji = (mood: string) => {
-    return moodOptions.find((m) => m.value === mood)?.emoji || "😐";
-  };
+  const handleDelete = (id: number) => setEntries(entries.filter((e) => e.id !== id));
+  const getMoodEmoji = (mood: string) => moodOptions.find((m) => m.value === mood)?.emoji || "😐";
 
   return (
     <StudentLayout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <motion.div className="flex items-center justify-between" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <div>
             <h1 className="font-heading text-xl font-bold text-foreground flex items-center gap-2">
               <BookOpen className="w-5 h-5 text-secondary" /> Meu Diário
@@ -80,61 +62,82 @@ const StudentDiary = () => {
             </p>
           </div>
           {!isWriting && !showMoodPicker && (
-            <Button variant="hero" size="sm" onClick={() => setIsWriting(true)}>
+            <Button variant="hero" size="sm" onClick={() => setIsWriting(true)} className="micro-btn">
               <Plus className="w-4 h-4 mr-1" /> Escrever
             </Button>
           )}
-        </div>
+        </motion.div>
 
-        {/* Data atual */}
-        {isWriting && (
-          <p className="text-sm text-secondary font-medium capitalize">{today}</p>
-        )}
+        <AnimatePresence>
+          {isWriting && (
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-sm text-secondary font-medium capitalize">
+              {today}
+            </motion.p>
+          )}
+        </AnimatePresence>
 
-        {/* Área de escrita — fundo texturizado */}
-        {isWriting && !showMoodPicker && (
-          <div className="bg-accent/30 rounded-2xl p-5 border border-border shadow-card animate-fade-in" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width=\"20\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M0 20L20 0\" stroke=\"%23e5e5f0\" stroke-width=\"0.5\"/%3E%3C/svg%3E')" }}>
-            <textarea
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              placeholder="Como você está se sentindo? Escreva livremente..."
-              className="w-full min-h-[200px] bg-transparent text-foreground placeholder:text-muted-foreground text-sm leading-relaxed focus:outline-none resize-none"
-              autoFocus
-            />
-            <div className="flex gap-2 justify-end mt-3">
-              <Button variant="ghost" size="sm" onClick={() => { setIsWriting(false); setText(""); }}>
-                Cancelar
-              </Button>
-              <Button variant="hero" size="sm" onClick={handleSave} disabled={!text.trim()}>
-                Salvar
-              </Button>
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {isWriting && !showMoodPicker && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              className="bg-accent/30 rounded-2xl p-5 border border-border shadow-card paper-texture"
+            >
+              <textarea
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Como você está se sentindo? Escreva livremente..."
+                className="w-full min-h-[200px] bg-transparent text-foreground placeholder:text-muted-foreground text-sm leading-[28px] focus:outline-none resize-none"
+                autoFocus
+              />
+              <div className="flex gap-2 justify-end mt-3">
+                <Button variant="ghost" size="sm" onClick={() => { setIsWriting(false); setText(""); }}>Cancelar</Button>
+                <Button variant="hero" size="sm" onClick={handleSave} disabled={!text.trim()} className="micro-btn">Salvar</Button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        {/* Seleção de humor após salvar */}
-        {showMoodPicker && (
-          <div className="bg-card rounded-2xl p-6 border border-border shadow-card animate-fade-in text-center">
-            <p className="font-heading font-bold text-foreground mb-4">Como você está agora?</p>
-            <div className="grid grid-cols-3 gap-3">
-              {moodOptions.map((m) => (
-                <button
-                  key={m.value}
-                  onClick={() => handleMoodSelect(m.value)}
-                  className="flex flex-col items-center gap-1 p-3 rounded-xl hover:bg-accent transition-all"
-                >
-                  <span className="text-2xl">{m.emoji}</span>
-                  <span className="text-xs text-muted-foreground">{m.label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {showMoodPicker && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-card rounded-2xl p-6 border border-border shadow-card text-center"
+            >
+              <p className="font-heading font-bold text-foreground mb-4">Como você está agora?</p>
+              <div className="grid grid-cols-3 gap-3">
+                {moodOptions.map((m, i) => (
+                  <motion.button
+                    key={m.value}
+                    onClick={() => handleMoodSelect(m.value)}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: i * 0.06 }}
+                    whileHover={{ scale: 1.12 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex flex-col items-center gap-1 p-3 rounded-xl hover:bg-accent transition-all"
+                  >
+                    <span className="text-2xl">{m.emoji}</span>
+                    <span className="text-xs text-muted-foreground">{m.label}</span>
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        {/* Entradas anteriores */}
         <div className="space-y-3">
-          {entries.map((entry) => (
-            <div key={entry.id} className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
+          {entries.map((entry, i) => (
+            <motion.div
+              key={entry.id}
+              className="bg-card rounded-xl border border-border shadow-card overflow-hidden micro-card"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.06 }}
+            >
               <button
                 onClick={() => setExpandedId(expandedId === entry.id ? null : entry.id)}
                 className="w-full p-4 text-left"
@@ -143,30 +146,28 @@ const StudentDiary = () => {
                   <span className="text-xs text-muted-foreground">{entry.date}</span>
                   <div className="flex items-center gap-2">
                     <span className="text-lg">{getMoodEmoji(entry.mood)}</span>
-                    {expandedId === entry.id ? (
-                      <ChevronUp className="w-4 h-4 text-muted-foreground" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-muted-foreground" />
-                    )}
+                    {expandedId === entry.id ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
                   </div>
                 </div>
                 <p className="text-sm text-foreground">
                   {expandedId === entry.id ? entry.content : entry.preview}
                 </p>
               </button>
-              {expandedId === entry.id && (
-                <div className="px-4 pb-3 flex justify-end">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-destructive hover:text-destructive"
-                    onClick={() => handleDelete(entry.id)}
+              <AnimatePresence>
+                {expandedId === entry.id && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="px-4 pb-3 flex justify-end"
                   >
-                    <Trash2 className="w-3.5 h-3.5 mr-1" /> Deletar
-                  </Button>
-                </div>
-              )}
-            </div>
+                    <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive" onClick={() => handleDelete(entry.id)}>
+                      <Trash2 className="w-3.5 h-3.5 mr-1" /> Deletar
+                    </Button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           ))}
         </div>
       </div>

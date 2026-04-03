@@ -8,32 +8,23 @@
   :root {
     --background: 240 20% 99%;
     --foreground: 245 30% 20%;
-
     --card: 0 0% 100%;
     --card-foreground: 245 30% 20%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 245 30% 20%;
-
     --primary: 245 44% 37%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 245 40% 52%;
     --secondary-foreground: 0 0% 100%;
-
     --muted: 245 60% 97%;
     --muted-foreground: 245 15% 50%;
-
     --accent: 245 60% 97%;
     --accent-foreground: 245 44% 37%;
-
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-
     --border: 245 25% 90%;
     --input: 245 25% 90%;
     --ring: 245 44% 37%;
-
     --radius: 0.75rem;
 
     --sidebar-background: 245 44% 37%;
@@ -45,7 +36,6 @@
     --sidebar-border: 245 40% 45%;
     --sidebar-ring: 245 60% 70%;
 
-    /* Custom tokens */
     --purple-dark: 245 44% 37%;
     --purple-medium: 245 40% 52%;
     --purple-light: 245 60% 97%;
@@ -95,12 +85,10 @@
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
   }
-
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
   }
@@ -110,27 +98,21 @@
   .gradient-hero {
     background: var(--gradient-hero);
   }
-
   .gradient-card {
     background: var(--gradient-card);
   }
-
   .gradient-accent {
     background: var(--gradient-accent);
   }
-
   .shadow-card {
     box-shadow: var(--shadow-card);
   }
-
   .shadow-elevated {
     box-shadow: var(--shadow-elevated);
   }
-
   .shadow-glow {
     box-shadow: var(--shadow-glow);
   }
-
   .text-gradient {
     background: var(--gradient-accent);
     -webkit-background-clip: text;
@@ -138,6 +120,10 @@
     background-clip: text;
   }
 }
+
+/* ══════════════════════════════════════════
+   Animações globais
+   ══════════════════════════════════════════ */
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
@@ -154,14 +140,169 @@
   50% { opacity: 0.7; }
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+@keyframes typing-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 
-.animate-pulse-soft {
-  animation: pulse-soft 2s ease-in-out infinite;
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 0.5; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+@keyframes count-up-glow {
+  0% { text-shadow: 0 0 0 transparent; }
+  50% { text-shadow: 0 0 12px hsl(245 40% 52% / 0.3); }
+  100% { text-shadow: 0 0 0 transparent; }
+}
+
+@keyframes check-draw {
+  0% { stroke-dashoffset: 40; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes circle-grow {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Círculos flutuantes do login */
+@keyframes float-slow-1 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(30px, -20px); }
+  50% { transform: translate(-10px, 30px); }
+  75% { transform: translate(-30px, -10px); }
+}
+@keyframes float-slow-2 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-20px, 30px); }
+  50% { transform: translate(20px, -20px); }
+  75% { transform: translate(10px, 20px); }
+}
+@keyframes float-slow-3 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(25px, 15px); }
+  66% { transform: translate(-15px, -25px); }
+}
+
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
+.animate-pulse-soft { animation: pulse-soft 2s ease-in-out infinite; }
+
+.float-circle-1 { animation: float-slow-1 12s ease-in-out infinite; }
+.float-circle-2 { animation: float-slow-2 15s ease-in-out infinite; }
+.float-circle-3 { animation: float-slow-3 18s ease-in-out infinite; }
+.float-circle-4 { animation: float-slow-1 20s ease-in-out infinite reverse; }
+.float-circle-5 { animation: float-slow-2 14s ease-in-out infinite reverse; }
+.float-circle-6 { animation: float-slow-3 16s ease-in-out infinite; }
+
+/* Shimmer no botão */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, hsl(0 0% 100% / 0.15), transparent);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Ripple nos botões primários */
+.ripple-btn {
+  position: relative;
+  overflow: hidden;
+}
+.ripple-btn::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: hsl(245 60% 97% / 0.4);
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+.ripple-btn:active::after {
+  animation: ripple 0.5s ease-out forwards;
+  top: var(--y, 50%);
+  left: var(--x, 50%);
+}
+
+/* Paper texture para diário */
+.paper-texture {
+  background-image:
+    repeating-linear-gradient(
+      transparent,
+      transparent 27px,
+      hsl(245 25% 90% / 0.4) 27px,
+      hsl(245 25% 90% / 0.4) 28px
+    );
+}
+
+/* Typing indicator bounce */
+.typing-dot {
+  animation: typing-bounce 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* Microinterações globais */
+.micro-btn {
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+.micro-btn:hover {
+  transform: translateY(-1px);
+}
+.micro-btn:active {
+  transform: scale(0.97);
+}
+
+.micro-card {
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.micro-card:hover {
+  transform: translateY(-2px);
+}
+
+.micro-input:focus {
+  box-shadow: 0 0 0 3px hsl(245 44% 37% / 0.15);
+}
+
+/* Skeleton loader */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+.skeleton-loader {
+  background: hsl(var(--purple-light));
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  border-radius: 0.5rem;
+}
+
+/* Confirmação de check-in */
+.check-circle {
+  animation: circle-grow 0.5s ease-out forwards;
+}
+.check-mark {
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: check-draw 0.4s ease-out 0.3s forwards;
+}
+
+/* Respeitar preferência de motion reduzido */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

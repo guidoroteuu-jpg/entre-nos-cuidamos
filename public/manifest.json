@@ -1,0 +1,16 @@
+{
+  "name": "Entre Nós",
+  "short_name": "EntreNós",
+  "description": "Aqui, ninguém fica de fora.",
+  "theme_color": "#3C3489",
+  "background_color": "#3C3489",
+  "display": "standalone",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/logo/icone-app.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+<svg width="320" height="140" viewBox="0 0 320 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="38" cy="48" r="20" fill="#534AB7" opacity="0.5"/>
+  <circle cx="64" cy="48" r="20" fill="#3C3489" opacity="0.85"/>
+  <path d="M30 76 Q51 92 72 76" stroke="#534AB7" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M34 81 Q51 95 68 81" stroke="#7F77DD" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <text x="100" y="46" font-family="Nunito, sans-serif" font-weight="700" font-size="30" fill="#3C3489">Entre</text>
+  <line x1="100" y1="56" x2="210" y2="56" stroke="rgba(60,52,137,0.2)" stroke-width="1"/>
+  <text x="100" y="82" font-family="Nunito, sans-serif" font-weight="800" font-size="34" fill="#534AB7">Nós</text>
+  <text x="100" y="120" font-family="Inter, sans-serif" font-weight="400" font-size="11" fill="#888780" letter-spacing="1.5">Aqui, ninguém fica de fora.</text>
+</svg>

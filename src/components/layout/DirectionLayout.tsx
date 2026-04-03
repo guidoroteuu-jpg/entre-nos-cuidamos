@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ShieldCheck, LayoutDashboard, Users, AlertTriangle, CalendarDays, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, Users, AlertTriangle, CalendarDays, Settings, LogOut } from "lucide-react";
+import { motion } from "framer-motion";
+import Logo from "@/components/Logo";
 
-/* Itens de navegação da direção */
 const navItems = [
   { path: "/direcao/painel", label: "Início", icon: LayoutDashboard },
   { path: "/direcao/turmas", label: "Turmas", icon: Users },
@@ -18,31 +19,37 @@ const DirectionLayout = ({ children }: { children: ReactNode }) => {
     <div className="min-h-screen bg-background flex">
       {/* Sidebar - desktop */}
       <aside className="hidden md:flex w-60 gradient-hero flex-col p-4">
-        <div className="flex items-center gap-2 mb-2">
-          <ShieldCheck className="w-5 h-5 text-primary-foreground" />
-          <span className="font-heading font-bold text-primary-foreground">Entre Nós</span>
+        <div className="mb-2">
+          <Logo variante="escura" largura={140} />
         </div>
-        <span className="text-xs text-primary-foreground/50 mb-8 ml-7">Direção</span>
-        <nav className="space-y-1 flex-1">
+        <span className="text-xs text-primary-foreground/50 mb-8 ml-1">Direção</span>
+        <nav className="space-y-1 flex-1 relative">
           {navItems.map((item) => {
             const active = location.pathname === item.path;
             return (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                className={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group ${
                   active
                     ? "bg-primary-foreground/20 text-primary-foreground"
                     : "text-primary-foreground/60 hover:text-primary-foreground hover:bg-primary-foreground/10"
                 }`}
               >
-                <item.icon className="w-4 h-4" />
+                {active && (
+                  <motion.div
+                    layoutId="dir-sidebar-bar"
+                    className="absolute left-0 top-1 bottom-1 w-[3px] rounded-full bg-primary-foreground"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <item.icon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                 {item.label}
               </Link>
             );
           })}
         </nav>
-        <Link to="/login" className="flex items-center gap-3 px-3 py-2.5 text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors">
+        <Link to="/login" className="flex items-center gap-3 px-3 py-2.5 text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors micro-btn">
           <LogOut className="w-4 h-4" /> Sair
         </Link>
       </aside>
@@ -50,33 +57,46 @@ const DirectionLayout = ({ children }: { children: ReactNode }) => {
       {/* Header mobile */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-card border-b border-border h-14 flex items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg gradient-hero flex items-center justify-center">
-            <ShieldCheck className="w-3.5 h-3.5 text-primary-foreground" />
-          </div>
-          <span className="font-heading font-bold text-sm text-foreground">Entre Nós</span>
+          <Logo variante="clara" largura={100} />
           <span className="text-xs text-muted-foreground">Direção</span>
         </div>
       </div>
 
       {/* Conteúdo */}
       <main className="flex-1 p-4 md:p-8 pt-18 md:pt-8 pb-20 md:pb-8 overflow-auto">
-        {children}
+        <motion.div
+          key={location.pathname}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          {children}
+        </motion.div>
       </main>
 
       {/* Navegação inferior mobile */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border px-2 py-1 flex justify-around">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border px-2 py-1 flex justify-around z-40">
         {navItems.slice(0, 4).map((item) => {
           const active = location.pathname === item.path;
           return (
             <Link
               key={item.path}
               to={item.path}
-              className={`flex flex-col items-center gap-0.5 py-2 px-2 rounded-lg transition-colors ${
+              className={`relative flex flex-col items-center gap-0.5 py-2 px-2 rounded-lg transition-colors ${
                 active ? "text-secondary" : "text-muted-foreground"
               }`}
             >
-              <item.icon className="w-5 h-5" />
+              <motion.div whileTap={{ scale: 0.85 }}>
+                <item.icon className="w-5 h-5" />
+              </motion.div>
               <span className="text-[10px] font-medium">{item.label}</span>
+              {active && (
+                <motion.div
+                  layoutId="dir-nav-dot"
+                  className="absolute -bottom-0.5 w-5 h-1 rounded-full bg-secondary"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
             </Link>
           );
         })}

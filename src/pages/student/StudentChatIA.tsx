@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, Trash2, Lock } from "lucide-react";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 interface Message {
   id: number;
@@ -19,12 +20,16 @@ const welcomeMessage: Message = {
   time: new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }),
 };
 
+/* Palavras-chave de risco — monitoramento silencioso */
 const riskWords = [
   "sozinho", "excluído", "ninguém gosta", "odeio a escola",
   "não quero ir", "me batem", "me xingam", "quero sumir",
   "ninguém me vê", "invisível", "bullying", "desaparecer", "me machucar",
 ];
 const severeRiskWords = ["quero sumir", "desaparecer", "me machucar"];
+
+/* URL da edge function */
+const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-lis`;
 
 const StudentChatIA = () => {
   const [messages, setMessages] = useState<Message[]>([welcomeMessage]);
@@ -36,6 +41,7 @@ const StudentChatIA = () => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages]);
 
+  /* Análise de risco silenciosa */
   const analyzeRisk = (text: string) => {
     const lower = text.toLowerCase();
     const hasSevere = severeRiskWords.some((w) => lower.includes(w));
@@ -44,38 +50,127 @@ const StudentChatIA = () => {
     else if (hasRisk) console.log("[Entre Nós] Alerta de risco MÉDIO detectado silenciosamente");
   };
 
-  const getAIResponse = (userMessage: string): string => {
-    const lower = userMessage.toLowerCase();
-    if (severeRiskWords.some((w) => lower.includes(w)))
-      return "Eu entendo que você está passando por um momento muito difícil. Seus sentimentos são válidos e importantes.\n\nSe você está pensando em se machucar, por favor ligue para o CVV: 188 (24h, gratuito). Também é muito importante conversar com um adulto de confiança — pode ser um professor, familiar ou orientador.\n\nEstou aqui para te ouvir. Quer me contar mais sobre o que está sentindo?";
-    if (lower.includes("sozinho") || lower.includes("excluído") || lower.includes("invisível"))
-      return "Sentir-se assim é muito difícil, e eu agradeço por compartilhar comigo. Muitas pessoas passam por isso e não é culpa sua.\n\nÀs vezes, dar pequenos passos pode ajudar — como cumprimentar alguém no corredor ou pedir para participar de um grupo. O que você acha?\n\nVocê já tentou conversar com alguém sobre como se sente?";
-    if (lower.includes("bullying") || lower.includes("me xingam") || lower.includes("me batem"))
-      return "Ninguém merece ser tratado assim. O que você está descrevendo é sério e precisa de atenção.\n\nContar para um adulto de confiança — como um professor ou orientador — é um passo corajoso e importante. Eles podem ajudar a resolver a situação.\n\nQuer me contar mais detalhes sobre o que está acontecendo?";
-    if (lower.includes("triste") || lower.includes("mal") || lower.includes("chorar"))
-      return "Tá tudo bem sentir tristeza — faz parte de ser humano. Obrigada por confiar em mim para falar sobre isso.\n\nO que te ajuda a se sentir melhor normalmente? Às vezes ouvir uma música, desenhar ou conversar com alguém pode aliviar.\n\nEstou aqui se quiser continuar conversando.";
-    return "Obrigada por compartilhar! Seus sentimentos são importantes e válidos.\n\nQuer me contar mais sobre como foi seu dia? Estou aqui para te ouvir sem julgamento.";
-  };
-
+  /* Enviar mensagem com streaming real */
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
-    const userMsg: Message = {
-      id: Date.now(), role: "user", content: input,
-      time: new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }),
-    };
+
+    const now = new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+    const userMsg: Message = { id: Date.now(), role: "user", content: input, time: now };
+
     setMessages((prev) => [...prev, userMsg]);
     analyzeRisk(input);
     setInput("");
     setIsLoading(true);
-    setTimeout(() => {
-      const aiResponse: Message = {
-        id: Date.now() + 1, role: "assistant", content: getAIResponse(userMsg.content),
-        time: new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }),
-      };
-      setMessages((prev) => [...prev, aiResponse]);
+
+    /* Montar histórico para a IA (excluindo a mensagem de boas-vindas) */
+    const history = [...messages.filter((m) => m.id !== 0), userMsg].map((m) => ({
+      role: m.role,
+      content: m.content,
+    }));
+
+    try {
+      const resp = await fetch(CHAT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+        },
+        body: JSON.stringify({ messages: history }),
+      });
+
+      if (!resp.ok) {
+        const errData = await resp.json().catch(() => ({}));
+        throw new Error(errData.error || `Erro ${resp.status}`);
+      }
+
+      if (!resp.body) throw new Error("Sem resposta do servidor");
+
+      /* Streaming token por token */
+      const reader = resp.body.getReader();
+      const decoder = new TextDecoder();
+      let textBuffer = "";
+      let assistantContent = "";
+      const assistantId = Date.now() + 1;
+
+      /* Criar a mensagem da assistente vazia */
+      setMessages((prev) => [
+        ...prev,
+        { id: assistantId, role: "assistant", content: "", time: now },
+      ]);
+
+      let streamDone = false;
+      while (!streamDone) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        textBuffer += decoder.decode(value, { stream: true });
+
+        let newlineIndex: number;
+        while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
+          let line = textBuffer.slice(0, newlineIndex);
+          textBuffer = textBuffer.slice(newlineIndex + 1);
+
+          if (line.endsWith("\r")) line = line.slice(0, -1);
+          if (line.startsWith(":") || line.trim() === "") continue;
+          if (!line.startsWith("data: ")) continue;
+
+          const jsonStr = line.slice(6).trim();
+          if (jsonStr === "[DONE]") {
+            streamDone = true;
+            break;
+          }
+
+          try {
+            const parsed = JSON.parse(jsonStr);
+            const content = parsed.choices?.[0]?.delta?.content as string | undefined;
+            if (content) {
+              assistantContent += content;
+              const finalContent = assistantContent;
+              setMessages((prev) =>
+                prev.map((m) => (m.id === assistantId ? { ...m, content: finalContent } : m))
+              );
+            }
+          } catch {
+            textBuffer = line + "\n" + textBuffer;
+            break;
+          }
+        }
+      }
+
+      /* Flush do buffer restante */
+      if (textBuffer.trim()) {
+        for (let raw of textBuffer.split("\n")) {
+          if (!raw) continue;
+          if (raw.endsWith("\r")) raw = raw.slice(0, -1);
+          if (raw.startsWith(":") || raw.trim() === "") continue;
+          if (!raw.startsWith("data: ")) continue;
+          const jsonStr = raw.slice(6).trim();
+          if (jsonStr === "[DONE]") continue;
+          try {
+            const parsed = JSON.parse(jsonStr);
+            const content = parsed.choices?.[0]?.delta?.content as string | undefined;
+            if (content) {
+              assistantContent += content;
+              const finalContent = assistantContent;
+              setMessages((prev) =>
+                prev.map((m) => (m.id === assistantId ? { ...m, content: finalContent } : m))
+              );
+            }
+          } catch { /* ignorar */ }
+        }
+      }
+    } catch (err: any) {
+      console.error("Erro no chat:", err);
+      toast.error(err.message || "Erro ao enviar mensagem. Tente novamente.");
+      /* Remover mensagem vazia da assistente em caso de erro */
+      setMessages((prev) => {
+        const last = prev[prev.length - 1];
+        if (last?.role === "assistant" && !last.content) return prev.slice(0, -1);
+        return prev;
+      });
+    } finally {
       setIsLoading(false);
-    }, 1200);
+    }
   };
 
   const handleClear = () => setMessages([welcomeMessage]);
@@ -101,7 +196,7 @@ const StudentChatIA = () => {
         </div>
 
         <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-3 mb-4">
-          {messages.map((msg, i) => (
+          {messages.map((msg) => (
             <motion.div
               key={msg.id}
               className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
@@ -126,7 +221,7 @@ const StudentChatIA = () => {
               </div>
             </motion.div>
           ))}
-          {isLoading && (
+          {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
             <div className="flex justify-start">
               <div className="flex gap-2">
                 <div className="w-7 h-7 rounded-full gradient-hero flex items-center justify-center flex-shrink-0">

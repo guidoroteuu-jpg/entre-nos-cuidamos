@@ -358,7 +358,53 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      denuncias_view: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          escola_id: string | null
+          id: string | null
+          internal_notes: string | null
+          is_anonymous: boolean | null
+          status: string | null
+          type: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          escola_id?: string | null
+          id?: string | null
+          internal_notes?: string | null
+          is_anonymous?: boolean | null
+          status?: string | null
+          type?: string | null
+          updated_at?: string | null
+          user_id?: never
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          escola_id?: string | null
+          id?: string | null
+          internal_notes?: string | null
+          is_anonymous?: boolean | null
+          status?: string | null
+          type?: string | null
+          updated_at?: string | null
+          user_id?: never
+        }
+        Relationships: [
+          {
+            foreignKeyName: "denuncias_escola_id_fkey"
+            columns: ["escola_id"]
+            isOneToOne: false
+            referencedRelation: "escolas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       get_admin_escola_ids: { Args: { _user_id: string }; Returns: string[] }

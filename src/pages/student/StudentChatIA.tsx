@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Send, Trash2, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Message {
   id: number;

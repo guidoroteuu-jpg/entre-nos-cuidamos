@@ -25,7 +25,7 @@ const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) => {
     return <Navigate to="/login" replace />;
   }
 
-  if (allowedRoles && role && !allowedRoles.includes(role)) {
+  if (allowedRoles && (!role || !allowedRoles.includes(role))) {
     // Redirect to appropriate home based on role
     const roleHome: Record<AppRole, string> = {
       student: "/aluno/home",

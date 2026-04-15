@@ -2,59 +2,125 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Users, GraduationCap, Building, Loader2, Check } from "lucide-react";
+import { Users, GraduationCap, Building, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "@/components/Logo";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
+
+type TabId = "aluno" | "professor" | "direcao";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<"aluno" | "professor" | "direcao">("aluno");
-  const [classCode, setClassCode] = useState("");
-  const [studentName, setStudentName] = useState("");
+  const [activeTab, setActiveTab] = useState<TabId>("aluno");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [schoolCode, setSchoolCode] = useState("");
   const [error, setError] = useState("");
-  const [isFirstAccess, setIsFirstAccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [fullName, setFullName] = useState("");
 
-  const existingToken = localStorage.getItem("entre_nos_token");
-
-  const handleStudentLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    if (!classCode.trim()) { setError("Digite o código da turma"); return; }
-    if (!existingToken && !isFirstAccess) { setIsFirstAccess(true); return; }
-    if (isFirstAccess && !studentName.trim()) { setError("Digite seu nome para continuar"); return; }
-
-    setLoading(true);
-    setTimeout(() => {
-      if (!existingToken) {
-        const token = crypto.randomUUID();
-        localStorage.setItem("entre_nos_token", token);
-        localStorage.setItem("entre_nos_nome", studentName);
-      }
-      localStorage.setItem("entre_nos_turma", classCode);
-      setSuccess(true);
-      setTimeout(() => navigate("/aluno/home"), 800);
-    }, 600);
+  const roleMap: Record<TabId, string> = {
+    aluno: "student",
+    professor: "teacher",
+    direcao: "admin",
   };
 
-  const handleStaffLogin = (e: React.FormEvent) => {
+  const redirectMap: Record<TabId, string> = {
+    aluno: "/aluno/home",
+    professor: "/professor/dashboard",
+    direcao: "/direcao/painel",
+  };
+
+  const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if (!email.trim() || !password.trim()) { setError("Preencha todos os campos"); return; }
-    if (activeTab === "direcao" && !schoolCode.trim()) { setError("Digite o código da escola"); return; }
+
+    if (!email.trim() || !password.trim()) {
+      setError("Preencha todos os campos");
+      return;
+    }
+
+    if (isSignUp && !fullName.trim()) {
+      setError("Digite seu nome completo");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("A senha deve ter pelo menos 6 caracteres");
+      return;
+    }
 
     setLoading(true);
-    setTimeout(() => {
-      setSuccess(true);
-      setTimeout(() => {
-        if (activeTab === "professor") navigate("/professor/dashboard");
-        else navigate("/direcao/painel");
-      }, 800);
-    }, 600);
+
+    try {
+      if (isSignUp) {
+        const { data, error: signUpError } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: { full_name: fullName, role: roleMap[activeTab] },
+            emailRedirectTo: window.location.origin,
+          },
+        });
+
+        if (signUpError) throw signUpError;
+
+        if (data.user && !data.session) {
+          toast({
+            title: "Verifique seu email",
+            description: "Enviamos um link de confirmação para o seu email.",
+          });
+          setLoading(false);
+          return;
+        }
+
+        if (data.user) {
+          // Assign role
+          await supabase.from("user_roles").insert({
+            user_id: data.user.id,
+            role: roleMap[activeTab] as "admin" | "teacher" | "student",
+          });
+        }
+
+        setSuccess(true);
+        setTimeout(() => navigate(redirectMap[activeTab]), 800);
+      } else {
+        const { data, error: signInError } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (signInError) throw signInError;
+
+        // Get user role and redirect accordingly
+        if (data.user) {
+          const { data: roleData } = await supabase
+            .from("user_roles")
+            .select("role")
+            .eq("user_id", data.user.id)
+            .maybeSingle();
+
+          const roleRedirect: Record<string, string> = {
+            student: "/aluno/home",
+            teacher: "/professor/dashboard",
+            admin: "/direcao/painel",
+          };
+
+          setSuccess(true);
+          const dest = roleRedirect[roleData?.role ?? ""] || redirectMap[activeTab];
+          setTimeout(() => navigate(dest), 800);
+        }
+      }
+    } catch (err: any) {
+      const msg = err?.message || "Erro ao autenticar";
+      if (msg.includes("Invalid login")) setError("Email ou senha incorretos");
+      else if (msg.includes("already registered")) setError("Este email já está cadastrado");
+      else setError(msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const tabs = [
@@ -62,6 +128,16 @@ const Login = () => {
     { id: "professor" as const, label: "Professor", icon: GraduationCap },
     { id: "direcao" as const, label: "Direção", icon: Building },
   ];
+
+  const resetForm = () => {
+    setError("");
+    setLoading(false);
+    setSuccess(false);
+    setIsSignUp(false);
+    setEmail("");
+    setPassword("");
+    setFullName("");
+  };
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
@@ -92,7 +168,7 @@ const Login = () => {
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => { setActiveTab(tab.id); setError(""); setIsFirstAccess(false); setLoading(false); setSuccess(false); }}
+                onClick={() => { setActiveTab(tab.id); resetForm(); }}
                 className={`relative flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-sm font-medium transition-all ${
                   activeTab === tab.id
                     ? "text-primary-foreground"
@@ -147,62 +223,52 @@ const Login = () => {
           </AnimatePresence>
 
           {!success && (
-            <motion.div key={activeTab} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
-              {activeTab === "aluno" ? (
-                <form onSubmit={handleStudentLogin} className="space-y-4">
+            <motion.div key={`${activeTab}-${isSignUp}`} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
+              <form onSubmit={handleAuth} className="space-y-4">
+                {isSignUp && (
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-1.5 block">Código da turma</label>
+                    <label className="text-sm font-medium text-foreground mb-1.5 block">Nome completo</label>
                     <Input
-                      placeholder="Ex: TURMA-5A-2026"
-                      value={classCode}
-                      onChange={(e) => setClassCode(e.target.value)}
-                      className="h-12 text-center text-lg font-mono tracking-wider micro-input"
+                      placeholder="Seu nome completo"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      className="h-12 micro-input"
                     />
                   </div>
-                  <AnimatePresence>
-                    {isFirstAccess && (
-                      <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}>
-                        <label className="text-sm font-medium text-foreground mb-1.5 block">Seu nome</label>
-                        <Input
-                          placeholder="Como seus colegas te chamam?"
-                          value={studentName}
-                          onChange={(e) => setStudentName(e.target.value)}
-                          className="h-12 micro-input"
-                          autoFocus
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                  <p className="text-xs text-muted-foreground text-center">
-                    {isFirstAccess ? "Seu nome será visível no chat da turma." : "Peça o código ao seu professor."}
-                  </p>
-                  <Button type="submit" variant="hero" className="w-full h-12 text-base btn-shimmer micro-btn" disabled={loading}>
-                    {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : isFirstAccess ? "Entrar na turma" : "Continuar"}
-                  </Button>
-                </form>
-              ) : (
-                <form onSubmit={handleStaffLogin} className="space-y-4">
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
-                    <Input type="email" placeholder="seu@email.com" value={email} onChange={(e) => setEmail(e.target.value)} className="h-12 micro-input" />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-1.5 block">Senha</label>
-                    <Input type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} className="h-12 micro-input" />
-                  </div>
-                  <AnimatePresence>
-                    {activeTab === "direcao" && (
-                      <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}>
-                        <label className="text-sm font-medium text-foreground mb-1.5 block">Código da escola</label>
-                        <Input placeholder="Ex: ESC-001" value={schoolCode} onChange={(e) => setSchoolCode(e.target.value)} className="h-12 micro-input" />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                  <Button type="submit" variant="hero" className="w-full h-12 text-base btn-shimmer micro-btn" disabled={loading}>
-                    {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Entrar"}
-                  </Button>
-                </form>
-              )}
+                )}
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
+                  <Input
+                    type="email"
+                    placeholder="seu@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="h-12 micro-input"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">Senha</label>
+                  <Input
+                    type="password"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="h-12 micro-input"
+                  />
+                </div>
+
+                <Button type="submit" variant="hero" className="w-full h-12 text-base btn-shimmer micro-btn" disabled={loading}>
+                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : isSignUp ? "Criar conta" : "Entrar"}
+                </Button>
+
+                <button
+                  type="button"
+                  onClick={() => { setIsSignUp(!isSignUp); setError(""); }}
+                  className="w-full text-center text-sm text-secondary hover:underline"
+                >
+                  {isSignUp ? "Já tem conta? Entrar" : "Não tem conta? Criar uma"}
+                </button>
+              </form>
             </motion.div>
           )}
         </div>

@@ -2,26 +2,28 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Users, GraduationCap, Building, Loader2 } from "lucide-react";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { Users, GraduationCap, Building, Loader2, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "@/components/Logo";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 
 type TabId = "aluno" | "professor" | "direcao";
+type Step = "email" | "code";
 
 const Login = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabId>("aluno");
+  const [step, setStep] = useState<Step>("email");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [isSignUp, setIsSignUp] = useState(false);
-  const [fullName, setFullName] = useState("");
 
-  const roleMap: Record<TabId, string> = {
+  const roleMap: Record<TabId, "admin" | "teacher" | "student"> = {
     aluno: "student",
     professor: "teacher",
     direcao: "admin",
@@ -33,90 +35,84 @@ const Login = () => {
     direcao: "/direcao/painel",
   };
 
-  const handleAuth = async (e: React.FormEvent) => {
+  const handleSendCode = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    if (!email.trim() || !password.trim()) {
-      setError("Preencha todos os campos");
-      return;
-    }
-
-    if (isSignUp && !fullName.trim()) {
-      setError("Digite seu nome completo");
-      return;
-    }
-
-    if (password.length < 6) {
-      setError("A senha deve ter pelo menos 6 caracteres");
+    if (!email.trim()) {
+      setError("Digite seu email");
       return;
     }
 
     setLoading(true);
-
     try {
-      if (isSignUp) {
-        const { data, error: signUpError } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: { full_name: fullName, role: roleMap[activeTab] },
-            emailRedirectTo: window.location.origin,
+      const { error: otpError } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          shouldCreateUser: true,
+          emailRedirectTo: window.location.origin,
+          data: {
+            full_name: fullName || email.split("@")[0],
+            role: roleMap[activeTab],
           },
-        });
+        },
+      });
 
-        if (signUpError) throw signUpError;
+      if (otpError) throw otpError;
 
-        if (data.user && !data.session) {
-          toast({
-            title: "Verifique seu email",
-            description: "Enviamos um link de confirmação para o seu email.",
-          });
-          setLoading(false);
-          return;
-        }
+      setStep("code");
+      toast({
+        title: "Código enviado",
+        description: "Verifique seu email e digite o código de 6 dígitos.",
+      });
+    } catch (err: any) {
+      setError(err?.message || "Erro ao enviar código");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        if (data.user) {
-          // Assign role
-          await supabase.from("user_roles").insert({
-            user_id: data.user.id,
-            role: roleMap[activeTab] as "admin" | "teacher" | "student",
-          });
-        }
+  const handleVerifyCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    if (code.length !== 6) {
+      setError("Digite os 6 dígitos do código");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { data, error: verifyError } = await supabase.auth.verifyOtp({
+        email,
+        token: code,
+        type: "email",
+      });
+
+      if (verifyError) throw verifyError;
+
+      if (data.user) {
+        // Read role assigned by trigger; fallback to selected tab
+        const { data: roleData } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", data.user.id)
+          .maybeSingle();
+
+        const roleRedirect: Record<string, string> = {
+          student: "/aluno/home",
+          teacher: "/professor/dashboard",
+          admin: "/direcao/painel",
+        };
 
         setSuccess(true);
-        setTimeout(() => navigate(redirectMap[activeTab]), 800);
-      } else {
-        const { data, error: signInError } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-
-        if (signInError) throw signInError;
-
-        // Get user role and redirect accordingly
-        if (data.user) {
-          const { data: roleData } = await supabase
-            .from("user_roles")
-            .select("role")
-            .eq("user_id", data.user.id)
-            .maybeSingle();
-
-          const roleRedirect: Record<string, string> = {
-            student: "/aluno/home",
-            teacher: "/professor/dashboard",
-            admin: "/direcao/painel",
-          };
-
-          setSuccess(true);
-          const dest = roleRedirect[roleData?.role ?? ""] || redirectMap[activeTab];
-          setTimeout(() => navigate(dest), 800);
-        }
+        const dest = roleRedirect[roleData?.role ?? ""] || redirectMap[activeTab];
+        setTimeout(() => navigate(dest), 800);
       }
     } catch (err: any) {
-      const msg = err?.message || "Erro ao autenticar";
-      if (msg.includes("Invalid login")) setError("Email ou senha incorretos");
-      else if (msg.includes("already registered")) setError("Este email já está cadastrado");
+      const msg = err?.message || "Código inválido";
+      if (msg.toLowerCase().includes("expired")) setError("Código expirado. Envie outro.");
+      else if (msg.toLowerCase().includes("invalid")) setError("Código incorreto");
       else setError(msg);
     } finally {
       setLoading(false);
@@ -129,19 +125,22 @@ const Login = () => {
     { id: "direcao" as const, label: "Direção", icon: Building },
   ];
 
-  const resetForm = () => {
+  const resetToEmail = () => {
+    setStep("email");
+    setCode("");
     setError("");
     setLoading(false);
-    setSuccess(false);
-    setIsSignUp(false);
+  };
+
+  const resetAll = () => {
+    resetToEmail();
     setEmail("");
-    setPassword("");
     setFullName("");
+    setSuccess(false);
   };
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Círculos flutuantes de fundo */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="float-circle-1 absolute top-[10%] left-[10%] w-64 h-64 rounded-full bg-secondary opacity-[0.06]" />
         <div className="float-circle-2 absolute top-[60%] right-[5%] w-48 h-48 rounded-full bg-primary opacity-[0.08]" />
@@ -163,41 +162,36 @@ const Login = () => {
         <p className="text-center text-sm text-muted-foreground -mt-4 mb-6">Aqui, ninguém fica de fora.</p>
 
         <div className="bg-card rounded-2xl shadow-elevated border border-border p-6">
-          {/* Tabs */}
-          <div className="flex rounded-xl bg-accent p-1 mb-6">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => { setActiveTab(tab.id); resetForm(); }}
-                className={`relative flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                  activeTab === tab.id
-                    ? "text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {activeTab === tab.id && (
-                  <motion.div
-                    layoutId="login-tab-bg"
-                    className="absolute inset-0 gradient-hero rounded-lg shadow-card"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10 flex items-center gap-1.5">
-                  <tab.icon className="w-4 h-4" />
-                  <span className="hidden sm:inline">{tab.label}</span>
-                </span>
-              </button>
-            ))}
-          </div>
+          {/* Tabs (only on email step) */}
+          {step === "email" && (
+            <div className="flex rounded-xl bg-accent p-1 mb-6">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => { setActiveTab(tab.id); setError(""); }}
+                  className={`relative flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                    activeTab === tab.id ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {activeTab === tab.id && (
+                    <motion.div
+                      layoutId="login-tab-bg"
+                      className="absolute inset-0 gradient-hero rounded-lg shadow-card"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10 flex items-center gap-1.5">
+                    <tab.icon className="w-4 h-4" />
+                    <span className="hidden sm:inline">{tab.label}</span>
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
 
-          {/* Animação de sucesso */}
           <AnimatePresence>
             {success && (
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                className="flex flex-col items-center py-8"
-              >
+              <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex flex-col items-center py-8">
                 <div className="w-16 h-16 rounded-full bg-status-good/10 flex items-center justify-center check-circle">
                   <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path d="M8 16 L14 22 L24 10" stroke="hsl(142, 70%, 45%)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="check-mark" />
@@ -208,7 +202,6 @@ const Login = () => {
             )}
           </AnimatePresence>
 
-          {/* Erro */}
           <AnimatePresence>
             {error && !success && (
               <motion.div
@@ -222,20 +215,18 @@ const Login = () => {
             )}
           </AnimatePresence>
 
-          {!success && (
-            <motion.div key={`${activeTab}-${isSignUp}`} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
-              <form onSubmit={handleAuth} className="space-y-4">
-                {isSignUp && (
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-1.5 block">Nome completo</label>
-                    <Input
-                      placeholder="Seu nome completo"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      className="h-12 micro-input"
-                    />
-                  </div>
-                )}
+          {!success && step === "email" && (
+            <motion.div key="email-step" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
+              <form onSubmit={handleSendCode} className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">Nome (opcional, para novo cadastro)</label>
+                  <Input
+                    placeholder="Seu nome"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    className="h-12 micro-input"
+                  />
+                </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
                   <Input
@@ -244,29 +235,57 @@ const Login = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="h-12 micro-input"
+                    autoComplete="email"
                   />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">Senha</label>
-                  <Input
-                    type="password"
-                    placeholder="••••••••"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="h-12 micro-input"
-                  />
+                  <p className="text-xs text-muted-foreground mt-1.5">Enviaremos um código de 6 dígitos para confirmar.</p>
                 </div>
 
                 <Button type="submit" variant="hero" className="w-full h-12 text-base btn-shimmer micro-btn" disabled={loading}>
-                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : isSignUp ? "Criar conta" : "Entrar"}
+                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Enviar código"}
+                </Button>
+              </form>
+            </motion.div>
+          )}
+
+          {!success && step === "code" && (
+            <motion.div key="code-step" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
+              <button
+                type="button"
+                onClick={resetToEmail}
+                className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-3 transition"
+              >
+                <ArrowLeft className="w-4 h-4" /> Trocar email
+              </button>
+              <form onSubmit={handleVerifyCode} className="space-y-5">
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block text-center">
+                    Código enviado para<br /><span className="text-secondary">{email}</span>
+                  </label>
+                  <div className="flex justify-center mt-3">
+                    <InputOTP maxLength={6} value={code} onChange={setCode}>
+                      <InputOTPGroup>
+                        <InputOTPSlot index={0} />
+                        <InputOTPSlot index={1} />
+                        <InputOTPSlot index={2} />
+                        <InputOTPSlot index={3} />
+                        <InputOTPSlot index={4} />
+                        <InputOTPSlot index={5} />
+                      </InputOTPGroup>
+                    </InputOTP>
+                  </div>
+                </div>
+
+                <Button type="submit" variant="hero" className="w-full h-12 text-base btn-shimmer micro-btn" disabled={loading || code.length !== 6}>
+                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Verificar e entrar"}
                 </Button>
 
                 <button
                   type="button"
-                  onClick={() => { setIsSignUp(!isSignUp); setError(""); }}
+                  onClick={(e) => handleSendCode(e as any)}
                   className="w-full text-center text-sm text-secondary hover:underline"
+                  disabled={loading}
                 >
-                  {isSignUp ? "Já tem conta? Entrar" : "Não tem conta? Criar uma"}
+                  Reenviar código
                 </button>
               </form>
             </motion.div>

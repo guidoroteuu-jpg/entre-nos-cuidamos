@@ -39,14 +39,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
+    // CRITICAL: set up listener FIRST, then check session.
+    // Never await inside onAuthStateChange — it causes deadlocks.
+    // Defer Supabase calls with setTimeout(0).
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
+      (_event, newSession) => {
+        setSession(newSession);
+        setUser(newSession?.user ?? null);
 
-        if (session?.user) {
-          const userRole = await fetchRole(session.user.id);
-          setRole(userRole);
+        if (newSession?.user) {
+          setTimeout(() => {
+            fetchRole(newSession.user.id).then((r) => setRole(r));
+          }, 0);
         } else {
           setRole(null);
         }
@@ -54,12 +58,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     );
 
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      if (session?.user) {
-        const userRole = await fetchRole(session.user.id);
-        setRole(userRole);
+    // THEN check existing session
+    supabase.auth.getSession().then(({ data: { session: existing } }) => {
+      setSession(existing);
+      setUser(existing?.user ?? null);
+      if (existing?.user) {
+        fetchRole(existing.user.id).then((r) => setRole(r));
       }
       setLoading(false);
     });

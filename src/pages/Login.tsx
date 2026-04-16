@@ -9,47 +9,101 @@ import Logo from "@/components/Logo";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 
-type TabId = "aluno" | "professor" | "direcao";
-type Step = "email" | "code";
+type RoleTab = "aluno" | "professor" | "direcao";
+type Mode = "login" | "signup";
+type SignupStep = "form" | "code";
+
+const roleMap: Record<RoleTab, "admin" | "teacher" | "student"> = {
+  aluno: "student",
+  professor: "teacher",
+  direcao: "admin",
+};
+
+const redirectMap: Record<RoleTab, string> = {
+  aluno: "/aluno/home",
+  professor: "/professor/dashboard",
+  direcao: "/direcao/painel",
+};
+
+const roleRedirect: Record<string, string> = {
+  student: "/aluno/home",
+  teacher: "/professor/dashboard",
+  admin: "/direcao/painel",
+};
 
 const Login = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<TabId>("aluno");
-  const [step, setStep] = useState<Step>("email");
+  const [mode, setMode] = useState<Mode>("login");
+  const [activeTab, setActiveTab] = useState<RoleTab>("aluno");
+
+  // shared
   const [email, setEmail] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [code, setCode] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const roleMap: Record<TabId, "admin" | "teacher" | "student"> = {
-    aluno: "student",
-    professor: "teacher",
-    direcao: "admin",
+  // signup-only
+  const [fullName, setFullName] = useState("");
+  const [signupStep, setSignupStep] = useState<SignupStep>("form");
+  const [code, setCode] = useState("");
+
+  const tabs = [
+    { id: "aluno" as const, label: "Aluno", icon: Users },
+    { id: "professor" as const, label: "Professor", icon: GraduationCap },
+    { id: "direcao" as const, label: "Direção", icon: Building },
+  ];
+
+  const finishLogin = async (userId: string) => {
+    const { data: roleData } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", userId)
+      .maybeSingle();
+    setSuccess(true);
+    const dest = roleRedirect[roleData?.role ?? ""] || redirectMap[activeTab];
+    setTimeout(() => navigate(dest), 700);
   };
 
-  const redirectMap: Record<TabId, string> = {
-    aluno: "/aluno/home",
-    professor: "/professor/dashboard",
-    direcao: "/direcao/painel",
-  };
-
-  const handleSendCode = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-
-    if (!email.trim()) {
-      setError("Digite seu email");
+    if (!email.trim() || !password) {
+      setError("Preencha email e senha");
       return;
     }
-
     setLoading(true);
     try {
-      const { error: otpError } = await supabase.auth.signInWithOtp({
+      const { data, error: err } = await supabase.auth.signInWithPassword({ email, password });
+      if (err) throw err;
+      if (data.user) await finishLogin(data.user.id);
+    } catch (err: any) {
+      const msg = err?.message?.toLowerCase() || "";
+      if (msg.includes("invalid login")) setError("Email ou senha incorretos");
+      else if (msg.includes("not confirmed")) setError("Confirme seu email antes de entrar");
+      else setError(err?.message || "Erro ao entrar");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    if (!email.trim() || !password) {
+      setError("Preencha email e senha");
+      return;
+    }
+    if (password.length < 6) {
+      setError("Senha deve ter ao menos 6 caracteres");
+      return;
+    }
+    setLoading(true);
+    try {
+      const { error: err } = await supabase.auth.signUp({
         email,
+        password,
         options: {
-          shouldCreateUser: true,
           emailRedirectTo: window.location.origin,
           data: {
             full_name: fullName || email.split("@")[0],
@@ -57,16 +111,19 @@ const Login = () => {
           },
         },
       });
-
-      if (otpError) throw otpError;
-
-      setStep("code");
+      if (err) throw err;
+      setSignupStep("code");
       toast({
         title: "Código enviado",
         description: "Verifique seu email e digite o código de 6 dígitos.",
       });
     } catch (err: any) {
-      setError(err?.message || "Erro ao enviar código");
+      const msg = err?.message?.toLowerCase() || "";
+      if (msg.includes("already registered") || msg.includes("already exists")) {
+        setError("Email já cadastrado. Faça login.");
+      } else {
+        setError(err?.message || "Erro ao criar conta");
+      }
     } finally {
       setLoading(false);
     }
@@ -75,68 +132,55 @@ const Login = () => {
   const handleVerifyCode = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-
     if (code.length !== 6) {
       setError("Digite os 6 dígitos do código");
       return;
     }
-
     setLoading(true);
     try {
-      const { data, error: verifyError } = await supabase.auth.verifyOtp({
+      const { data, error: err } = await supabase.auth.verifyOtp({
         email,
         token: code,
-        type: "email",
+        type: "signup",
       });
-
-      if (verifyError) throw verifyError;
-
-      if (data.user) {
-        // Read role assigned by trigger; fallback to selected tab
-        const { data: roleData } = await supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", data.user.id)
-          .maybeSingle();
-
-        const roleRedirect: Record<string, string> = {
-          student: "/aluno/home",
-          teacher: "/professor/dashboard",
-          admin: "/direcao/painel",
-        };
-
-        setSuccess(true);
-        const dest = roleRedirect[roleData?.role ?? ""] || redirectMap[activeTab];
-        setTimeout(() => navigate(dest), 800);
-      }
+      if (err) throw err;
+      if (data.user) await finishLogin(data.user.id);
     } catch (err: any) {
-      const msg = err?.message || "Código inválido";
-      if (msg.toLowerCase().includes("expired")) setError("Código expirado. Envie outro.");
-      else if (msg.toLowerCase().includes("invalid")) setError("Código incorreto");
-      else setError(msg);
+      const msg = err?.message?.toLowerCase() || "";
+      if (msg.includes("expired")) setError("Código expirado. Reenvie.");
+      else if (msg.includes("invalid") || msg.includes("token")) setError("Código incorreto");
+      else setError(err?.message || "Erro ao verificar");
     } finally {
       setLoading(false);
     }
   };
 
-  const tabs = [
-    { id: "aluno" as const, label: "Aluno", icon: Users },
-    { id: "professor" as const, label: "Professor", icon: GraduationCap },
-    { id: "direcao" as const, label: "Direção", icon: Building },
-  ];
-
-  const resetToEmail = () => {
-    setStep("email");
-    setCode("");
+  const resendCode = async () => {
     setError("");
-    setLoading(false);
+    setLoading(true);
+    try {
+      const { error: err } = await supabase.auth.resend({ type: "signup", email });
+      if (err) throw err;
+      toast({ title: "Código reenviado", description: "Confira seu email." });
+    } catch (err: any) {
+      setError(err?.message || "Erro ao reenviar");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const resetAll = () => {
-    resetToEmail();
-    setEmail("");
-    setFullName("");
+  const switchMode = (m: Mode) => {
+    setMode(m);
+    setError("");
+    setSignupStep("form");
+    setCode("");
     setSuccess(false);
+  };
+
+  const backToForm = () => {
+    setSignupStep("form");
+    setCode("");
+    setError("");
   };
 
   return (
@@ -162,8 +206,32 @@ const Login = () => {
         <p className="text-center text-sm text-muted-foreground -mt-4 mb-6">Aqui, ninguém fica de fora.</p>
 
         <div className="bg-card rounded-2xl shadow-elevated border border-border p-6">
-          {/* Tabs (only on email step) */}
-          {step === "email" && (
+          {/* Mode switch: Login / Criar Conta */}
+          {signupStep === "form" && (
+            <div className="flex rounded-xl bg-accent p-1 mb-5">
+              {(["login", "signup"] as Mode[]).map((m) => (
+                <button
+                  key={m}
+                  onClick={() => switchMode(m)}
+                  className={`relative flex-1 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                    mode === m ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {mode === m && (
+                    <motion.div
+                      layoutId="login-mode-bg"
+                      className="absolute inset-0 gradient-hero rounded-lg shadow-card"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{m === "login" ? "Entrar" : "Criar conta"}</span>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Role tabs (only on signup form) */}
+          {mode === "signup" && signupStep === "form" && (
             <div className="flex rounded-xl bg-accent p-1 mb-6">
               {tabs.map((tab) => (
                 <button
@@ -215,46 +283,59 @@ const Login = () => {
             )}
           </AnimatePresence>
 
-          {!success && step === "email" && (
-            <motion.div key="email-step" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
-              <form onSubmit={handleSendCode} className="space-y-4">
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">Nome (opcional, para novo cadastro)</label>
-                  <Input
-                    placeholder="Seu nome"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    className="h-12 micro-input"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
-                  <Input
-                    type="email"
-                    placeholder="seu@email.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="h-12 micro-input"
-                    autoComplete="email"
-                  />
-                  <p className="text-xs text-muted-foreground mt-1.5">Enviaremos um código de 6 dígitos para confirmar.</p>
-                </div>
-
-                <Button type="submit" variant="hero" className="w-full h-12 text-base btn-shimmer micro-btn" disabled={loading}>
-                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Enviar código"}
-                </Button>
-              </form>
-            </motion.div>
+          {/* LOGIN */}
+          {!success && mode === "login" && (
+            <motion.form key="login" onSubmit={handleLogin} className="space-y-4"
+              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
+                <Input type="email" placeholder="seu@email.com" value={email}
+                  onChange={(e) => setEmail(e.target.value)} className="h-12 micro-input" autoComplete="email" />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1.5 block">Senha</label>
+                <Input type="password" placeholder="••••••••" value={password}
+                  onChange={(e) => setPassword(e.target.value)} className="h-12 micro-input" autoComplete="current-password" />
+              </div>
+              <Button type="submit" variant="hero" className="w-full h-12 text-base btn-shimmer micro-btn" disabled={loading}>
+                {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Entrar"}
+              </Button>
+            </motion.form>
           )}
 
-          {!success && step === "code" && (
-            <motion.div key="code-step" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
-              <button
-                type="button"
-                onClick={resetToEmail}
-                className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-3 transition"
-              >
-                <ArrowLeft className="w-4 h-4" /> Trocar email
+          {/* SIGNUP - form */}
+          {!success && mode === "signup" && signupStep === "form" && (
+            <motion.form key="signup-form" onSubmit={handleSignup} className="space-y-4"
+              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1.5 block">Nome</label>
+                <Input placeholder="Seu nome" value={fullName}
+                  onChange={(e) => setFullName(e.target.value)} className="h-12 micro-input" />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
+                <Input type="email" placeholder="seu@email.com" value={email}
+                  onChange={(e) => setEmail(e.target.value)} className="h-12 micro-input" autoComplete="email" />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1.5 block">Senha</label>
+                <Input type="password" placeholder="Mínimo 6 caracteres" value={password}
+                  onChange={(e) => setPassword(e.target.value)} className="h-12 micro-input" autoComplete="new-password" />
+                <p className="text-xs text-muted-foreground mt-1.5">Enviaremos um código de 6 dígitos para confirmar.</p>
+              </div>
+              <Button type="submit" variant="hero" className="w-full h-12 text-base btn-shimmer micro-btn" disabled={loading}>
+                {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Criar conta"}
+              </Button>
+            </motion.form>
+          )}
+
+          {/* SIGNUP - code */}
+          {!success && mode === "signup" && signupStep === "code" && (
+            <motion.div key="signup-code"
+              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
+              <button type="button" onClick={backToForm}
+                className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-3 transition">
+                <ArrowLeft className="w-4 h-4" /> Voltar
               </button>
               <form onSubmit={handleVerifyCode} className="space-y-5">
                 <div>
@@ -274,17 +355,12 @@ const Login = () => {
                     </InputOTP>
                   </div>
                 </div>
-
-                <Button type="submit" variant="hero" className="w-full h-12 text-base btn-shimmer micro-btn" disabled={loading || code.length !== 6}>
-                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Verificar e entrar"}
+                <Button type="submit" variant="hero" className="w-full h-12 text-base btn-shimmer micro-btn"
+                  disabled={loading || code.length !== 6}>
+                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Confirmar e entrar"}
                 </Button>
-
-                <button
-                  type="button"
-                  onClick={(e) => handleSendCode(e as any)}
-                  className="w-full text-center text-sm text-secondary hover:underline"
-                  disabled={loading}
-                >
+                <button type="button" onClick={resendCode}
+                  className="w-full text-center text-sm text-secondary hover:underline" disabled={loading}>
                   Reenviar código
                 </button>
               </form>
@@ -293,7 +369,7 @@ const Login = () => {
         </div>
 
         <p className="text-center text-xs text-muted-foreground mt-6">
-          Ao entrar, você concorda com nossa{" "}
+          Ao continuar, você concorda com nossa{" "}
           <Link to="/privacidade" className="text-secondary underline">política de privacidade</Link>.
         </p>
       </motion.div>

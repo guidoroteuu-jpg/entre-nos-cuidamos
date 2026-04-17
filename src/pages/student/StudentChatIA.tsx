@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Send, Trash2, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
 
 interface Message {
   id: number;
@@ -71,12 +70,11 @@ const StudentChatIA = () => {
     }));
 
     try {
-      const { data: { session } } = await supabase.auth.getSession();
       const resp = await fetch(CHAT_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${session?.access_token ?? import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
         body: JSON.stringify({ messages: history }),
       });

@@ -376,7 +376,7 @@ export type Database = {
           description?: string | null
           escola_id?: string | null
           id?: string | null
-          internal_notes?: never
+          internal_notes?: string | null
           is_anonymous?: boolean | null
           status?: string | null
           type?: string | null
@@ -388,7 +388,7 @@ export type Database = {
           description?: string | null
           escola_id?: string | null
           id?: string | null
-          internal_notes?: never
+          internal_notes?: string | null
           is_anonymous?: boolean | null
           status?: string | null
           type?: string | null

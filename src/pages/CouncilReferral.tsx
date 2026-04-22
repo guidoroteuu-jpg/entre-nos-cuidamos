@@ -454,11 +454,20 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
                 Página {page} de {totalPages} · {totalRecords} registros encontrados
               </p>
               <div className="flex items-center gap-2">
-                <Button type="button" variant="outline" disabled={page === 1} onClick={() => setPage((current) => Math.max(1, current - 1))}>
+                <Button type="button" variant="outline" disabled={page === 1} onClick={() => setPage(1)} aria-label="Ir para a primeira página">
+                  Primeira
+                </Button>
+                <Button type="button" variant="outline" disabled={page === 1} onClick={() => setPage((current) => Math.max(1, current - 1))} aria-label="Ir para a página anterior">
                   Anterior
                 </Button>
-                <Button type="button" variant="outline" disabled={page === totalPages} onClick={() => setPage((current) => Math.min(totalPages, current + 1))}>
+                <span className="inline-flex min-w-10 h-10 items-center justify-center rounded-md bg-primary px-3 text-sm font-semibold text-primary-foreground" aria-current="page">
+                  {page}
+                </span>
+                <Button type="button" variant="outline" disabled={page === totalPages} onClick={() => setPage((current) => Math.min(totalPages, current + 1))} aria-label="Ir para a próxima página">
                   Próxima
+                </Button>
+                <Button type="button" variant="outline" disabled={page === totalPages} onClick={() => setPage(totalPages)} aria-label="Ir para a última página">
+                  Última
                 </Button>
               </div>
             </div>

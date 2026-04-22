@@ -114,22 +114,27 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
       setLoading(true);
       const { data: authData } = await supabase.auth.getUser();
       const currentUser = authData.user;
+      const localStaffRole = localStorage.getItem("entre_nos_staff_role");
+      const localStaffEmail = localStorage.getItem("entre_nos_staff_email");
+      const hasLocalAccess = !currentUser && localStaffRole === (isAdmin ? "direcao" : "professor");
 
-      if (!currentUser) {
+      if (!currentUser && !hasLocalAccess) {
         setLoading(false);
         return;
       }
 
-      setUserId(currentUser.id);
+      setUserId(currentUser?.id || `local-${localStaffRole}`);
 
       const [{ data: profileData }, schoolResponse] = await Promise.all([
-        supabase.from("profiles").select("full_name").eq("user_id", currentUser.id).maybeSingle(),
-        isAdmin
-          ? supabase.from("escolas").select("id,name").order("name")
-          : supabase.from("turmas").select("name,escola_id").eq("teacher_id", currentUser.id).order("name"),
+        currentUser ? supabase.from("profiles").select("full_name").eq("user_id", currentUser.id).maybeSingle() : Promise.resolve({ data: null }),
+        currentUser
+          ? isAdmin
+            ? supabase.from("escolas").select("id,name").order("name")
+            : supabase.from("turmas").select("name,escola_id").eq("teacher_id", currentUser.id).order("name")
+          : Promise.resolve({ data: [] }),
       ]);
 
-      const name = profileData?.full_name || currentUser.email || "Usuário logado";
+      const name = profileData?.full_name || currentUser?.email || localStaffEmail || "Usuário logado";
       setRegistrantName(name);
 
       const loadedSchools: SchoolOption[] = isAdmin
@@ -140,11 +145,12 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
             className: turma.name,
           }));
 
-      setSchools(loadedSchools);
+      const fallbackSchools = loadedSchools.length > 0 ? loadedSchools : [{ id: "local-school", name: "Escola vinculada" }];
+      setSchools(fallbackSchools);
       setForm((current) => ({
         ...current,
-        escola_id: loadedSchools[0]?.id || "",
-        class_or_grade: !isAdmin && loadedSchools[0]?.className ? loadedSchools[0].className : current.class_or_grade,
+        escola_id: fallbackSchools[0]?.id || "",
+        class_or_grade: !isAdmin && fallbackSchools[0]?.className ? fallbackSchools[0].className : current.class_or_grade,
       }));
       setLoading(false);
     };
@@ -513,7 +519,7 @@ const CouncilReferral = ({ role }: { role: "teacher" | "admin" }) => {
     const checkAccess = async () => {
       const { data: authData } = await supabase.auth.getUser();
       if (!authData.user) {
-        setAllowed(false);
+        setAllowed(localStorage.getItem("entre_nos_staff_role") === (role === "admin" ? "direcao" : "professor"));
         return;
       }
 

@@ -5,22 +5,25 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/layout/Navbar";
 import Logo from "@/components/Logo";
 import { ScrollReveal } from "@/components/MotionStagger";
+import { useI18n, type TranslationKey } from "@/lib/i18n";
 
 const features = [
-  { icon: ShieldCheck, title: "Check-in Emocional", description: "Alunos registram como se sentem diariamente com emojis simples. Padrões são detectados automaticamente." },
-  { icon: MessageCircle, title: "Chat Seguro da Turma", description: "Espaço para se expressar. Palavras-chave de risco são sinalizadas discretamente ao professor." },
-  { icon: Users, title: "Rede de Confidentes", description: "Alunos escolhem colegas de confiança. Cria redes de apoio naturais entre os próprios estudantes." },
-  { icon: BarChart3, title: "Radar da Turma", description: "Professores visualizam o clima emocional em tempo real. Verde, amarelo, vermelho — sem identificar nomes." },
-  { icon: Eye, title: "Alertas Inteligentes", description: "Detecção automática de padrões de bullying, exclusão ou sofrimento. Alertas chegam em tempo real." },
-  { icon: Shield, title: "Privacidade Total", description: "Nenhum dado de aluno é vendido. Conformidade com LGPD. Identidades sempre protegidas." },
+  { icon: ShieldCheck, title: "landing.feature.checkin.title", description: "landing.feature.checkin.desc" },
+  { icon: MessageCircle, title: "landing.feature.chat.title", description: "landing.feature.chat.desc" },
+  { icon: Users, title: "landing.feature.network.title", description: "landing.feature.network.desc" },
+  { icon: BarChart3, title: "landing.feature.radar.title", description: "landing.feature.radar.desc" },
+  { icon: Eye, title: "landing.feature.alerts.title", description: "landing.feature.alerts.desc" },
+  { icon: Shield, title: "landing.feature.privacy.title", description: "landing.feature.privacy.desc" },
 ];
 
 const plans = [
-  { name: "Plano Escola", price: "R$299", period: "/mês", description: "Para escolas individuais", features: ["Até 500 alunos", "Dashboard do professor", "Alertas em tempo real", "Relatórios semanais", "Chat da turma", "Suporte por email"], highlighted: false },
-  { name: "Plano Rede", price: "R$799", period: "/mês", description: "Para redes de ensino", features: ["Escolas ilimitadas", "Painel da direção", "Dados agregados por escola", "Relatórios avançados", "API de integração", "Suporte prioritário"], highlighted: true },
+  { name: "landing.schoolPlan", price: "R$299", period: "landing.perMonth", description: "landing.schoolPlanDesc", features: ["landing.plan.school.1", "landing.plan.school.2", "landing.plan.school.3", "landing.plan.school.4", "landing.plan.school.5", "landing.plan.school.6"], highlighted: false },
+  { name: "landing.networkPlan", price: "R$799", period: "landing.perMonth", description: "landing.networkPlanDesc", features: ["landing.plan.network.1", "landing.plan.network.2", "landing.plan.network.3", "landing.plan.network.4", "landing.plan.network.5", "landing.plan.network.6"], highlighted: true },
 ];
 
 const Landing = () => {
+  const { t } = useI18n();
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -35,7 +38,7 @@ const Landing = () => {
             className="inline-flex items-center gap-2 bg-accent rounded-full px-4 py-1.5 mb-6"
           >
             <ShieldCheck className="w-4 h-4 text-secondary" />
-            <span className="text-sm font-medium text-accent-foreground">Bem-estar escolar inteligente</span>
+            <span className="text-sm font-medium text-accent-foreground">{t("landing.badge")}</span>
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -43,8 +46,8 @@ const Landing = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="font-heading text-4xl md:text-6xl font-extrabold text-foreground mb-6"
           >
-            Aqui, ninguém fica{" "}
-            <span className="text-gradient">de fora.</span>
+            {t("landing.heroTitleStart")} {" "}
+            <span className="text-gradient">{t("landing.heroTitleHighlight")}</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -52,8 +55,7 @@ const Landing = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8"
           >
-            Identifique alunos em risco de exclusão social, bullying ou sofrimento emocional — 
-            de forma discreta e preventiva, antes que o problema se torne grave.
+            {t("landing.heroText")}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -63,13 +65,13 @@ const Landing = () => {
           >
             <Link to="/cadastro">
               <Button variant="hero" size="lg" className="text-base px-8 btn-shimmer micro-btn">
-                Começar grátis por 30 dias
+                {t("landing.startTrial")}
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
             <a href="#como-funciona">
               <Button variant="hero-outline" size="lg" className="text-base px-8 micro-btn">
-                Como funciona
+                {t("nav.howItWorks")}
               </Button>
             </a>
           </motion.div>
@@ -79,7 +81,7 @@ const Landing = () => {
             transition={{ delay: 0.5 }}
             className="text-xs text-muted-foreground mt-4"
           >
-            Sem cartão de crédito. Cancele quando quiser.
+            {t("landing.noCard")}
           </motion.p>
         </div>
       </section>
@@ -89,10 +91,10 @@ const Landing = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { value: "98%", label: "dos alertas detectados a tempo" },
-              { value: "2.5k+", label: "alunos protegidos" },
-              { value: "100%", label: "anônimo e seguro" },
-              { value: "LGPD", label: "em conformidade" },
+              { value: "98%", label: t("landing.stats.alerts") },
+              { value: "2.5k+", label: t("landing.stats.students") },
+              { value: "100%", label: t("landing.stats.safe") },
+              { value: "LGPD", label: t("landing.stats.lgpd") },
             ].map((stat, i) => (
               <ScrollReveal key={stat.label}>
                 <p className="text-2xl md:text-3xl font-heading font-bold text-primary-foreground">{stat.value}</p>
@@ -108,10 +110,10 @@ const Landing = () => {
         <div className="container mx-auto max-w-6xl">
           <ScrollReveal className="text-center mb-16">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Como o Entre Nós funciona
+              {t("landing.howTitle")}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Uma plataforma completa para cuidar do bem-estar emocional dos alunos, sem expor identidades.
+              {t("landing.howText")}
             </p>
           </ScrollReveal>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -121,8 +123,8 @@ const Landing = () => {
                   <div className="w-12 h-12 rounded-lg bg-accent flex items-center justify-center mb-4">
                     <feature.icon className="w-6 h-6 text-secondary" />
                   </div>
-                  <h3 className="font-heading font-bold text-lg text-foreground mb-2">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
+                  <h3 className="font-heading font-bold text-lg text-foreground mb-2">{t(feature.title as TranslationKey)}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{t(feature.description as TranslationKey)}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -135,9 +137,9 @@ const Landing = () => {
         <div className="container mx-auto max-w-4xl">
           <ScrollReveal className="text-center mb-16">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Planos simples e transparentes
+              {t("landing.plansTitle")}
             </h2>
-            <p className="text-muted-foreground">30 dias grátis. Sem cartão de crédito.</p>
+            <p className="text-muted-foreground">{t("landing.plansText")}</p>
           </ScrollReveal>
           <div className="grid md:grid-cols-2 gap-8">
             {plans.map((plan) => (
@@ -147,17 +149,17 @@ const Landing = () => {
                     ? "gradient-hero text-primary-foreground shadow-glow"
                     : "bg-card border border-border shadow-card"
                 }`}>
-                  <h3 className="font-heading font-bold text-xl mb-1">{plan.name}</h3>
-                  <p className={`text-sm mb-4 ${plan.highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{plan.description}</p>
+                  <h3 className="font-heading font-bold text-xl mb-1">{t(plan.name as TranslationKey)}</h3>
+                  <p className={`text-sm mb-4 ${plan.highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{t(plan.description as TranslationKey)}</p>
                   <div className="flex items-baseline gap-1 mb-6">
                     <span className="text-4xl font-heading font-extrabold">{plan.price}</span>
-                    <span className={`text-sm ${plan.highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{plan.period}</span>
+                    <span className={`text-sm ${plan.highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{t(plan.period as TranslationKey)}</span>
                   </div>
                   <ul className="space-y-3 mb-8">
                     {plan.features.map((f) => (
                       <li key={f} className="flex items-center gap-2 text-sm">
                         <CheckCircle className={`w-4 h-4 flex-shrink-0 ${plan.highlighted ? "text-primary-foreground" : "text-secondary"}`} />
-                        {f}
+                        {t(f as TranslationKey)}
                       </li>
                     ))}
                   </ul>
@@ -166,7 +168,7 @@ const Landing = () => {
                       variant={plan.highlighted ? "hero-outline" : "hero"}
                       className={`w-full micro-btn ${plan.highlighted ? "border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground" : ""}`}
                     >
-                      Começar grátis
+                      {t("landing.startFree")}
                     </Button>
                   </Link>
                 </div>
@@ -181,15 +183,13 @@ const Landing = () => {
         <ScrollReveal className="container mx-auto max-w-3xl text-center">
           <Shield className="w-12 h-12 text-secondary mx-auto mb-6" />
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Privacidade é prioridade
+            {t("landing.privacyTitle")}
           </h2>
           <p className="text-muted-foreground mb-8 leading-relaxed">
-            Nenhuma mensagem é armazenada com nome. Alunos são identificados apenas por ID anônimo. 
-            Dados de humor são agregados antes de chegar ao professor. Nenhum dado é vendido ou compartilhado. 
-            Em total conformidade com a LGPD.
+            {t("landing.privacyText")}
           </p>
           <Link to="/privacidade">
-            <Button variant="outline" className="micro-btn">Leia nossa política completa</Button>
+            <Button variant="outline" className="micro-btn">{t("landing.fullPolicy")}</Button>
           </Link>
         </ScrollReveal>
       </section>
@@ -200,10 +200,10 @@ const Landing = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <Logo variante="escura" largura={130} />
             <div className="flex gap-6">
-              <Link to="/privacidade" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">Privacidade</Link>
-              <Link to="/login" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">Entrar</Link>
+              <Link to="/privacidade" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.privacy")}</Link>
+              <Link to="/login" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.login")}</Link>
             </div>
-            <p className="text-xs text-primary-foreground/50">© 2026 Entre Nós. Todos os direitos reservados.</p>
+            <p className="text-xs text-primary-foreground/50">{t("landing.rights")}</p>
           </div>
         </div>
       </footer>

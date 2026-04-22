@@ -119,6 +119,49 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  .high-accessibility {
+    --background: 0 0% 100%;
+    --foreground: 245 45% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 245 45% 12%;
+    --muted: 245 35% 94%;
+    --muted-foreground: 245 40% 18%;
+    --accent: 245 35% 92%;
+    --accent-foreground: 245 45% 12%;
+    --border: 245 45% 18%;
+    --input: 245 45% 18%;
+    --ring: 45 100% 45%;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  .high-accessibility *,
+  .high-accessibility *::before,
+  .high-accessibility *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .high-accessibility button,
+  .high-accessibility a,
+  .high-accessibility input,
+  .high-accessibility select,
+  .high-accessibility textarea {
+    min-height: 44px;
+    outline-offset: 3px;
+  }
+
+  .high-accessibility button:focus-visible,
+  .high-accessibility a:focus-visible,
+  .high-accessibility input:focus-visible,
+  .high-accessibility select:focus-visible,
+  .high-accessibility textarea:focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    box-shadow: 0 0 0 5px hsl(var(--background));
+  }
 }
 
 /* ══════════════════════════════════════════

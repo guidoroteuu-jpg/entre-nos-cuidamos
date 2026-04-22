@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import Logo from "@/components/Logo";
+import { useI18n } from "@/lib/i18n";
 
 const estados = [
   "AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG",
@@ -12,6 +13,7 @@ const estados = [
 ];
 
 const Registration = () => {
+  const { t } = useI18n();
   const navigate = useNavigate();
   const [form, setForm] = useState({
     nome: "", cnpj: "", responsavel: "", email: "",
@@ -28,7 +30,7 @@ const Registration = () => {
     e.preventDefault();
     setError("");
     if (!form.nome || !form.responsavel || !form.email || !form.cidade || !form.estado) {
-      setError("Preencha todos os campos obrigatórios");
+      setError(t("registration.errorRequired"));
       return;
     }
     setLoading(true);
@@ -46,7 +48,7 @@ const Registration = () => {
         transition={{ duration: 0.4 }}
       >
         <Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6">
-          <ArrowLeft className="w-4 h-4" /> Voltar
+          <ArrowLeft className="w-4 h-4" /> {t("registration.back")}
         </Link>
 
         <div className="flex items-center gap-4 mb-6">
@@ -60,40 +62,40 @@ const Registration = () => {
         )}
 
         <form onSubmit={handleSubmit} className="bg-card rounded-2xl p-6 border border-border shadow-elevated space-y-4">
-          <h1 className="font-heading font-bold text-xl text-foreground">Cadastre sua escola</h1>
-          <p className="text-xs text-muted-foreground -mt-2">30 dias grátis, sem cartão de crédito</p>
+          <h1 className="font-heading font-bold text-xl text-foreground">{t("registration.title")}</h1>
+          <p className="text-xs text-muted-foreground -mt-2">{t("registration.subtitle")}</p>
 
           <div>
-            <label className="text-sm font-medium text-foreground mb-1 block">Nome da escola *</label>
-            <Input value={form.nome} onChange={(e) => handleChange("nome", e.target.value)} placeholder="Escola Municipal..." className="h-11 micro-input" />
+            <label className="text-sm font-medium text-foreground mb-1 block">{t("registration.schoolName")}</label>
+            <Input value={form.nome} onChange={(e) => handleChange("nome", e.target.value)} placeholder={t("registration.schoolPlaceholder")} className="h-11 micro-input" />
           </div>
           <div>
-            <label className="text-sm font-medium text-foreground mb-1 block">CNPJ <span className="text-muted-foreground">(opcional)</span></label>
+            <label className="text-sm font-medium text-foreground mb-1 block">CNPJ <span className="text-muted-foreground">{t("registration.optional")}</span></label>
             <Input value={form.cnpj} onChange={(e) => handleChange("cnpj", e.target.value)} placeholder="00.000.000/0000-00" className="h-11 micro-input" />
           </div>
           <div>
-            <label className="text-sm font-medium text-foreground mb-1 block">Nome do responsável *</label>
-            <Input value={form.responsavel} onChange={(e) => handleChange("responsavel", e.target.value)} placeholder="Seu nome completo" className="h-11 micro-input" />
+            <label className="text-sm font-medium text-foreground mb-1 block">{t("registration.owner")}</label>
+            <Input value={form.responsavel} onChange={(e) => handleChange("responsavel", e.target.value)} placeholder={t("registration.ownerPlaceholder")} className="h-11 micro-input" />
           </div>
           <div>
-            <label className="text-sm font-medium text-foreground mb-1 block">Email institucional *</label>
+            <label className="text-sm font-medium text-foreground mb-1 block">{t("registration.institutionalEmail")}</label>
             <Input type="email" value={form.email} onChange={(e) => handleChange("email", e.target.value)} placeholder="contato@escola.edu.br" className="h-11 micro-input" />
           </div>
           <div>
-            <label className="text-sm font-medium text-foreground mb-1 block">Telefone</label>
+            <label className="text-sm font-medium text-foreground mb-1 block">{t("registration.phone")}</label>
             <Input value={form.telefone} onChange={(e) => handleChange("telefone", e.target.value)} placeholder="(11) 99999-9999" className="h-11 micro-input" />
           </div>
           <div>
-            <label className="text-sm font-medium text-foreground mb-1 block">Número estimado de alunos</label>
+            <label className="text-sm font-medium text-foreground mb-1 block">{t("registration.students")}</label>
             <Input type="number" value={form.alunos} onChange={(e) => handleChange("alunos", e.target.value)} placeholder="500" className="h-11 micro-input" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-sm font-medium text-foreground mb-1 block">Cidade *</label>
+              <label className="text-sm font-medium text-foreground mb-1 block">{t("registration.city")}</label>
               <Input value={form.cidade} onChange={(e) => handleChange("cidade", e.target.value)} placeholder="São Paulo" className="h-11 micro-input" />
             </div>
             <div>
-              <label className="text-sm font-medium text-foreground mb-1 block">Estado *</label>
+              <label className="text-sm font-medium text-foreground mb-1 block">{t("registration.state")}</label>
               <select
                 value={form.estado}
                 onChange={(e) => handleChange("estado", e.target.value)}
@@ -108,13 +110,13 @@ const Registration = () => {
           </div>
 
           <Button type="submit" variant="hero" className="w-full h-12 text-base btn-shimmer micro-btn" disabled={loading}>
-            {loading ? <><Loader2 className="w-5 h-5 animate-spin mr-2" /> Criando sua conta...</> : "Começar 30 dias grátis"}
+            {loading ? <><Loader2 className="w-5 h-5 animate-spin mr-2" /> {t("registration.creating")}</> : t("registration.start")}
           </Button>
         </form>
 
         <p className="text-center text-xs text-muted-foreground mt-4">
-          Ao cadastrar, você concorda com nossa{" "}
-          <Link to="/privacidade" className="text-secondary underline">política de privacidade</Link>.
+          {t("registration.privacyPrefix")} {" "}
+          <Link to="/privacidade" className="text-secondary underline">{t("login.privacyLink")}</Link>.
         </p>
       </motion.div>
     </div>

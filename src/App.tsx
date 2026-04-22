@@ -20,6 +20,7 @@ import TeacherAlerts from "./pages/teacher/TeacherAlerts";
 import TeacherReport from "./pages/teacher/TeacherReport";
 import TeacherComplaints from "./pages/teacher/TeacherComplaints";
 import TeacherSchoolYear from "./pages/teacher/TeacherSchoolYear";
+import TeacherResourceLibrary from "./pages/teacher/TeacherResourceLibrary";
 import CouncilReferral from "./pages/CouncilReferral";
 import FamilyChannel from "./pages/FamilyChannel";
 import DirectionPanel from "./pages/direction/DirectionPanel";
@@ -56,6 +57,7 @@ const App = () => (
             <Route path="/professor/denuncias" element={<TeacherComplaints />} />
             <Route path="/professor/relatorio" element={<TeacherReport />} />
             <Route path="/professor/ano-letivo" element={<TeacherSchoolYear />} />
+            <Route path="/professor/biblioteca" element={<TeacherResourceLibrary />} />
             <Route path="/professor/conselho-tutelar" element={<CouncilReferral role="teacher" />} />
             <Route path="/professor/familia" element={<FamilyChannel role="teacher" />} />
             <Route path="/direcao/painel" element={<DirectionPanel />} />

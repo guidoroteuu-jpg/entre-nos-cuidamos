@@ -191,6 +191,50 @@ export type Database = {
         }
         Relationships: []
       }
+      conselho_tutelar_auditoria: {
+        Row: {
+          acionamento_id: string
+          action: string
+          actor_id: string
+          actor_name: string
+          created_at: string
+          id: string
+          new_status: string | null
+          previous_status: string | null
+          reasons: string[]
+        }
+        Insert: {
+          acionamento_id: string
+          action: string
+          actor_id: string
+          actor_name: string
+          created_at?: string
+          id?: string
+          new_status?: string | null
+          previous_status?: string | null
+          reasons?: string[]
+        }
+        Update: {
+          acionamento_id?: string
+          action?: string
+          actor_id?: string
+          actor_name?: string
+          created_at?: string
+          id?: string
+          new_status?: string | null
+          previous_status?: string | null
+          reasons?: string[]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conselho_tutelar_auditoria_acionamento_id_fkey"
+            columns: ["acionamento_id"]
+            isOneToOne: false
+            referencedRelation: "conselho_tutelar_acionamentos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       denuncias: {
         Row: {
           created_at: string

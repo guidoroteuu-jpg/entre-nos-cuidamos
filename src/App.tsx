@@ -23,6 +23,7 @@ import TeacherSchoolYear from "./pages/teacher/TeacherSchoolYear";
 import TeacherResourceLibrary from "./pages/teacher/TeacherResourceLibrary";
 import CouncilReferral from "./pages/CouncilReferral";
 import FamilyChannel from "./pages/FamilyChannel";
+import SpecialistReferral from "./pages/SpecialistReferral";
 import DirectionPanel from "./pages/direction/DirectionPanel";
 import DirectionClasses from "./pages/direction/DirectionClasses";
 import DirectionComplaints from "./pages/direction/DirectionComplaints";
@@ -60,12 +61,14 @@ const App = () => (
             <Route path="/professor/biblioteca" element={<TeacherResourceLibrary />} />
             <Route path="/professor/conselho-tutelar" element={<CouncilReferral role="teacher" />} />
             <Route path="/professor/familia" element={<FamilyChannel role="teacher" />} />
+            <Route path="/professor/especialista" element={<SpecialistReferral role="teacher" />} />
             <Route path="/direcao/painel" element={<DirectionPanel />} />
             <Route path="/direcao/turmas" element={<DirectionClasses />} />
             <Route path="/direcao/denuncias" element={<DirectionComplaints />} />
             <Route path="/direcao/ano-letivo" element={<DirectionSchoolYear />} />
             <Route path="/direcao/conselho-tutelar" element={<CouncilReferral role="admin" />} />
             <Route path="/direcao/familia" element={<FamilyChannel role="admin" />} />
+            <Route path="/direcao/especialista" element={<SpecialistReferral role="admin" />} />
             <Route path="/direcao/configuracoes" element={<DirectionSettings />} />
             <Route path="/brand" element={<Brand />} />
             <Route path="*" element={<NotFound />} />

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, Bell, FileText, CalendarDays, AlertTriangle, LogOut, ShieldAlert, MailCheck, BookOpen } from "lucide-react";
+import { LayoutDashboard, Bell, FileText, CalendarDays, AlertTriangle, LogOut, ShieldAlert, MailCheck, BookOpen, Stethoscope } from "lucide-react";
 import { motion } from "framer-motion";
 import Logo from "@/components/Logo";
 
@@ -11,6 +11,7 @@ const navItems = [
   { path: "/professor/relatorio", label: "Relatório", icon: FileText },
   { path: "/professor/biblioteca", label: "Biblioteca", icon: BookOpen },
   { path: "/professor/familia", label: "Família", icon: MailCheck },
+  { path: "/professor/especialista", label: "Especialista", icon: Stethoscope },
   { path: "/professor/conselho-tutelar", label: "Conselho", icon: ShieldAlert },
   { path: "/professor/ano-letivo", label: "Ano Letivo", icon: CalendarDays },
 ];

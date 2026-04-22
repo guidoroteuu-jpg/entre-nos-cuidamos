@@ -51,6 +51,9 @@ const Login = () => {
 
     setLoading(true);
     setTimeout(() => {
+      localStorage.setItem("entre_nos_staff_role", activeTab);
+      localStorage.setItem("entre_nos_staff_email", email.trim());
+      if (activeTab === "direcao") localStorage.setItem("entre_nos_school_code", schoolCode.trim());
       setSuccess(true);
       setTimeout(() => {
         if (activeTab === "professor") navigate("/professor/dashboard");

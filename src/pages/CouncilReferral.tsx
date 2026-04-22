@@ -104,6 +104,8 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
   const [records, setRecords] = useState<ReferralRecord[]>([]);
   const [auditRecords, setAuditRecords] = useState<AuditRecord[]>([]);
   const [filters, setFilters] = useState({ student: "", date: "", reason: "todos" });
+  const [page, setPage] = useState(1);
+  const [totalRecords, setTotalRecords] = useState(0);
 
   const isAdmin = role === "admin";
 
@@ -151,21 +153,39 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
   }, [isAdmin]);
 
   const fetchRecords = async () => {
+    const pageSize = 10;
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize - 1;
     const query = (supabase as any)
       .from("conselho_tutelar_acionamentos")
       .select("id,protocolo,student_full_name,class_or_grade,reasons,other_reason,detailed_description,registrant_name,family_contact_attempt,created_at,status")
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .range(from, to);
 
-    if (filters.student.trim()) query.ilike("student_full_name", `%${filters.student.trim()}%`);
-    if (filters.date) query.gte("created_at", `${filters.date}T00:00:00`).lte("created_at", `${filters.date}T23:59:59`);
-    if (filters.reason !== "todos") query.contains("reasons", [filters.reason]);
+    const countQuery = (supabase as any)
+      .from("conselho_tutelar_acionamentos")
+      .select("id", { count: "exact", head: true });
 
-    const { data, error } = await query;
+    if (filters.student.trim()) {
+      query.ilike("student_full_name", `%${filters.student.trim()}%`);
+      countQuery.ilike("student_full_name", `%${filters.student.trim()}%`);
+    }
+    if (filters.date) {
+      query.gte("created_at", `${filters.date}T00:00:00`).lte("created_at", `${filters.date}T23:59:59`);
+      countQuery.gte("created_at", `${filters.date}T00:00:00`).lte("created_at", `${filters.date}T23:59:59`);
+    }
+    if (filters.reason !== "todos") {
+      query.contains("reasons", [filters.reason]);
+      countQuery.contains("reasons", [filters.reason]);
+    }
+
+    const [{ data, error }, { count }] = await Promise.all([query, countQuery]);
     if (error) {
       toast.error("Não foi possível carregar o histórico.");
       return;
     }
     setRecords(data || []);
+    setTotalRecords(count || 0);
 
     const ids = (data || []).map((record: ReferralRecord) => record.id);
     if (ids.length === 0) {
@@ -184,7 +204,7 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
 
   useEffect(() => {
     if (isAdmin && userId) fetchRecords();
-  }, [isAdmin, userId]);
+  }, [isAdmin, userId, page]);
 
   const registeredAt = useMemo(() => new Date().toLocaleString("pt-BR"), []);
 

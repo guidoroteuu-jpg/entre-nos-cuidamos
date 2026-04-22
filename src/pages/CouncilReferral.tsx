@@ -395,6 +395,7 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
                   <th className="text-left p-3 font-medium text-muted-foreground">Motivo</th>
                   <th className="text-left p-3 font-medium text-muted-foreground">Registrante</th>
                   <th className="text-left p-3 font-medium text-muted-foreground">Data</th>
+                  <th className="text-left p-3 font-medium text-muted-foreground">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -405,11 +406,41 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
                     <td className="p-3 text-muted-foreground">{record.reasons.join(", ")}</td>
                     <td className="p-3 text-muted-foreground">{record.registrant_name}</td>
                     <td className="p-3 text-muted-foreground">{new Date(record.created_at).toLocaleDateString("pt-BR")}</td>
+                    <td className="p-3 min-w-48">
+                      <Select value={record.status} onValueChange={(value) => updateRecordStatus(record.id, value)}>
+                        <SelectTrigger aria-label={`Atualizar status do protocolo ${record.protocolo}`}>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {statusOptions.map((status) => <SelectItem key={status.value} value={status.value}>{status.label}</SelectItem>)}
+                        </SelectContent>
+                      </Select>
+                    </td>
                   </tr>
                 ))}
-                {records.length === 0 && <tr><td colSpan={5} className="p-4 text-center text-muted-foreground">Nenhum registro encontrado.</td></tr>}
+                {records.length === 0 && <tr><td colSpan={6} className="p-4 text-center text-muted-foreground">Nenhum registro encontrado.</td></tr>}
               </tbody>
             </table>
+          </div>
+          <div className="border-t border-border pt-4 space-y-3">
+            <h3 className="font-heading font-bold text-foreground">Trilha de auditoria</h3>
+            <div className="space-y-2">
+              {auditRecords.map((entry) => (
+                <div key={entry.id} className="rounded-lg border border-border bg-background p-3 text-sm">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                    <span className="font-medium text-foreground">{entry.actor_name}</span>
+                    <span className="text-xs text-muted-foreground">{new Date(entry.created_at).toLocaleString("pt-BR")}</span>
+                  </div>
+                  <p className="text-muted-foreground mt-1">
+                    {entry.action === "created"
+                      ? `Criou o acionamento com status ${getStatusLabel(entry.new_status)}.`
+                      : `Atualizou o status de ${getStatusLabel(entry.previous_status)} para ${getStatusLabel(entry.new_status)}.`}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">Motivo(s): {entry.reasons.join(", ")}</p>
+                </div>
+              ))}
+              {auditRecords.length === 0 && <p className="text-sm text-muted-foreground">Nenhum evento de auditoria encontrado.</p>}
+            </div>
           </div>
         </section>
       )}

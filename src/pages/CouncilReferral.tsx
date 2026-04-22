@@ -207,6 +207,7 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
   }, [isAdmin, userId, page]);
 
   const registeredAt = useMemo(() => new Date().toLocaleString("pt-BR"), []);
+  const totalPages = Math.max(1, Math.ceil(totalRecords / 10));
 
   const updateField = (field: keyof FormState, value: string | string[]) => {
     setForm((current) => ({ ...current, [field]: value }));
@@ -294,6 +295,11 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
   };
 
   const getStatusLabel = (status: string | null) => statusOptions.find((option) => option.value === status)?.label || "—";
+
+  const applyFilters = () => {
+    setPage(1);
+    if (page === 1) fetchRecords();
+  };
 
   if (loading) {
     return <p className="text-sm text-muted-foreground">Carregando área segura...</p>;

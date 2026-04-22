@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import AccessibilityControls from "./components/AccessibilityControls";
+import { I18nProvider } from "./lib/i18n";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Registration from "./pages/Registration";
@@ -30,36 +32,39 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/cadastro" element={<Registration />} />
-          <Route path="/bem-vindo" element={<Welcome />} />
-          <Route path="/privacidade" element={<Privacy />} />
-          <Route path="/aluno/home" element={<StudentHome />} />
-          <Route path="/aluno/chat" element={<StudentChat />} />
-          <Route path="/aluno/chat-ia" element={<StudentChatIA />} />
-          <Route path="/aluno/diario" element={<StudentDiary />} />
-          <Route path="/aluno/confidente" element={<StudentConfident />} />
-          <Route path="/professor/dashboard" element={<TeacherDashboard />} />
-          <Route path="/professor/alertas" element={<TeacherAlerts />} />
-          <Route path="/professor/denuncias" element={<TeacherComplaints />} />
-          <Route path="/professor/relatorio" element={<TeacherReport />} />
-          <Route path="/professor/ano-letivo" element={<TeacherSchoolYear />} />
-          <Route path="/direcao/painel" element={<DirectionPanel />} />
-          <Route path="/direcao/turmas" element={<DirectionClasses />} />
-          <Route path="/direcao/denuncias" element={<DirectionComplaints />} />
-          <Route path="/direcao/ano-letivo" element={<DirectionSchoolYear />} />
-          <Route path="/direcao/configuracoes" element={<DirectionSettings />} />
-          <Route path="/brand" element={<Brand />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <I18nProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AccessibilityControls />
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/cadastro" element={<Registration />} />
+            <Route path="/bem-vindo" element={<Welcome />} />
+            <Route path="/privacidade" element={<Privacy />} />
+            <Route path="/aluno/home" element={<StudentHome />} />
+            <Route path="/aluno/chat" element={<StudentChat />} />
+            <Route path="/aluno/chat-ia" element={<StudentChatIA />} />
+            <Route path="/aluno/diario" element={<StudentDiary />} />
+            <Route path="/aluno/confidente" element={<StudentConfident />} />
+            <Route path="/professor/dashboard" element={<TeacherDashboard />} />
+            <Route path="/professor/alertas" element={<TeacherAlerts />} />
+            <Route path="/professor/denuncias" element={<TeacherComplaints />} />
+            <Route path="/professor/relatorio" element={<TeacherReport />} />
+            <Route path="/professor/ano-letivo" element={<TeacherSchoolYear />} />
+            <Route path="/direcao/painel" element={<DirectionPanel />} />
+            <Route path="/direcao/turmas" element={<DirectionClasses />} />
+            <Route path="/direcao/denuncias" element={<DirectionComplaints />} />
+            <Route path="/direcao/ano-letivo" element={<DirectionSchoolYear />} />
+            <Route path="/direcao/configuracoes" element={<DirectionSettings />} />
+            <Route path="/brand" element={<Brand />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </I18nProvider>
   </QueryClientProvider>
 );
 

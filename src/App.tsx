@@ -21,6 +21,7 @@ import TeacherReport from "./pages/teacher/TeacherReport";
 import TeacherComplaints from "./pages/teacher/TeacherComplaints";
 import TeacherSchoolYear from "./pages/teacher/TeacherSchoolYear";
 import TeacherResourceLibrary from "./pages/teacher/TeacherResourceLibrary";
+import TeacherActionPlan from "./pages/teacher/TeacherActionPlan";
 import CouncilReferral from "./pages/CouncilReferral";
 import FamilyChannel from "./pages/FamilyChannel";
 import SpecialistReferral from "./pages/SpecialistReferral";
@@ -59,6 +60,7 @@ const App = () => (
             <Route path="/professor/relatorio" element={<TeacherReport />} />
             <Route path="/professor/ano-letivo" element={<TeacherSchoolYear />} />
             <Route path="/professor/biblioteca" element={<TeacherResourceLibrary />} />
+            <Route path="/professor/plano-individual" element={<TeacherActionPlan />} />
             <Route path="/professor/conselho-tutelar" element={<CouncilReferral role="teacher" />} />
             <Route path="/professor/familia" element={<FamilyChannel role="teacher" />} />
             <Route path="/professor/especialista" element={<SpecialistReferral role="teacher" />} />

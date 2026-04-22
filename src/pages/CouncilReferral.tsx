@@ -23,6 +23,13 @@ const reasonOptions = [
 
 const contactOptions = ["Sim", "Não", "Tentativa sem sucesso"];
 
+const statusOptions = [
+  { value: "registrado", label: "Registrado" },
+  { value: "encaminhado", label: "Encaminhado" },
+  { value: "em_acompanhamento", label: "Em acompanhamento" },
+  { value: "concluido", label: "Concluído" },
+];
+
 type UserRole = "admin" | "teacher" | "student";
 
 type SchoolOption = {
@@ -43,6 +50,17 @@ type ReferralRecord = {
   family_contact_attempt: string;
   created_at: string;
   status: string;
+};
+
+type AuditRecord = {
+  id: string;
+  acionamento_id: string;
+  actor_name: string;
+  action: string;
+  previous_status: string | null;
+  new_status: string | null;
+  reasons: string[];
+  created_at: string;
 };
 
 type FormState = {
@@ -84,6 +102,7 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [records, setRecords] = useState<ReferralRecord[]>([]);
+  const [auditRecords, setAuditRecords] = useState<AuditRecord[]>([]);
   const [filters, setFilters] = useState({ student: "", date: "", reason: "todos" });
 
   const isAdmin = role === "admin";
@@ -147,6 +166,20 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
       return;
     }
     setRecords(data || []);
+
+    const ids = (data || []).map((record: ReferralRecord) => record.id);
+    if (ids.length === 0) {
+      setAuditRecords([]);
+      return;
+    }
+
+    const { data: auditData, error: auditError } = await (supabase as any)
+      .from("conselho_tutelar_auditoria")
+      .select("id,acionamento_id,actor_name,action,previous_status,new_status,reasons,created_at")
+      .in("acionamento_id", ids)
+      .order("created_at", { ascending: false });
+
+    if (!auditError) setAuditRecords(auditData || []);
   };
 
   useEffect(() => {
@@ -224,6 +257,23 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
     setForm({ ...initialForm, escola_id: schools[0]?.id || "", class_or_grade: !isAdmin && schools[0]?.className ? schools[0].className : "" });
     if (isAdmin) fetchRecords();
   };
+
+  const updateRecordStatus = async (recordId: string, status: string) => {
+    const { error } = await (supabase as any)
+      .from("conselho_tutelar_acionamentos")
+      .update({ status })
+      .eq("id", recordId);
+
+    if (error) {
+      toast.error("Não foi possível atualizar o status.");
+      return;
+    }
+
+    toast.success("Status atualizado e registrado na auditoria.");
+    fetchRecords();
+  };
+
+  const getStatusLabel = (status: string | null) => statusOptions.find((option) => option.value === status)?.label || "—";
 
   if (loading) {
     return <p className="text-sm text-muted-foreground">Carregando área segura...</p>;

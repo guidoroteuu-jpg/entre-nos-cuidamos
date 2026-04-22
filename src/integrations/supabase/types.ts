@@ -125,6 +125,72 @@ export type Database = {
           },
         ]
       }
+      conselho_tutelar_acionamentos: {
+        Row: {
+          absences_count: number | null
+          class_or_grade: string
+          created_at: string
+          detailed_description: string
+          escola_id: string
+          family_contact_attempt: string
+          guardian_contact: string
+          guardian_name: string
+          id: string
+          last_occurrence_date: string | null
+          other_reason: string | null
+          protocolo: string
+          reasons: string[]
+          registered_by: string
+          registrant_name: string
+          status: string
+          student_birth_date: string
+          student_full_name: string
+          updated_at: string
+        }
+        Insert: {
+          absences_count?: number | null
+          class_or_grade: string
+          created_at?: string
+          detailed_description: string
+          escola_id: string
+          family_contact_attempt: string
+          guardian_contact: string
+          guardian_name: string
+          id?: string
+          last_occurrence_date?: string | null
+          other_reason?: string | null
+          protocolo?: string
+          reasons: string[]
+          registered_by: string
+          registrant_name: string
+          status?: string
+          student_birth_date: string
+          student_full_name: string
+          updated_at?: string
+        }
+        Update: {
+          absences_count?: number | null
+          class_or_grade?: string
+          created_at?: string
+          detailed_description?: string
+          escola_id?: string
+          family_contact_attempt?: string
+          guardian_contact?: string
+          guardian_name?: string
+          id?: string
+          last_occurrence_date?: string | null
+          other_reason?: string | null
+          protocolo?: string
+          reasons?: string[]
+          registered_by?: string
+          registrant_name?: string
+          status?: string
+          student_birth_date?: string
+          student_full_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       denuncias: {
         Row: {
           created_at: string

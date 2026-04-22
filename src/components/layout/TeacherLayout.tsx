@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, Bell, FileText, CalendarDays, AlertTriangle, LogOut } from "lucide-react";
+import { LayoutDashboard, Bell, FileText, CalendarDays, AlertTriangle, LogOut, ShieldAlert } from "lucide-react";
 import { motion } from "framer-motion";
 import Logo from "@/components/Logo";
 
@@ -9,6 +9,7 @@ const navItems = [
   { path: "/professor/alertas", label: "Alertas", icon: Bell },
   { path: "/professor/denuncias", label: "Denúncias", icon: AlertTriangle },
   { path: "/professor/relatorio", label: "Relatório", icon: FileText },
+  { path: "/professor/conselho-tutelar", label: "Conselho", icon: ShieldAlert },
   { path: "/professor/ano-letivo", label: "Ano Letivo", icon: CalendarDays },
 ];
 

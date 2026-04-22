@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, Users, AlertTriangle, CalendarDays, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, Users, AlertTriangle, CalendarDays, Settings, LogOut, ShieldAlert } from "lucide-react";
 import { motion } from "framer-motion";
 import Logo from "@/components/Logo";
 
@@ -8,6 +8,7 @@ const navItems = [
   { path: "/direcao/painel", label: "Início", icon: LayoutDashboard },
   { path: "/direcao/turmas", label: "Turmas", icon: Users },
   { path: "/direcao/denuncias", label: "Denúncias", icon: AlertTriangle },
+  { path: "/direcao/conselho-tutelar", label: "Conselho", icon: ShieldAlert },
   { path: "/direcao/ano-letivo", label: "Ano Letivo", icon: CalendarDays },
   { path: "/direcao/configuracoes", label: "Configurações", icon: Settings },
 ];

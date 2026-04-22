@@ -5,8 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Users, GraduationCap, Building, Loader2, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "@/components/Logo";
+import { useI18n } from "@/lib/i18n";
 
 const Login = () => {
+  const { t } = useI18n();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<"aluno" | "professor" | "direcao">("aluno");
   const [classCode, setClassCode] = useState("");
@@ -24,9 +26,9 @@ const Login = () => {
   const handleStudentLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if (!classCode.trim()) { setError("Digite o código da turma"); return; }
+    if (!classCode.trim()) { setError(t("login.errorClassCode")); return; }
     if (!existingToken && !isFirstAccess) { setIsFirstAccess(true); return; }
-    if (isFirstAccess && !studentName.trim()) { setError("Digite seu nome para continuar"); return; }
+    if (isFirstAccess && !studentName.trim()) { setError(t("login.errorName")); return; }
 
     setLoading(true);
     setTimeout(() => {
@@ -44,8 +46,8 @@ const Login = () => {
   const handleStaffLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if (!email.trim() || !password.trim()) { setError("Preencha todos os campos"); return; }
-    if (activeTab === "direcao" && !schoolCode.trim()) { setError("Digite o código da escola"); return; }
+    if (!email.trim() || !password.trim()) { setError(t("login.errorFields")); return; }
+    if (activeTab === "direcao" && !schoolCode.trim()) { setError(t("login.errorSchoolCode")); return; }
 
     setLoading(true);
     setTimeout(() => {
@@ -58,9 +60,9 @@ const Login = () => {
   };
 
   const tabs = [
-    { id: "aluno" as const, label: "Aluno", icon: Users },
-    { id: "professor" as const, label: "Professor", icon: GraduationCap },
-    { id: "direcao" as const, label: "Direção", icon: Building },
+    { id: "aluno" as const, label: t("login.student"), icon: Users },
+    { id: "professor" as const, label: t("login.teacher"), icon: GraduationCap },
+    { id: "direcao" as const, label: t("login.direction"), icon: Building },
   ];
 
   return (
@@ -84,7 +86,7 @@ const Login = () => {
         <Link to="/" className="flex items-center justify-center mb-8">
           <Logo variante="clara" largura={200} />
         </Link>
-        <p className="text-center text-sm text-muted-foreground -mt-4 mb-6">Aqui, ninguém fica de fora.</p>
+        <p className="text-center text-sm text-muted-foreground -mt-4 mb-6">{t("login.tagline")}</p>
 
         <div className="bg-card rounded-2xl shadow-elevated border border-border p-6">
           {/* Tabs */}
@@ -127,7 +129,7 @@ const Login = () => {
                     <path d="M8 16 L14 22 L24 10" stroke="hsl(142, 70%, 45%)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="check-mark" />
                   </svg>
                 </div>
-                <p className="text-sm font-medium text-foreground mt-3">Entrando...</p>
+                <p className="text-sm font-medium text-foreground mt-3">{t("login.entering")}</p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -151,9 +153,9 @@ const Login = () => {
               {activeTab === "aluno" ? (
                 <form onSubmit={handleStudentLogin} className="space-y-4">
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-1.5 block">Código da turma</label>
+                    <label className="text-sm font-medium text-foreground mb-1.5 block">{t("login.classCode")}</label>
                     <Input
-                      placeholder="Ex: TURMA-5A-2026"
+                      placeholder={t("login.classCodePlaceholder")}
                       value={classCode}
                       onChange={(e) => setClassCode(e.target.value)}
                       className="h-12 text-center text-lg font-mono tracking-wider micro-input"
@@ -162,9 +164,9 @@ const Login = () => {
                   <AnimatePresence>
                     {isFirstAccess && (
                       <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}>
-                        <label className="text-sm font-medium text-foreground mb-1.5 block">Seu nome</label>
+                        <label className="text-sm font-medium text-foreground mb-1.5 block">{t("login.name")}</label>
                         <Input
-                          placeholder="Como seus colegas te chamam?"
+                          placeholder={t("login.namePlaceholder")}
                           value={studentName}
                           onChange={(e) => setStudentName(e.target.value)}
                           className="h-12 micro-input"
@@ -174,32 +176,32 @@ const Login = () => {
                     )}
                   </AnimatePresence>
                   <p className="text-xs text-muted-foreground text-center">
-                    {isFirstAccess ? "Seu nome será visível no chat da turma." : "Peça o código ao seu professor."}
+                    {isFirstAccess ? t("login.nameVisible") : t("login.askTeacher")}
                   </p>
                   <Button type="submit" variant="hero" className="w-full h-12 text-base btn-shimmer micro-btn" disabled={loading}>
-                    {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : isFirstAccess ? "Entrar na turma" : "Continuar"}
+                    {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : isFirstAccess ? t("login.joinClass") : t("login.continue")}
                   </Button>
                 </form>
               ) : (
                 <form onSubmit={handleStaffLogin} className="space-y-4">
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
+                    <label className="text-sm font-medium text-foreground mb-1.5 block">{t("login.email")}</label>
                     <Input type="email" placeholder="seu@email.com" value={email} onChange={(e) => setEmail(e.target.value)} className="h-12 micro-input" />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-1.5 block">Senha</label>
+                    <label className="text-sm font-medium text-foreground mb-1.5 block">{t("login.password")}</label>
                     <Input type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} className="h-12 micro-input" />
                   </div>
                   <AnimatePresence>
                     {activeTab === "direcao" && (
                       <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}>
-                        <label className="text-sm font-medium text-foreground mb-1.5 block">Código da escola</label>
-                        <Input placeholder="Ex: ESC-001" value={schoolCode} onChange={(e) => setSchoolCode(e.target.value)} className="h-12 micro-input" />
+                        <label className="text-sm font-medium text-foreground mb-1.5 block">{t("login.schoolCode")}</label>
+                        <Input placeholder={t("login.schoolCodePlaceholder")} value={schoolCode} onChange={(e) => setSchoolCode(e.target.value)} className="h-12 micro-input" />
                       </motion.div>
                     )}
                   </AnimatePresence>
                   <Button type="submit" variant="hero" className="w-full h-12 text-base btn-shimmer micro-btn" disabled={loading}>
-                    {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Entrar"}
+                    {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : t("nav.login")}
                   </Button>
                 </form>
               )}
@@ -208,8 +210,8 @@ const Login = () => {
         </div>
 
         <p className="text-center text-xs text-muted-foreground mt-6">
-          Ao entrar, você concorda com nossa{" "}
-          <Link to="/privacidade" className="text-secondary underline">política de privacidade</Link>.
+          {t("login.privacyPrefix")} {" "}
+          <Link to="/privacidade" className="text-secondary underline">{t("login.privacyLink")}</Link>.
         </p>
       </motion.div>
     </div>

@@ -410,7 +410,7 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
                 {reasonOptions.map((reason) => <SelectItem key={reason} value={reason}>{reason}</SelectItem>)}
               </SelectContent>
             </Select>
-            <Button type="button" variant="outline" onClick={fetchRecords}>Aplicar filtros</Button>
+            <Button type="button" variant="outline" onClick={applyFilters}>Aplicar filtros</Button>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -448,6 +448,21 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
               </tbody>
             </table>
           </div>
+          {totalRecords > 10 && (
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-t border-border pt-4">
+              <p className="text-sm text-muted-foreground">
+                Página {page} de {totalPages} · {totalRecords} registros encontrados
+              </p>
+              <div className="flex items-center gap-2">
+                <Button type="button" variant="outline" disabled={page === 1} onClick={() => setPage((current) => Math.max(1, current - 1))}>
+                  Anterior
+                </Button>
+                <Button type="button" variant="outline" disabled={page === totalPages} onClick={() => setPage((current) => Math.min(totalPages, current + 1))}>
+                  Próxima
+                </Button>
+              </div>
+            </div>
+          )}
           <div className="border-t border-border pt-4 space-y-3">
             <h3 className="font-heading font-bold text-foreground">Trilha de auditoria</h3>
             <div className="space-y-2">

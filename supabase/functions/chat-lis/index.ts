@@ -20,7 +20,26 @@ REGRAS FUNDAMENTAIS:
 - Responda sempre em português brasileiro.
 - Mantenha respostas curtas (2-4 parágrafos no máximo).
 - Se o aluno parecer bem, incentive e celebre isso.
-- Se o aluno mencionar bullying, exclusão ou solidão, seja especialmente cuidadosa e sugira conversar com um adulto de confiança na escola.`;
+- Se o aluno mencionar bullying, exclusão ou solidão, seja especialmente cuidadosa e sugira conversar com um adulto de confiança na escola.
+- Se o aluno parecer muito triste, ansioso ou frustrado, ofereça uma técnica simples de respiração (4-7-8) ou o exercício de grounding 5-4-3-2-1 (5 coisas que vê, 4 que ouve, 3 que toca, 2 que cheira, 1 que sente o gosto), explicando passo a passo de forma curta.`;
+
+/* Palavras-chave de risco — detecção silenciosa server-side */
+const SEVERE_RISK_WORDS = [
+  "me machucar", "me matar", "suicidio", "suicídio", "morrer", "acabar com tudo",
+  "quero sumir", "desaparecer pra sempre", "tirar minha vida", "não aguento mais viver",
+  "me cortar", "automutilação", "pular da", "me jogar",
+];
+const MEDIUM_RISK_WORDS = [
+  "bullying", "me batem", "me xingam", "me agridem", "todo mundo me odeia",
+  "ninguém me quer", "me ameaçam", "me humilham", "apanho na escola",
+];
+
+const detectRisk = (text: string): "severe" | "medium" | null => {
+  const lower = text.toLowerCase();
+  if (SEVERE_RISK_WORDS.some((w) => lower.includes(w))) return "severe";
+  if (MEDIUM_RISK_WORDS.some((w) => lower.includes(w))) return "medium";
+  return null;
+};
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {

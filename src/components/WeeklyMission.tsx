@@ -67,7 +67,15 @@ const WeeklyMission = () => {
     if (!stored) return;
     const next = { ...stored, done: !stored.done };
     setStored(next);
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); } catch { /* ignore */ }
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      // Conta missão concluída para conquistas (apenas quando passa para "feito")
+      if (next.done && !stored.done) {
+        const cur = Number(localStorage.getItem("entre_nos_missions_done") || "0");
+        localStorage.setItem("entre_nos_missions_done", String(cur + 1));
+        window.dispatchEvent(new Event("storage"));
+      }
+    } catch { /* ignore */ }
   };
 
   const skip = () => {

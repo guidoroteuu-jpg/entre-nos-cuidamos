@@ -6,6 +6,8 @@ import { MessageCircle, BookOpen, AlertTriangle, MessageSquare, X, Wind } from "
 import { motion, AnimatePresence } from "framer-motion";
 import WeeklyMission from "@/components/WeeklyMission";
 import CalmExercise from "@/components/CalmExercise";
+import AchievementsPanel, { trackCheckinToday } from "@/components/AchievementsPanel";
+import ClimateSurvey from "@/components/ClimateSurvey";
 
 const emojis = [
   { emoji: "😊", label: "Ótimo", desc: "Estou bem!", value: 6 },
@@ -51,6 +53,7 @@ const StudentHome = () => {
   const handleSelect = (value: number) => {
     setSelected(value);
     setShowCheckConfirm(true);
+    trackCheckinToday();
     if (value <= 2) {
       setShowExtraMessage(true);
     } else {
@@ -199,8 +202,14 @@ const StudentHome = () => {
           </div>
         </motion.div>
 
+        {/* Conquistas e streaks */}
+        <AchievementsPanel />
+
         {/* Missão semanal da Lis */}
         <WeeklyMission />
+
+        {/* Pesquisa de clima anônima */}
+        <ClimateSurvey />
 
         {/* Botão para abrir exercício de calma a qualquer momento */}
         <motion.button

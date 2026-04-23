@@ -16,6 +16,7 @@ import StudentChatIA from "./pages/student/StudentChatIA";
 import StudentDiary from "./pages/student/StudentDiary";
 import StudentConfident from "./pages/student/StudentConfident";
 import StudentClassConnection from "./pages/student/StudentClassConnection";
+import StudentSupport from "./pages/student/StudentSupport";
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import TeacherAlerts from "./pages/teacher/TeacherAlerts";
 import TeacherReport from "./pages/teacher/TeacherReport";
@@ -56,6 +57,7 @@ const App = () => (
             <Route path="/aluno/diario" element={<StudentDiary />} />
             <Route path="/aluno/turma" element={<StudentClassConnection />} />
             <Route path="/aluno/confidente" element={<StudentConfident />} />
+            <Route path="/aluno/apoio" element={<StudentSupport />} />
             <Route path="/professor/dashboard" element={<TeacherDashboard />} />
             <Route path="/professor/alertas" element={<TeacherAlerts />} />
             <Route path="/professor/denuncias" element={<TeacherComplaints />} />

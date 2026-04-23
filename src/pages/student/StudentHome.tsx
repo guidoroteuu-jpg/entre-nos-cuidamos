@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import StudentLayout from "@/components/layout/StudentLayout";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, BookOpen, AlertTriangle, MessageSquare, X } from "lucide-react";
+import { MessageCircle, BookOpen, AlertTriangle, MessageSquare, X, Wind } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import WeeklyMission from "@/components/WeeklyMission";
+import CalmExercise from "@/components/CalmExercise";
 
 const emojis = [
   { emoji: "😊", label: "Ótimo", desc: "Estou bem!", value: 6 },
@@ -43,6 +45,9 @@ const StudentHome = () => {
   const [complaintSent, setComplaintSent] = useState(false);
   const [showCheckConfirm, setShowCheckConfirm] = useState(false);
 
+  const [showCalm, setShowCalm] = useState(false);
+  const [calmIntro, setCalmIntro] = useState<string | undefined>(undefined);
+
   const handleSelect = (value: number) => {
     setSelected(value);
     setShowCheckConfirm(true);
@@ -54,6 +59,16 @@ const StudentHome = () => {
     setTimeout(() => {
       setShowCheckConfirm(false);
       setSubmitted(true);
+      // Lis sugere exercício de calma para humores baixos (Frustrado, Excluído, Muito triste)
+      if (value <= 3) {
+        const intros: Record<number, string> = {
+          3: "Vi que hoje a coisa tá pesada. Quer respirar comigo só por 1 min?",
+          2: "Sentir-se de fora dói. Vamos fazer um exercício rápido pra acalmar?",
+          1: "Tô aqui com você. Que tal a gente respirar junto agora?",
+        };
+        setCalmIntro(intros[value]);
+        setTimeout(() => setShowCalm(true), 1700);
+      }
     }, 1500);
   };
 

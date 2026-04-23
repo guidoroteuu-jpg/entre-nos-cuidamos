@@ -141,6 +141,12 @@ const StudentDiary = () => {
     setText("");
     setSavedText("");
     setActivePrompt(null);
+    // Conta entrada para o sistema de conquistas
+    try {
+      const cur = Number(localStorage.getItem("entre_nos_diary_count") || "0");
+      localStorage.setItem("entre_nos_diary_count", String(cur + 1));
+      window.dispatchEvent(new Event("storage"));
+    } catch { /* ignore */ }
   };
 
   const handleDelete = (id: number) =>

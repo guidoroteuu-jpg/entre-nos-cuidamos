@@ -331,6 +331,9 @@ const StudentHome = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Exercício de calma guiado pela Lis */}
+      <CalmExercise open={showCalm} onClose={() => setShowCalm(false)} intro={calmIntro} />
     </StudentLayout>
   );
 };

@@ -2,9 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import StudentLayout from "@/components/layout/StudentLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send, Trash2, Lock } from "lucide-react";
+import { Send, Trash2, Lock, Wind } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import CalmExercise from "@/components/CalmExercise";
 
 interface Message {
   id: number;

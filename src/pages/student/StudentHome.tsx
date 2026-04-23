@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import StudentLayout from "@/components/layout/StudentLayout";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, BookOpen, AlertTriangle, MessageSquare, X } from "lucide-react";
+import { MessageCircle, BookOpen, AlertTriangle, MessageSquare, X, Wind } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import WeeklyMission from "@/components/WeeklyMission";
+import CalmExercise from "@/components/CalmExercise";
 
 const emojis = [
   { emoji: "😊", label: "Ótimo", desc: "Estou bem!", value: 6 },
@@ -43,6 +45,9 @@ const StudentHome = () => {
   const [complaintSent, setComplaintSent] = useState(false);
   const [showCheckConfirm, setShowCheckConfirm] = useState(false);
 
+  const [showCalm, setShowCalm] = useState(false);
+  const [calmIntro, setCalmIntro] = useState<string | undefined>(undefined);
+
   const handleSelect = (value: number) => {
     setSelected(value);
     setShowCheckConfirm(true);
@@ -54,6 +59,16 @@ const StudentHome = () => {
     setTimeout(() => {
       setShowCheckConfirm(false);
       setSubmitted(true);
+      // Lis sugere exercício de calma para humores baixos (Frustrado, Excluído, Muito triste)
+      if (value <= 3) {
+        const intros: Record<number, string> = {
+          3: "Vi que hoje a coisa tá pesada. Quer respirar comigo só por 1 min?",
+          2: "Sentir-se de fora dói. Vamos fazer um exercício rápido pra acalmar?",
+          1: "Tô aqui com você. Que tal a gente respirar junto agora?",
+        };
+        setCalmIntro(intros[value]);
+        setTimeout(() => setShowCalm(true), 1700);
+      }
     }, 1500);
   };
 
@@ -184,6 +199,21 @@ const StudentHome = () => {
           </div>
         </motion.div>
 
+        {/* Missão semanal da Lis */}
+        <WeeklyMission />
+
+        {/* Botão para abrir exercício de calma a qualquer momento */}
+        <motion.button
+          onClick={() => { setCalmIntro(undefined); setShowCalm(true); }}
+          className="w-full bg-card hover:bg-accent/40 rounded-xl p-4 border border-border shadow-card transition-all flex items-center justify-center gap-2 micro-btn text-foreground"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.28 }}
+        >
+          <Wind className="w-4 h-4 text-secondary" />
+          <span className="font-medium text-sm">Fazer exercício de calma com a Lis</span>
+        </motion.button>
+
         {/* Links rápidos */}
         <div className="grid grid-cols-2 gap-3">
           {[
@@ -301,6 +331,9 @@ const StudentHome = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Exercício de calma guiado pela Lis */}
+      <CalmExercise open={showCalm} onClose={() => setShowCalm(false)} intro={calmIntro} />
     </StudentLayout>
   );
 };

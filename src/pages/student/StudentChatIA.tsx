@@ -2,9 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import StudentLayout from "@/components/layout/StudentLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send, Trash2, Lock } from "lucide-react";
+import { Send, Trash2, Lock, Wind } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import CalmExercise from "@/components/CalmExercise";
 
 interface Message {
   id: number;
@@ -35,6 +36,7 @@ const StudentChatIA = () => {
   const [messages, setMessages] = useState<Message[]>([welcomeMessage]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showCalm, setShowCalm] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -239,6 +241,15 @@ const StudentChatIA = () => {
           )}
         </div>
 
+        <button
+          type="button"
+          onClick={() => setShowCalm(true)}
+          className="mb-2 self-start inline-flex items-center gap-1.5 text-xs text-secondary hover:text-secondary/80 bg-accent/40 hover:bg-accent border border-border rounded-full px-3 py-1.5 transition-colors"
+        >
+          <Wind className="w-3.5 h-3.5" />
+          Fazer um exercício de calma
+        </button>
+
         <form onSubmit={handleSend} className="flex gap-2">
           <Input
             value={input}
@@ -254,6 +265,8 @@ const StudentChatIA = () => {
           </motion.div>
         </form>
       </div>
+
+      <CalmExercise open={showCalm} onClose={() => setShowCalm(false)} />
     </StudentLayout>
   );
 };

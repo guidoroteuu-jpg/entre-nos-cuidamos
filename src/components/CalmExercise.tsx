@@ -15,11 +15,11 @@ interface Props {
 }
 
 /* ===== Respiração 4-7-8 guiada ===== */
-const BREATHING_PHASES = [
+const BREATHING_PHASES: { label: string; duration: number; scale: number }[] = [
   { label: "Inspire pelo nariz", duration: 4, scale: 1.4 },
   { label: "Segure o ar", duration: 7, scale: 1.4 },
   { label: "Expire devagar pela boca", duration: 8, scale: 1 },
-] as const;
+];
 
 const BreathingExercise = ({ onDone }: { onDone: () => void }) => {
   const [cycle, setCycle] = useState(0);

@@ -1,14 +1,14 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, MessageCircle, BookOpen, Users, MessageSquare, LogOut, HeartHandshake } from "lucide-react";
+import { Home, MessageCircle, BookOpen, Users, MessageSquare, LogOut, HeartHandshake, LifeBuoy } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "@/components/Logo";
 
 const navItems = [
   { path: "/aluno/home", label: "Início", icon: Home },
-  { path: "/aluno/chat", label: "Chat", icon: MessageCircle },
   { path: "/aluno/diario", label: "Diário", icon: BookOpen },
   { path: "/aluno/turma", label: "Turma", icon: HeartHandshake },
+  { path: "/aluno/apoio", label: "Apoio", icon: LifeBuoy },
   { path: "/aluno/confidente", label: "Confidente", icon: Users },
   { path: "/aluno/chat-ia", label: "Lis", icon: MessageSquare },
 ];

@@ -73,6 +73,41 @@ serve(async (req) => {
         });
       }
     }
+
+    /* === Detecção silenciosa de risco no servidor === */
+    const lastUserMsg = [...messages].reverse().find((m: any) => m.role === "user");
+    const riskLevel = lastUserMsg ? detectRisk(lastUserMsg.content) : null;
+    if (riskLevel) {
+      try {
+        const authHeader = req.headers.get("Authorization") ?? "";
+        const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+        const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY");
+        if (SUPABASE_URL && SUPABASE_ANON_KEY && authHeader.startsWith("Bearer ")) {
+          // @ts-ignore - import dinâmico
+          const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2.45.0");
+          const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            global: { headers: { Authorization: authHeader } },
+          });
+          const { data: userData } = await supabase.auth.getUser();
+          const userId = userData?.user?.id;
+          if (userId) {
+            await supabase.from("alertas").insert({
+              user_id: userId,
+              type: riskLevel === "severe" ? "risco_alto_chat_lis" : "risco_medio_chat_lis",
+              severity: riskLevel === "severe" ? "high" : "medium",
+              description:
+                riskLevel === "severe"
+                  ? "A Lis detectou sinais de risco grave (autolesão/violência) na conversa do aluno."
+                  : "A Lis detectou sinais de bullying ou agressão na conversa do aluno.",
+            });
+            console.log(`[chat-lis] alerta ${riskLevel} registrado discretamente`);
+          }
+        }
+      } catch (alertErr) {
+        console.error("[chat-lis] falha ao registrar alerta silencioso:", alertErr);
+      }
+    }
+
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 

@@ -199,6 +199,21 @@ const StudentHome = () => {
           </div>
         </motion.div>
 
+        {/* Missão semanal da Lis */}
+        <WeeklyMission />
+
+        {/* Botão para abrir exercício de calma a qualquer momento */}
+        <motion.button
+          onClick={() => { setCalmIntro(undefined); setShowCalm(true); }}
+          className="w-full bg-card hover:bg-accent/40 rounded-xl p-4 border border-border shadow-card transition-all flex items-center justify-center gap-2 micro-btn text-foreground"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.28 }}
+        >
+          <Wind className="w-4 h-4 text-secondary" />
+          <span className="font-medium text-sm">Fazer exercício de calma com a Lis</span>
+        </motion.button>
+
         {/* Links rápidos */}
         <div className="grid grid-cols-2 gap-3">
           {[

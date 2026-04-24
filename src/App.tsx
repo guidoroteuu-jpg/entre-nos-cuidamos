@@ -32,6 +32,9 @@ import DirectionClasses from "./pages/direction/DirectionClasses";
 import DirectionComplaints from "./pages/direction/DirectionComplaints";
 import DirectionSchoolYear from "./pages/direction/DirectionSchoolYear";
 import DirectionSettings from "./pages/direction/DirectionSettings";
+import DirectionProtocols from "./pages/direction/DirectionProtocols";
+import DirectionHeatmap from "./pages/direction/DirectionHeatmap";
+import DirectionLGPD from "./pages/direction/DirectionLGPD";
 import Brand from "./pages/Brand";
 import NotFound from "./pages/NotFound";
 
@@ -75,6 +78,9 @@ const App = () => (
             <Route path="/direcao/conselho-tutelar" element={<CouncilReferral role="admin" />} />
             <Route path="/direcao/familia" element={<FamilyChannel role="admin" />} />
             <Route path="/direcao/especialista" element={<SpecialistReferral role="admin" />} />
+            <Route path="/direcao/protocolos" element={<DirectionProtocols />} />
+            <Route path="/direcao/mapa-calor" element={<DirectionHeatmap />} />
+            <Route path="/direcao/lgpd" element={<DirectionLGPD />} />
             <Route path="/direcao/configuracoes" element={<DirectionSettings />} />
             <Route path="/brand" element={<Brand />} />
             <Route path="*" element={<NotFound />} />

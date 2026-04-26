@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Sparkles, Send, Heart, ShieldAlert, Users, Lock, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
+import EmptyState from "@/components/EmptyState";
 
 interface Compliment {
   id: number;
@@ -257,6 +258,12 @@ const StudentClassConnection = () => {
                 </motion.div>
               ))}
             </AnimatePresence>
+            {compliments.length === 0 && (
+              <EmptyState
+                title="O mural está esperando carinho"
+                description="Mande o primeiro elogio anônimo para alguém da turma. Pequenas palavras mudam o dia."
+              />
+            )}
           </div>
         </div>
       </div>

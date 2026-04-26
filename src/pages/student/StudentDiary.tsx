@@ -8,6 +8,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import EmptyState from "@/components/EmptyState";
 
 const moodOptions = [
   { emoji: "😊", label: "Ótimo", value: "otimo", score: 6 },
@@ -503,7 +504,13 @@ const StudentDiary = () => {
 
         {/* Lista de entradas */}
         <div className="space-y-3">
-          {entries.map((entry, i) => (
+          {entries.length === 0 ? (
+            <EmptyState
+              title="Seu diário está esperando"
+              description="Quando você escrever ou gravar algo, aparece aqui — só pra você. Sem pressa."
+            />
+          ) : (
+            entries.map((entry, i) => (
             <motion.div
               key={entry.id}
               className="bg-card rounded-xl border border-border shadow-card overflow-hidden micro-card"
@@ -555,7 +562,8 @@ const StudentDiary = () => {
                 )}
               </AnimatePresence>
             </motion.div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </StudentLayout>

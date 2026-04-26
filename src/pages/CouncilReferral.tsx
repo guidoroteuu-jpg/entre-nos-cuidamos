@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import EmptyState from "@/components/EmptyState";
 
 const reasonOptions = [
   "Excesso de faltas injustificadas",
@@ -450,7 +451,18 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
                     </td>
                   </tr>
                 ))}
-                {records.length === 0 && <tr><td colSpan={6} className="p-4 text-center text-muted-foreground">Nenhum registro encontrado.</td></tr>}
+                {records.length === 0 && (
+                  <tr>
+                    <td colSpan={6} className="p-4">
+                      <EmptyState
+                        title="Nenhum registro encontrado"
+                        description="Quando uma situação for registrada, aparece aqui com cronologia e auditoria."
+                        padding="py-4"
+                        catSize={72}
+                      />
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
@@ -495,7 +507,14 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
                   <p className="text-xs text-muted-foreground mt-1">Motivo(s): {entry.reasons.join(", ")}</p>
                 </div>
               ))}
-              {auditRecords.length === 0 && <p className="text-sm text-muted-foreground">Nenhum evento de auditoria encontrado.</p>}
+              {auditRecords.length === 0 && (
+                <EmptyState
+                  title="Sem eventos de auditoria"
+                  description="A trilha aparece aqui assim que houver mudanças nos acionamentos."
+                  padding="py-4"
+                  catSize={72}
+                />
+              )}
             </div>
           </div>
         </section>

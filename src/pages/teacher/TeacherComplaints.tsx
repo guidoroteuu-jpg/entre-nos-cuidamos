@@ -2,6 +2,7 @@ import { useState } from "react";
 import TeacherLayout from "@/components/layout/TeacherLayout";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, Search, Filter, MessageSquare } from "lucide-react";
+import EmptyState from "@/components/EmptyState";
 
 /* Tipos de denúncia com ícones */
 const typeLabels: Record<string, string> = {

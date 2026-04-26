@@ -6,6 +6,7 @@ import { Send, Trash2, Lock, Wind } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import CalmExercise from "@/components/CalmExercise";
+import lisAvatar from "@/assets/lis-cat-logo.png";
 
 interface Message {
   id: number;
@@ -182,8 +183,8 @@ const StudentChatIA = () => {
       <div className="flex flex-col h-[calc(100vh-8rem)]">
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full gradient-hero flex items-center justify-center">
-              <span className="text-sm font-bold text-primary-foreground">LS</span>
+            <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center overflow-hidden ring-2 ring-primary/20">
+              <img src={lisAvatar} alt="Lis" width={40} height={40} className="w-full h-full object-cover" loading="lazy" />
             </div>
             <div>
               <h1 className="font-heading text-lg font-bold text-foreground">Conversa com a Lis</h1>
@@ -208,8 +209,8 @@ const StudentChatIA = () => {
             >
               <div className={`flex gap-2 max-w-[85%] ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
                 {msg.role === "assistant" && (
-                  <div className="w-7 h-7 rounded-full gradient-hero flex items-center justify-center flex-shrink-0">
-                    <span className="text-[9px] font-bold text-primary-foreground">LS</span>
+                  <div className="w-7 h-7 rounded-full bg-accent flex items-center justify-center overflow-hidden flex-shrink-0 ring-1 ring-primary/20">
+                    <img src={lisAvatar} alt="Lis" width={28} height={28} className="w-full h-full object-cover" loading="lazy" />
                   </div>
                 )}
                 <div className={`rounded-2xl px-4 py-2.5 ${
@@ -226,8 +227,8 @@ const StudentChatIA = () => {
           {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
             <div className="flex justify-start">
               <div className="flex gap-2">
-                <div className="w-7 h-7 rounded-full gradient-hero flex items-center justify-center flex-shrink-0">
-                  <span className="text-[9px] font-bold text-primary-foreground">LS</span>
+                <div className="w-7 h-7 rounded-full bg-accent flex items-center justify-center overflow-hidden flex-shrink-0 ring-1 ring-primary/20">
+                  <img src={lisAvatar} alt="Lis" width={28} height={28} className="w-full h-full object-cover" loading="lazy" />
                 </div>
                 <div className="bg-accent rounded-2xl px-4 py-3 rounded-bl-md">
                   <div className="flex gap-1.5">

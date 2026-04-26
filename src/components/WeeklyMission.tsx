@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, CheckCircle2, RefreshCw } from "lucide-react";
+import { CheckCircle2, RefreshCw } from "lucide-react";
+import lisAvatar from "@/assets/lis-cat-logo.png";
 
 interface Mission {
   id: string;
@@ -98,8 +99,8 @@ const WeeklyMission = () => {
     >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full gradient-hero flex items-center justify-center">
-            <Sparkles className="w-4 h-4 text-primary-foreground" />
+          <div className="w-9 h-9 rounded-full bg-card flex items-center justify-center overflow-hidden ring-2 ring-primary/20">
+            <img src={lisAvatar} alt="Lis" width={36} height={36} className="w-full h-full object-cover" loading="lazy" />
           </div>
           <div>
             <h2 className="font-heading font-bold text-sm text-foreground">Missão da semana da Lis</h2>

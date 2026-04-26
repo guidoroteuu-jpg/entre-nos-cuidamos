@@ -8,9 +8,10 @@
   "start_url": "/",
   "icons": [
     {
-      "src": "/logo/icone-app.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
+      "src": "/favicon-cat.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

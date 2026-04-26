@@ -1,8 +1,10 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, MessageCircle, BookOpen, Users, MessageSquare, LogOut, HeartHandshake, LifeBuoy, Accessibility } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Home, BookOpen, Users, MessageSquare, LogOut, HeartHandshake, LifeBuoy, Accessibility } from "lucide-react";
+import { motion } from "framer-motion";
 import Logo from "@/components/Logo";
+import CatBackground from "@/components/CatBackground";
+import lisAvatar from "@/assets/lis-cat-logo.png";
 
 const navItems = [
   { path: "/aluno/home", label: "Início", icon: Home },
@@ -18,17 +20,30 @@ const StudentLayout = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col relative">
+      {/* Decoração de gatinhos ao fundo — gentil, sereno, leve */}
+      <CatBackground variant="subtle" />
+
       {/* Barra superior */}
-      <header className="bg-card border-b border-border px-4 h-14 flex items-center justify-between">
-        <Logo variante="clara" largura={120} />
+      <header className="bg-card/80 backdrop-blur-sm border-b border-border px-4 h-14 flex items-center justify-between relative z-10">
+        <div className="flex items-center gap-2">
+          <img
+            src={lisAvatar}
+            alt="Lis"
+            width={32}
+            height={32}
+            className="w-8 h-8 rounded-full object-cover ring-2 ring-primary/20"
+            loading="lazy"
+          />
+          <Logo variante="clara" largura={110} />
+        </div>
         <Link to="/login" className="text-muted-foreground hover:text-foreground transition-colors micro-btn">
           <LogOut className="w-4 h-4" />
         </Link>
       </header>
 
       {/* Conteúdo */}
-      <main className="flex-1 p-4 pb-20 max-w-2xl mx-auto w-full">
+      <main className="flex-1 p-4 pb-20 max-w-2xl mx-auto w-full relative z-10">
         <motion.div
           key={location.pathname}
           initial={{ opacity: 0, y: 12 }}

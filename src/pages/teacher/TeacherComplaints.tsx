@@ -161,10 +161,10 @@ const StudentComplaints = () => {
             );
           })}
           {filteredComplaints.length === 0 && (
-            <div className="text-center py-12">
-              <MessageSquare className="w-10 h-10 text-muted-foreground mx-auto mb-3" />
-              <p className="text-muted-foreground">Nenhuma denúncia encontrada com esses filtros.</p>
-            </div>
+            <EmptyState
+              title="Nenhuma denúncia por aqui"
+              description="Nenhuma denúncia encontrada com esses filtros. A Lis te avisa quando algo chegar."
+            />
           )}
         </div>
       </div>

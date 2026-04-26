@@ -43,7 +43,7 @@ const StudentLayout = ({ children }: { children: ReactNode }) => {
       </header>
 
       {/* Conteúdo */}
-      <main className="flex-1 p-4 pb-20 max-w-2xl mx-auto w-full">
+      <main className="flex-1 p-4 pb-20 max-w-2xl mx-auto w-full relative z-10">
         <motion.div
           key={location.pathname}
           initial={{ opacity: 0, y: 12 }}

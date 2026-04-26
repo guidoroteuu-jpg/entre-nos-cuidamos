@@ -4,6 +4,7 @@ import { ShieldCheck, Shield, BarChart3, MessageCircle, Users, Eye, CheckCircle,
 import { motion } from "framer-motion";
 import Navbar from "@/components/layout/Navbar";
 import Logo from "@/components/Logo";
+import CatBackground from "@/components/CatBackground";
 import { ScrollReveal } from "@/components/MotionStagger";
 import { useI18n, type TranslationKey } from "@/lib/i18n";
 
@@ -25,7 +26,8 @@ const Landing = () => {
   const { t } = useI18n();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <CatBackground variant="lively" opacity={0.08} />
       <Navbar />
 
       {/* Hero */}

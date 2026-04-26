@@ -5,6 +5,7 @@ import { Switch } from "@/components/ui/switch";
 import { Shield, FileCheck, Trash2, Eye, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import EmptyState from "@/components/EmptyState";
 
 interface AcessoLog {
   ts: string;
@@ -140,9 +141,12 @@ const DirectionLGPD = () => {
             </div>
           </div>
           {logs.length === 0 ? (
-            <p className="text-sm text-muted-foreground text-center py-8">
-              Sem registros. Acesse a aba Denúncias para começar a registrar atividade.
-            </p>
+            <EmptyState
+              title="Sem registros ainda"
+              description="Acesse a aba Denúncias para começar a registrar atividade. Tudo fica auditável aqui."
+              padding="py-6"
+              catSize={80}
+            />
           ) : (
             <div className="space-y-1.5 max-h-96 overflow-auto">
               {logs.map((l, i) => (

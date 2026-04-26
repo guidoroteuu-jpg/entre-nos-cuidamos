@@ -1,24 +1,23 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Languages, Accessibility } from "lucide-react";
 import { useI18n, type Language } from "@/lib/i18n";
-
-const accessibilityStorageKey = "entre_nos_high_accessibility";
-
-const getInitialAccessibility = () => {
-  if (typeof window === "undefined") return false;
-  const stored = localStorage.getItem(accessibilityStorageKey);
-  if (stored !== null) return stored === "true";
-  return window.matchMedia("(prefers-contrast: more)").matches;
-};
+import { applySettings, loadSettings, saveSettings } from "@/lib/accessibility";
 
 const AccessibilityControls = () => {
   const { language, languages, setLanguage, t } = useI18n();
-  const [highAccessibility, setHighAccessibility] = useState(getInitialAccessibility);
+  const location = useLocation();
+  const [highAccessibility, setHighAccessibility] = useState(() => loadSettings().highAccessibility);
 
   useEffect(() => {
-    document.body.classList.toggle("high-accessibility", highAccessibility);
-    localStorage.setItem(accessibilityStorageKey, String(highAccessibility));
+    const settings = loadSettings();
+    const next = { ...settings, highAccessibility };
+    saveSettings(next);
+    applySettings(next);
   }, [highAccessibility]);
+
+  // Esconde o widget flutuante na página dedicada de acessibilidade.
+  if (location.pathname.endsWith("/acessibilidade")) return null;
 
   return (
     <div className="fixed bottom-4 right-4 z-[60] flex items-center gap-2 rounded-lg border border-border bg-card/95 p-2 shadow-elevated backdrop-blur-lg">

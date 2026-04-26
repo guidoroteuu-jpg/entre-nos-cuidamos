@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import AccessibilityControls from "./components/AccessibilityControls";
 import { I18nProvider } from "./lib/i18n";
+import { useEffect } from "react";
+import { initAccessibility } from "./lib/accessibility";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Registration from "./pages/Registration";
@@ -35,12 +37,20 @@ import DirectionSettings from "./pages/direction/DirectionSettings";
 import DirectionProtocols from "./pages/direction/DirectionProtocols";
 import DirectionHeatmap from "./pages/direction/DirectionHeatmap";
 import DirectionLGPD from "./pages/direction/DirectionLGPD";
+import StudentAccessibility from "./pages/student/StudentAccessibility";
+import TeacherAccessibility from "./pages/teacher/TeacherAccessibility";
+import DirectionAccessibility from "./pages/direction/DirectionAccessibility";
 import Brand from "./pages/Brand";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const App = () => {
+  useEffect(() => {
+    initAccessibility();
+  }, []);
+
+  return (
   <QueryClientProvider client={queryClient}>
     <I18nProvider>
       <TooltipProvider>
@@ -61,6 +71,7 @@ const App = () => (
             <Route path="/aluno/turma" element={<StudentClassConnection />} />
             <Route path="/aluno/confidente" element={<StudentConfident />} />
             <Route path="/aluno/apoio" element={<StudentSupport />} />
+            <Route path="/aluno/acessibilidade" element={<StudentAccessibility />} />
             <Route path="/professor/dashboard" element={<TeacherDashboard />} />
             <Route path="/professor/alertas" element={<TeacherAlerts />} />
             <Route path="/professor/denuncias" element={<TeacherComplaints />} />
@@ -71,6 +82,7 @@ const App = () => (
             <Route path="/professor/conselho-tutelar" element={<CouncilReferral role="teacher" />} />
             <Route path="/professor/familia" element={<FamilyChannel role="teacher" />} />
             <Route path="/professor/especialista" element={<SpecialistReferral role="teacher" />} />
+            <Route path="/professor/acessibilidade" element={<TeacherAccessibility />} />
             <Route path="/direcao/painel" element={<DirectionPanel />} />
             <Route path="/direcao/turmas" element={<DirectionClasses />} />
             <Route path="/direcao/denuncias" element={<DirectionComplaints />} />
@@ -82,6 +94,7 @@ const App = () => (
             <Route path="/direcao/mapa-calor" element={<DirectionHeatmap />} />
             <Route path="/direcao/lgpd" element={<DirectionLGPD />} />
             <Route path="/direcao/configuracoes" element={<DirectionSettings />} />
+            <Route path="/direcao/acessibilidade" element={<DirectionAccessibility />} />
             <Route path="/brand" element={<Brand />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -89,6 +102,7 @@ const App = () => (
       </TooltipProvider>
     </I18nProvider>
   </QueryClientProvider>
-);
+  );
+};
 
 export default App;

@@ -262,6 +262,7 @@ const translations = {
     "login.student": "Alumno",
     "login.teacher": "Profesor",
     "login.direction": "Dirección",
+    "login.family": "Familia",
     "login.entering": "Entrando...",
     "login.classCode": "Código de la clase",
     "login.classCodePlaceholder": "Ej: CLASE-5A-2026",

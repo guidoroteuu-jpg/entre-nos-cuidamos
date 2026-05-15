@@ -99,6 +99,7 @@ const App = () => {
             <Route path="/direcao/lgpd" element={<DirectionLGPD />} />
             <Route path="/direcao/configuracoes" element={<DirectionSettings />} />
             <Route path="/direcao/acessibilidade" element={<DirectionAccessibility />} />
+            <Route path="/familia" element={<Navigate to="/familia/painel" replace />} />
             <Route path="/familia/painel" element={<FamilyDashboard />} />
             <Route path="/familia/notas" element={<FamilyGrades />} />
             <Route path="/familia/frequencia" element={<FamilyAttendance />} />

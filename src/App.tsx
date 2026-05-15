@@ -41,6 +41,10 @@ import StudentAccessibility from "./pages/student/StudentAccessibility";
 import TeacherAccessibility from "./pages/teacher/TeacherAccessibility";
 import DirectionAccessibility from "./pages/direction/DirectionAccessibility";
 import Brand from "./pages/Brand";
+import FamilyDashboard from "./pages/family/FamilyDashboard";
+import FamilyGrades from "./pages/family/FamilyGrades";
+import FamilyAttendance from "./pages/family/FamilyAttendance";
+import FamilyWellbeing from "./pages/family/FamilyWellbeing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -95,6 +99,10 @@ const App = () => {
             <Route path="/direcao/lgpd" element={<DirectionLGPD />} />
             <Route path="/direcao/configuracoes" element={<DirectionSettings />} />
             <Route path="/direcao/acessibilidade" element={<DirectionAccessibility />} />
+            <Route path="/familia/painel" element={<FamilyDashboard />} />
+            <Route path="/familia/notas" element={<FamilyGrades />} />
+            <Route path="/familia/frequencia" element={<FamilyAttendance />} />
+            <Route path="/familia/bem-estar" element={<FamilyWellbeing />} />
             <Route path="/brand" element={<Brand />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

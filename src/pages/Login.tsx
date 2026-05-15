@@ -57,6 +57,7 @@ const Login = () => {
       setSuccess(true);
       setTimeout(() => {
         if (activeTab === "professor") navigate("/professor/dashboard");
+        else if (activeTab === "familia") navigate("/familia");
         else navigate("/direcao/painel");
       }, 800);
     }, 600);

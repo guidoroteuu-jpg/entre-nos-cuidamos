@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Users, GraduationCap, Building, Loader2, Check } from "lucide-react";
+import { Users, GraduationCap, Building, Heart, Loader2, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "@/components/Logo";
 import { useI18n } from "@/lib/i18n";
@@ -10,7 +10,7 @@ import { useI18n } from "@/lib/i18n";
 const Login = () => {
   const { t } = useI18n();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<"aluno" | "professor" | "direcao">("aluno");
+  const [activeTab, setActiveTab] = useState<"aluno" | "professor" | "direcao" | "familia">("aluno");
   const [classCode, setClassCode] = useState("");
   const [studentName, setStudentName] = useState("");
   const [email, setEmail] = useState("");
@@ -57,6 +57,7 @@ const Login = () => {
       setSuccess(true);
       setTimeout(() => {
         if (activeTab === "professor") navigate("/professor/dashboard");
+        else if (activeTab === "familia") navigate("/familia");
         else navigate("/direcao/painel");
       }, 800);
     }, 600);
@@ -66,6 +67,7 @@ const Login = () => {
     { id: "aluno" as const, label: t("login.student"), icon: Users },
     { id: "professor" as const, label: t("login.teacher"), icon: GraduationCap },
     { id: "direcao" as const, label: t("login.direction"), icon: Building },
+    { id: "familia" as const, label: t("login.family"), icon: Heart },
   ];
 
   return (

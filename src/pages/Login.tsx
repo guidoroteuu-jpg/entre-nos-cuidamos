@@ -67,6 +67,7 @@ const Login = () => {
     { id: "aluno" as const, label: t("login.student"), icon: Users },
     { id: "professor" as const, label: t("login.teacher"), icon: GraduationCap },
     { id: "direcao" as const, label: t("login.direction"), icon: Building },
+    { id: "familia" as const, label: t("login.family"), icon: Heart },
   ];
 
   return (

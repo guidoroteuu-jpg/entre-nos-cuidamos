@@ -24,14 +24,14 @@ const FamilyWellbeing = () => {
       />
 
       <div className="grid grid-cols-2 gap-3 mb-5">
-        <Card className="p-4">
+        <Card className="p-5 rounded-2xl shadow-card border-border/60">
           <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
             <Heart className="w-4 h-4" /> Humor atual
           </div>
           <div className="text-2xl font-bold text-foreground">{moodLabel(last)}</div>
           <div className="text-xs text-muted-foreground">{last.toFixed(1)} de 5</div>
         </Card>
-        <Card className="p-4">
+        <Card className="p-5 rounded-2xl shadow-card border-border/60">
           <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
             <Sparkles className="w-4 h-4" /> Média do período
           </div>
@@ -40,7 +40,7 @@ const FamilyWellbeing = () => {
         </Card>
       </div>
 
-      <Card className="p-4 mb-5">
+      <Card className="p-5 mb-5 rounded-2xl shadow-card border-border/60">
         <h2 className="font-semibold text-foreground mb-3">Evolução semanal</h2>
         <ResponsiveContainer width="100%" height={260}>
           <AreaChart data={data}>

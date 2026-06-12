@@ -128,7 +128,7 @@ const FamilyDashboard = () => {
           </Card>
         </Link>
         <Link to="/familia/frequencia">
-          <Card className="p-4 hover:shadow-md transition-all">
+          <Card className="p-5 rounded-2xl shadow-card border-border/60 micro-card h-full">
             <div className="flex items-center gap-2 mb-1">
               <CalendarCheck className="w-4 h-4 text-primary" />
               <h3 className="font-semibold text-foreground">Frequência</h3>

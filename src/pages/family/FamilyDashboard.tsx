@@ -52,14 +52,14 @@ const FamilyDashboard = () => {
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
-        <Card className="p-4">
+        <Card className="p-5 rounded-2xl shadow-card border-border/60 micro-card">
           <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
             <GraduationCap className="w-4 h-4" /> Média geral
           </div>
           <div className="text-2xl font-bold text-foreground">{overallAvg.toFixed(1)}</div>
           <div className="text-xs text-muted-foreground">de 10,0 nas disciplinas</div>
         </Card>
-        <Card className="p-4">
+        <Card className="p-5 rounded-2xl shadow-card border-border/60 micro-card">
           <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
             <CalendarCheck className="w-4 h-4" /> Frequência
           </div>
@@ -68,7 +68,7 @@ const FamilyDashboard = () => {
             {totalFalt} falta{totalFalt !== 1 && "s"} no período
           </div>
         </Card>
-        <Card className="p-4">
+        <Card className="p-5 rounded-2xl shadow-card border-border/60 micro-card">
           <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
             <Heart className="w-4 h-4" /> Bem-estar
           </div>
@@ -82,7 +82,7 @@ const FamilyDashboard = () => {
         </Card>
       </div>
 
-      <Card className="p-4 mb-5">
+      <Card className="p-5 mb-5 rounded-2xl shadow-card border-border/60">
         <div className="flex items-center justify-between mb-2">
           <h2 className="font-semibold text-foreground">Bem-estar nas últimas semanas</h2>
           <Link to="/familia/bem-estar" className="text-xs text-primary hover:underline">

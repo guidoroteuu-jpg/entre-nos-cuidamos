@@ -7,7 +7,7 @@ import FamilyLayout from "@/components/layout/FamilyLayout";
 import { FamilyPageHeader, useFamilyStudent } from "@/components/family/FamilyPageHeader";
 import { gradesByStudent, average } from "@/lib/familyData";
 import {
-  ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend,
+  ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid,
 } from "recharts";
 
 const statusOf = (avg: number) => {

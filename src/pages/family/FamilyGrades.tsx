@@ -11,10 +11,10 @@ import {
 } from "recharts";
 
 const statusOf = (avg: number) => {
-  if (avg >= 9) return { label: "Excelente", className: "bg-emerald-500/10 text-emerald-700 border-emerald-500/30" };
-  if (avg >= 7) return { label: "Bom", className: "bg-primary/10 text-primary border-primary/30" };
-  if (avg >= 6) return { label: "Atenção", className: "bg-amber-500/10 text-amber-700 border-amber-500/30" };
-  return { label: "Apoio", className: "bg-rose-500/10 text-rose-700 border-rose-500/30" };
+  if (avg >= 9) return { label: "Excelente", className: "bg-emerald-50 text-emerald-700 border-emerald-200" };
+  if (avg >= 7) return { label: "Bom", className: "bg-primary/10 text-primary border-primary/20" };
+  if (avg >= 6) return { label: "Atenção", className: "bg-amber-50 text-amber-700 border-amber-200" };
+  return { label: "Apoio", className: "bg-rose-50 text-rose-700 border-rose-200" };
 };
 
 const FamilyGrades = () => {

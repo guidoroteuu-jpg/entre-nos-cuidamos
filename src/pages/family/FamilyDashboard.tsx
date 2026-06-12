@@ -117,7 +117,7 @@ const FamilyDashboard = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <Link to="/familia/notas">
-          <Card className="p-4 hover:shadow-md transition-all">
+          <Card className="p-5 rounded-2xl shadow-card border-border/60 micro-card h-full">
             <div className="flex items-center gap-2 mb-1">
               <GraduationCap className="w-4 h-4 text-primary" />
               <h3 className="font-semibold text-foreground">Notas por disciplina</h3>

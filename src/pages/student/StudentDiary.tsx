@@ -153,8 +153,8 @@ const StudentDiary = () => {
 
   const handleDelete = (id: number) =>
     setEntries(entries.filter((e) => e.id !== id));
-  const getMoodEmoji = (mood: string) =>
-    moodOptions.find((m) => m.value === mood)?.emoji || catNeutro;
+  const getMoodKey = (mood: string): CatMoodKey =>
+    (moodOptions.find((m) => m.value === mood)?.value ?? "neutro");
   const getMoodLabel = (mood: string) =>
     moodOptions.find((m) => m.value === mood)?.label || "Neutro";
 

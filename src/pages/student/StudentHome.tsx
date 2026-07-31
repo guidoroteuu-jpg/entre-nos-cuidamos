@@ -93,15 +93,17 @@ const StudentHome = () => {
 
   return (
     <StudentLayout>
-      <div className="space-y-6">
+      <div className="space-y-5">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="font-heading text-2xl font-bold text-foreground">Olá, {studentName}!</h1>
-          <p className="text-muted-foreground text-sm mt-1">Como você está se sentindo hoje?</p>
+          <h1 className="font-heading text-[26px] leading-tight font-extrabold text-foreground tracking-tight">
+            Olá, {studentName}!
+          </h1>
+          <p className="text-muted-foreground text-sm mt-1.5">Como você está se sentindo hoje?</p>
         </motion.div>
 
         {/* Check-in emocional — grid 3x2 */}
-        <motion.div
-          className="bg-card rounded-2xl p-6 border border-border shadow-card"
+        <motion.section
+          className="surface-card p-5 sm:p-6"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
@@ -124,25 +126,30 @@ const StudentHome = () => {
             )}
           </AnimatePresence>
 
-          <div className="grid grid-cols-3 gap-3">
+          <p className="section-eyebrow mb-3">Check-in de hoje</p>
+
+          <div className="grid grid-cols-3 gap-2.5">
             {emojis.map((e, i) => (
               <motion.button
                 key={e.value}
                 onClick={() => handleSelect(e.value)}
+                aria-pressed={selected === e.value}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.06, type: "spring", stiffness: 300 }}
-                whileHover={{ scale: 1.12 }}
+                whileHover={{ scale: 1.06 }}
                 whileTap={{ scale: 0.95 }}
-                className={`flex flex-col items-center gap-1 p-3 rounded-xl transition-all ${
+                className={`tap-target flex flex-col items-center justify-start gap-1 p-3 rounded-2xl border transition-all ${
                   selected === e.value
-                    ? "bg-accent scale-105 shadow-card ring-2 ring-secondary"
-                    : selected !== null ? "opacity-50 hover:opacity-100" : "hover:bg-accent/50"
+                    ? "bg-accent border-primary/40 is-selected"
+                    : selected !== null
+                      ? "border-border/50 bg-card opacity-60 hover:opacity-100 hover:border-primary/25"
+                      : "border-border/50 bg-card hover:bg-accent/50 hover:border-primary/25"
                 }`}
               >
-                <MoodCat mood={catByScore6(e.value)} alt={e.label} className="w-10 h-10" />
-                <span className="text-xs font-medium text-foreground">{e.label}</span>
-                <span className="text-[10px] text-muted-foreground">{e.desc}</span>
+                <MoodCat mood={catByScore6(e.value)} alt={e.label} className="w-11 h-11" />
+                <span className="text-[13px] font-semibold text-foreground leading-tight">{e.label}</span>
+                <span className="text-[11px] text-muted-foreground leading-tight">{e.desc}</span>
               </motion.button>
             ))}
           </div>
@@ -152,7 +159,7 @@ const StudentHome = () => {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="text-center text-sm text-status-good mt-4 font-medium"
+                className="text-center text-sm text-status-good mt-4 font-semibold"
               >
                 Registrado! Obrigado por compartilhar.
               </motion.p>
@@ -161,47 +168,57 @@ const StudentHome = () => {
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mt-4 bg-accent rounded-xl p-4"
+                className="mt-4 surface-inset p-4"
               >
-                <p className="text-sm text-foreground font-medium text-center mb-2">
+                <p className="text-sm text-foreground font-medium text-center mb-3 leading-relaxed">
                   Obrigado por compartilhar. Você não está sozinho. O orientador foi notificado de forma discreta.
                 </p>
                 <Link to="/aluno/chat-ia">
-                  <Button variant="hero" size="sm" className="w-full btn-shimmer">
+                  <Button variant="hero" size="sm" className="w-full btn-shimmer tap-target">
                     <MessageSquare className="w-4 h-4 mr-1" /> Quer conversar com a Lis agora?
                   </Button>
                 </Link>
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.div>
+        </motion.section>
 
         {/* Histórico da semana */}
-        <motion.div
-          className="bg-card rounded-2xl p-6 border border-border shadow-card"
+        <motion.section
+          className="surface-card p-5 sm:p-6"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h2 className="font-heading font-bold text-foreground mb-4">Sua semana</h2>
-          <div className="flex items-end justify-between gap-2 h-32">
+          <div className="flex items-baseline justify-between mb-4">
+            <h2 className="section-title text-base">Sua semana</h2>
+            <span className="text-[11px] text-muted-foreground">quanto mais alto, melhor o dia</span>
+          </div>
+          <div className="flex items-end justify-between gap-2 h-36">
             {weekData.map((d, i) => (
-              <div key={d.day} className="flex flex-col items-center gap-1 flex-1">
-                <div className="w-full flex flex-col justify-end h-24">
+              <div key={d.day} className="flex flex-col items-center gap-1.5 flex-1">
+                <div className="w-full flex flex-col justify-end h-24 rounded-lg bg-muted/50 p-1">
                   {d.value > 0 && (
                     <motion.div
-                      className={`w-full rounded-t-md ${barColors[d.value] || "bg-muted"}`}
+                      className={`w-full rounded-md ${barColors[d.value] || "bg-muted"}`}
                       initial={{ height: 0 }}
                       animate={{ height: `${(d.value / 6) * 100}%` }}
                       transition={{ duration: 0.6, delay: 0.3 + i * 0.08, ease: "easeOut" }}
+                      title={`${d.day}: ${d.value} de 6`}
                     />
                   )}
                 </div>
-                <span className="text-[10px] text-muted-foreground font-medium">{d.day}</span>
+                {d.value > 0 ? (
+                  <MoodCat mood={catByScore6(d.value)} alt="" className="w-5 h-5 opacity-90" />
+                ) : (
+                  <span className="w-5 h-5 flex items-center justify-center text-[10px] text-muted-foreground">–</span>
+                )}
+                <span className="text-[11px] text-muted-foreground font-medium">{d.day}</span>
               </div>
             ))}
           </div>
-        </motion.div>
+        </motion.section>
+
 
         {/* Conquistas e streaks */}
         <AchievementsPanel />

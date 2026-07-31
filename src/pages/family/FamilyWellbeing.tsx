@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import FamilyLayout from "@/components/layout/FamilyLayout";
 import { FamilyPageHeader, useFamilyStudent } from "@/components/family/FamilyPageHeader";
 import { moodByStudent, moodLabel } from "@/lib/familyData";
+import MoodCat, { catByScore5 } from "@/components/MoodCat";
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, Legend,
 } from "recharts";
@@ -28,14 +29,20 @@ const FamilyWellbeing = () => {
           <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
             <Heart className="w-4 h-4" /> Humor atual
           </div>
-          <div className="text-2xl font-bold text-foreground">{moodLabel(last)}</div>
+          <div className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <MoodCat mood={catByScore5(last)} alt={moodLabel(last)} className="w-8 h-8" />
+            {moodLabel(last)}
+          </div>
           <div className="text-xs text-muted-foreground">{last.toFixed(1)} de 5</div>
         </Card>
         <Card className="p-5 rounded-2xl shadow-card border-border/60">
           <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
             <Sparkles className="w-4 h-4" /> Média do período
           </div>
-          <div className="text-2xl font-bold text-foreground">{avg.toFixed(1)}</div>
+          <div className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <MoodCat mood={catByScore5(avg)} alt={moodLabel(avg)} className="w-8 h-8" />
+            {avg.toFixed(1)}
+          </div>
           <div className="text-xs text-muted-foreground">{moodLabel(avg)}</div>
         </Card>
       </div>

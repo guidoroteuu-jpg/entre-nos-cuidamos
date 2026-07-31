@@ -9,6 +9,7 @@ import {
   average,
 } from "@/lib/familyData";
 import { Link } from "react-router-dom";
+import MoodCat, { catByScore5 } from "@/components/MoodCat";
 import { GraduationCap, CalendarCheck, Heart, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -73,6 +74,7 @@ const FamilyDashboard = () => {
             <Heart className="w-4 h-4" /> Bem-estar
           </div>
           <div className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <MoodCat mood={catByScore5(lastMood)} alt={moodLabel(lastMood)} className="w-8 h-8" />
             {moodLabel(lastMood)}
             <TrendIcon className={`w-4 h-4 ${trendColor}`} />
           </div>

@@ -9,20 +9,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import EmptyState from "@/components/EmptyState";
-import catOtimo from "@/assets/cat-mood-otimo.png";
-import catNeutro from "@/assets/cat-mood-neutro.png";
-import catTriste from "@/assets/cat-mood-triste.png";
-import catFrustrado from "@/assets/cat-mood-frustrado.png";
-import catExcluido from "@/assets/cat-mood-excluido.png";
-import catMuitoTriste from "@/assets/cat-mood-muito-triste.png";
+import MoodCat, { type CatMoodKey } from "@/components/MoodCat";
 
-const moodOptions = [
-  { emoji: catOtimo, label: "Ótimo", value: "otimo", score: 6 },
-  { emoji: catNeutro, label: "Neutro", value: "neutro", score: 5 },
-  { emoji: catTriste, label: "Triste", value: "triste", score: 4 },
-  { emoji: catFrustrado, label: "Frustrado", value: "frustrado", score: 3 },
-  { emoji: catExcluido, label: "Excluído", value: "excluido", score: 2 },
-  { emoji: catMuitoTriste, label: "Muito triste", value: "muito_triste", score: 1 },
+const moodOptions: { label: string; value: CatMoodKey; score: number }[] = [
+  { label: "Ótimo", value: "otimo", score: 6 },
+  { label: "Neutro", value: "neutro", score: 5 },
+  { label: "Triste", value: "triste", score: 4 },
+  { label: "Frustrado", value: "frustrado", score: 3 },
+  { label: "Excluído", value: "excluido", score: 2 },
+  { label: "Muito triste", value: "muito_triste", score: 1 },
 ];
 
 const guidedPrompts = [
@@ -158,8 +153,8 @@ const StudentDiary = () => {
 
   const handleDelete = (id: number) =>
     setEntries(entries.filter((e) => e.id !== id));
-  const getMoodEmoji = (mood: string) =>
-    moodOptions.find((m) => m.value === mood)?.emoji || catNeutro;
+  const getMoodKey = (mood: string): CatMoodKey =>
+    (moodOptions.find((m) => m.value === mood)?.value ?? "neutro");
   const getMoodLabel = (mood: string) =>
     moodOptions.find((m) => m.value === mood)?.label || "Neutro";
 
@@ -501,7 +496,7 @@ const StudentDiary = () => {
                     whileTap={{ scale: 0.95 }}
                     className="flex flex-col items-center gap-1 p-3 rounded-xl hover:bg-accent transition-all"
                   >
-                    <img src={m.emoji} alt={m.label} width={512} height={512} loading="lazy" className="w-8 h-8 object-contain" />
+                    <MoodCat mood={m.value} alt={m.label} className="w-8 h-8" />
                     <span className="text-xs text-muted-foreground">{m.label}</span>
                   </motion.button>
                 ))}
@@ -540,7 +535,7 @@ const StudentDiary = () => {
                     )}
                   </span>
                   <div className="flex items-center gap-2">
-                    <img src={getMoodEmoji(entry.mood)} alt={getMoodLabel(entry.mood)} width={512} height={512} loading="lazy" className="w-6 h-6 object-contain" />
+                    <MoodCat mood={getMoodKey(entry.mood)} alt={getMoodLabel(entry.mood)} className="w-7 h-7" />
                     {expandedId === entry.id
                       ? <ChevronUp className="w-4 h-4 text-muted-foreground" />
                       : <ChevronDown className="w-4 h-4 text-muted-foreground" />}

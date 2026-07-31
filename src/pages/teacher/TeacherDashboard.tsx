@@ -1,6 +1,7 @@
 import TeacherLayout from "@/components/layout/TeacherLayout";
 import { Users, Lightbulb } from "lucide-react";
 import { motion } from "framer-motion";
+import MoodCat, { type CatMoodKey } from "@/components/MoodCat";
 
 const students = [
   { id: 1, status: "good" },{ id: 2, status: "good" },{ id: 3, status: "attention" },
@@ -21,11 +22,11 @@ const statusLabel: Record<string, string> = {
   good: "Bem", attention: "Atenção", problem: "Problema", severe: "Grave",
 };
 
-const stats = [
-  { label: "Bem", count: 13, color: "bg-status-good", pct: "65%" },
-  { label: "Atenção", count: 3, color: "bg-status-attention", pct: "15%" },
-  { label: "Problema", count: 2, color: "bg-status-problem", pct: "10%" },
-  { label: "Grave", count: 1, color: "bg-status-severe", pct: "5%" },
+const stats: { label: string; count: number; color: string; pct: string; mood: CatMoodKey }[] = [
+  { label: "Bem", count: 13, color: "bg-status-good", pct: "65%", mood: "otimo" },
+  { label: "Atenção", count: 3, color: "bg-status-attention", pct: "15%", mood: "neutro" },
+  { label: "Problema", count: 2, color: "bg-status-problem", pct: "10%", mood: "triste" },
+  { label: "Grave", count: 1, color: "bg-status-severe", pct: "5%", mood: "muito_triste" },
 ];
 
 const suggestions = [
@@ -53,6 +54,7 @@ const TeacherDashboard = () => (
             transition={{ delay: i * 0.08 }}
           >
             <div className="flex items-center gap-2 mb-2">
+              <MoodCat mood={s.mood} alt={s.label} className="w-6 h-6" />
               <div className={`w-3 h-3 rounded-full ${s.color}`} />
               <span className="text-sm text-muted-foreground">{s.label}</span>
             </div>

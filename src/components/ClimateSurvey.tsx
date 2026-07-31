@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ClipboardCheck, CheckCircle2, ChevronRight, Lock } from "lucide-react";
+import MoodCat, { catByScore5 } from "@/components/MoodCat";
 
 /**
  * Pesquisa de clima da turma — 100% anônima.
@@ -12,7 +13,7 @@ import { ClipboardCheck, CheckCircle2, ChevronRight, Lock } from "lucide-react";
 interface Pergunta {
   id: string;
   texto: string;
-  opcoes: { value: number; label: string; emoji: string }[];
+  opcoes: { value: number; label: string }[];
 }
 
 const PERGUNTAS: Pergunta[] = [
@@ -20,31 +21,31 @@ const PERGUNTAS: Pergunta[] = [
     id: "p1",
     texto: "Como você descreveria o clima da sua turma essa semana?",
     opcoes: [
-      { value: 5, label: "Acolhedor", emoji: "🤗" },
-      { value: 4, label: "Bom", emoji: "🙂" },
-      { value: 3, label: "Neutro", emoji: "😐" },
-      { value: 2, label: "Tenso", emoji: "😬" },
-      { value: 1, label: "Hostil", emoji: "😞" },
+      { value: 5, label: "Acolhedor" },
+      { value: 4, label: "Bom" },
+      { value: 3, label: "Neutro" },
+      { value: 2, label: "Tenso" },
+      { value: 1, label: "Hostil" },
     ],
   },
   {
     id: "p2",
     texto: "Você se sentiu incluído(a) pelos colegas?",
     opcoes: [
-      { value: 5, label: "Sempre", emoji: "💛" },
-      { value: 4, label: "Quase sempre", emoji: "👍" },
-      { value: 3, label: "Às vezes", emoji: "🤷" },
-      { value: 2, label: "Raramente", emoji: "😕" },
-      { value: 1, label: "Nunca", emoji: "🙁" },
+      { value: 5, label: "Sempre" },
+      { value: 4, label: "Quase sempre" },
+      { value: 3, label: "Às vezes" },
+      { value: 2, label: "Raramente" },
+      { value: 1, label: "Nunca" },
     ],
   },
   {
     id: "p3",
     texto: "Você viu alguém da turma sendo tratado mal essa semana?",
     opcoes: [
-      { value: 5, label: "Não", emoji: "✅" },
-      { value: 3, label: "Talvez", emoji: "🤔" },
-      { value: 1, label: "Sim", emoji: "⚠️" },
+      { value: 5, label: "Não" },
+      { value: 3, label: "Talvez" },
+      { value: 1, label: "Sim" },
     ],
   },
 ];

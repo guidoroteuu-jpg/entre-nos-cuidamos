@@ -140,7 +140,7 @@ const StudentHome = () => {
                     : selected !== null ? "opacity-50 hover:opacity-100" : "hover:bg-accent/50"
                 }`}
               >
-                <img src={e.emoji} alt={e.label} width={512} height={512} loading="lazy" className="w-10 h-10 object-contain" />
+                <MoodCat mood={catByScore6(e.value)} alt={e.label} className="w-10 h-10" />
                 <span className="text-xs font-medium text-foreground">{e.label}</span>
                 <span className="text-[10px] text-muted-foreground">{e.desc}</span>
               </motion.button>

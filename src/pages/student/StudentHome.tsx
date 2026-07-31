@@ -8,14 +8,20 @@ import WeeklyMission from "@/components/WeeklyMission";
 import CalmExercise from "@/components/CalmExercise";
 import AchievementsPanel, { trackCheckinToday } from "@/components/AchievementsPanel";
 import ClimateSurvey from "@/components/ClimateSurvey";
+import catOtimo from "@/assets/cat-mood-otimo.png";
+import catNeutro from "@/assets/cat-mood-neutro.png";
+import catTriste from "@/assets/cat-mood-triste.png";
+import catFrustrado from "@/assets/cat-mood-frustrado.png";
+import catExcluido from "@/assets/cat-mood-excluido.png";
+import catMuitoTriste from "@/assets/cat-mood-muito-triste.png";
 
 const emojis = [
-  { emoji: "😊", label: "Ótimo", desc: "Estou bem!", value: 6 },
-  { emoji: "😐", label: "Neutro", desc: "Tá indo...", value: 5 },
-  { emoji: "😢", label: "Triste", desc: "Estou triste", value: 4 },
-  { emoji: "😤", label: "Frustrado", desc: "Estou irritado", value: 3 },
-  { emoji: "😔", label: "Excluído", desc: "Me sinto de fora", value: 2 },
-  { emoji: "😞", label: "Muito triste", desc: "Estou sofrendo", value: 1 },
+  { emoji: catOtimo, label: "Ótimo", desc: "Estou bem!", value: 6 },
+  { emoji: catNeutro, label: "Neutro", desc: "Tá indo...", value: 5 },
+  { emoji: catTriste, label: "Triste", desc: "Estou triste", value: 4 },
+  { emoji: catFrustrado, label: "Frustrado", desc: "Estou irritado", value: 3 },
+  { emoji: catExcluido, label: "Excluído", desc: "Me sinto de fora", value: 2 },
+  { emoji: catMuitoTriste, label: "Muito triste", desc: "Estou sofrendo", value: 1 },
 ];
 
 const weekData = [
@@ -139,7 +145,7 @@ const StudentHome = () => {
                     : selected !== null ? "opacity-50 hover:opacity-100" : "hover:bg-accent/50"
                 }`}
               >
-                <span className="text-3xl">{e.emoji}</span>
+                <img src={e.emoji} alt={e.label} width={512} height={512} loading="lazy" className="w-10 h-10 object-contain" />
                 <span className="text-xs font-medium text-foreground">{e.label}</span>
                 <span className="text-[10px] text-muted-foreground">{e.desc}</span>
               </motion.button>

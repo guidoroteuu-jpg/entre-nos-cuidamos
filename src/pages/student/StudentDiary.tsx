@@ -9,14 +9,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import EmptyState from "@/components/EmptyState";
+import catOtimo from "@/assets/cat-mood-otimo.png";
+import catNeutro from "@/assets/cat-mood-neutro.png";
+import catTriste from "@/assets/cat-mood-triste.png";
+import catFrustrado from "@/assets/cat-mood-frustrado.png";
+import catExcluido from "@/assets/cat-mood-excluido.png";
+import catMuitoTriste from "@/assets/cat-mood-muito-triste.png";
 
 const moodOptions = [
-  { emoji: "😊", label: "Ótimo", value: "otimo", score: 6 },
-  { emoji: "😐", label: "Neutro", value: "neutro", score: 5 },
-  { emoji: "😢", label: "Triste", value: "triste", score: 4 },
-  { emoji: "😤", label: "Frustrado", value: "frustrado", score: 3 },
-  { emoji: "😔", label: "Excluído", value: "excluido", score: 2 },
-  { emoji: "😞", label: "Muito triste", value: "muito_triste", score: 1 },
+  { emoji: catOtimo, label: "Ótimo", value: "otimo", score: 6 },
+  { emoji: catNeutro, label: "Neutro", value: "neutro", score: 5 },
+  { emoji: catTriste, label: "Triste", value: "triste", score: 4 },
+  { emoji: catFrustrado, label: "Frustrado", value: "frustrado", score: 3 },
+  { emoji: catExcluido, label: "Excluído", value: "excluido", score: 2 },
+  { emoji: catMuitoTriste, label: "Muito triste", value: "muito_triste", score: 1 },
 ];
 
 const guidedPrompts = [
@@ -153,7 +159,9 @@ const StudentDiary = () => {
   const handleDelete = (id: number) =>
     setEntries(entries.filter((e) => e.id !== id));
   const getMoodEmoji = (mood: string) =>
-    moodOptions.find((m) => m.value === mood)?.emoji || "😐";
+    moodOptions.find((m) => m.value === mood)?.emoji || catNeutro;
+  const getMoodLabel = (mood: string) =>
+    moodOptions.find((m) => m.value === mood)?.label || "Neutro";
 
   // ==== Áudio ====
   const startRecording = async () => {
@@ -312,7 +320,7 @@ const StudentDiary = () => {
               {monthDays.map((d) => (
                 <div
                   key={d.iso}
-                  title={d.mood ? `${fmtBR(d.iso)} • ${getMoodEmoji(d.mood)}` : `${fmtBR(d.iso)} • sem registro`}
+                  title={d.mood ? `${fmtBR(d.iso)} • ${getMoodLabel(d.mood)}` : `${fmtBR(d.iso)} • sem registro`}
                   className={`aspect-square rounded-md ${moodColor(d.score)} flex items-center justify-center text-[10px] font-medium ${d.score === 0 ? "text-muted-foreground/60" : "text-white"} transition-transform hover:scale-110`}
                 >
                   {d.day}
@@ -493,7 +501,7 @@ const StudentDiary = () => {
                     whileTap={{ scale: 0.95 }}
                     className="flex flex-col items-center gap-1 p-3 rounded-xl hover:bg-accent transition-all"
                   >
-                    <span className="text-2xl">{m.emoji}</span>
+                    <img src={m.emoji} alt={m.label} width={512} height={512} loading="lazy" className="w-8 h-8 object-contain" />
                     <span className="text-xs text-muted-foreground">{m.label}</span>
                   </motion.button>
                 ))}
@@ -532,7 +540,7 @@ const StudentDiary = () => {
                     )}
                   </span>
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">{getMoodEmoji(entry.mood)}</span>
+                    <img src={getMoodEmoji(entry.mood)} alt={getMoodLabel(entry.mood)} width={512} height={512} loading="lazy" className="w-6 h-6 object-contain" />
                     {expandedId === entry.id
                       ? <ChevronUp className="w-4 h-4 text-muted-foreground" />
                       : <ChevronDown className="w-4 h-4 text-muted-foreground" />}

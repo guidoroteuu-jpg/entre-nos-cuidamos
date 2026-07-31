@@ -182,7 +182,7 @@ const FamilyChannelContent = ({ role }: { role: FamilyChannelRole }) => {
 };
 
 const SummaryCard = ({ icon: Icon, label, value }: { icon: typeof Send; label: string; value: number }) => (
-  <div className="bg-card rounded-xl p-5 border border-border shadow-card">
+  <div className="surface-card p-5">
     <div className="flex items-center gap-2 mb-2">
       <Icon className="w-4 h-4 text-secondary" />
       <span className="text-sm font-medium text-foreground">{label}</span>

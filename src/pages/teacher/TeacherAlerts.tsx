@@ -32,7 +32,7 @@ const TeacherAlerts = () => (
           return (
             <motion.div
               key={alert.id}
-              className="bg-card rounded-xl p-5 border border-border shadow-card micro-card"
+              className="surface-card p-5 micro-card"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08 }}

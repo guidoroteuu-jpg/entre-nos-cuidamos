@@ -79,22 +79,22 @@ const DirectionPanel = () => (
 
       {/* Cards de estatísticas */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-card rounded-xl p-5 border border-border shadow-card">
+        <div className="surface-card p-5">
           <Users className="w-5 h-5 text-secondary mb-2" />
           <p className="text-sm text-muted-foreground">Total de alunos</p>
           <p className="text-3xl font-heading font-bold text-foreground">{totalStudents}</p>
         </div>
-        <div className="bg-card rounded-xl p-5 border border-border shadow-card">
+        <div className="surface-card p-5">
           <BarChart3 className="w-5 h-5 text-secondary mb-2" />
           <p className="text-sm text-muted-foreground">Turmas</p>
           <p className="text-3xl font-heading font-bold text-foreground">{classes.length}</p>
         </div>
-        <div className="bg-card rounded-xl p-5 border border-border shadow-card">
+        <div className="surface-card p-5">
           <Bell className="w-5 h-5 text-status-attention mb-2" />
           <p className="text-sm text-muted-foreground">Alertas ativos</p>
           <p className="text-3xl font-heading font-bold text-status-attention">{totalAlerts}</p>
         </div>
-        <div className="bg-card rounded-xl p-5 border border-border shadow-card">
+        <div className="surface-card p-5">
           <AlertTriangle className="w-5 h-5 text-status-problem mb-2" />
           <p className="text-sm text-muted-foreground">Denúncias pendentes</p>
           <p className="text-3xl font-heading font-bold text-status-problem">{totalComplaints}</p>
@@ -102,7 +102,7 @@ const DirectionPanel = () => (
       </div>
 
       {/* Humor por turma (gráfico de barras) */}
-      <div className="bg-card rounded-2xl p-6 border border-border shadow-card">
+      <div className="surface-card p-5 sm:p-6">
         <h2 className="font-heading font-bold text-foreground mb-4 flex items-center gap-2">
           <BarChart3 className="w-5 h-5 text-secondary" /> Humor médio por turma
         </h2>
@@ -157,7 +157,7 @@ const DirectionPanel = () => (
       </div>
 
       {/* Mapa de calor semanal */}
-      <div className="bg-card rounded-2xl p-6 border border-border shadow-card">
+      <div className="surface-card p-5 sm:p-6">
         <h2 className="font-heading font-bold text-foreground mb-4">Mapa de calor semanal</h2>
         <div className="grid grid-cols-6 gap-2">
           <div />
@@ -180,7 +180,7 @@ const DirectionPanel = () => (
       </div>
 
       {/* Tendências - gráfico de linha */}
-      <div className="bg-card rounded-2xl p-6 border border-border shadow-card">
+      <div className="surface-card p-5 sm:p-6">
         <h2 className="font-heading font-bold text-foreground mb-4 flex items-center gap-2">
           <TrendingUp className="w-5 h-5 text-secondary" /> Evolução do bem-estar (últimos 3 meses)
         </h2>
@@ -198,7 +198,7 @@ const DirectionPanel = () => (
 
       {/* Sugestões automáticas */}
       {suggestions.length > 0 && (
-        <div className="bg-card rounded-2xl p-6 border border-border shadow-card">
+        <div className="surface-card p-5 sm:p-6">
           <h2 className="font-heading font-bold text-foreground mb-4 flex items-center gap-2">
             <Lightbulb className="w-5 h-5 text-secondary" /> Sugestões automáticas
           </h2>

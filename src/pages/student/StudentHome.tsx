@@ -253,7 +253,7 @@ const StudentHome = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 + i * 0.08 }}
             >
-              <Link to={item.to} className="bg-card rounded-xl p-4 border border-border shadow-card hover:shadow-elevated transition-all text-center block micro-card">
+              <Link to={item.to} className="surface-card p-4 hover:shadow-elevated transition-all text-center block micro-card">
                 <item.icon className="w-6 h-6 text-secondary mx-auto" />
                 <p className="text-sm font-medium text-foreground mt-2">{item.label}</p>
               </Link>

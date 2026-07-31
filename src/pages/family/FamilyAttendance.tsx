@@ -31,7 +31,7 @@ const FamilyAttendance = () => {
         onStudent={setStudentId}
       />
 
-      <Card className="p-5 mb-5 rounded-2xl shadow-card border-border/60">
+      <Card className="p-5 mb-5 surface-card border-0">
         <div className="flex items-end justify-between mb-2">
           <div>
             <p className="text-xs text-muted-foreground">Frequência total</p>
@@ -49,7 +49,7 @@ const FamilyAttendance = () => {
         </p>
       </Card>
 
-      <Card className="p-5 mb-5 rounded-2xl shadow-card border-border/60">
+      <Card className="p-5 mb-5 surface-card border-0">
         <h2 className="font-semibold text-foreground mb-3">Mês a mês</h2>
         <ResponsiveContainer width="100%" height={240}>
           <BarChart data={data}>
@@ -65,7 +65,7 @@ const FamilyAttendance = () => {
         </ResponsiveContainer>
       </Card>
 
-      <Card className="p-5 rounded-2xl shadow-card border-border/60">
+      <Card className="p-5 surface-card border-0">
         <h2 className="font-semibold text-foreground mb-2">Detalhamento</h2>
         <div className="space-y-2">
           {data.map((m) => {

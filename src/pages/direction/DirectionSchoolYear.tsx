@@ -72,7 +72,7 @@ const DirectionSchoolYear = () => (
       </div>
 
       {/* Comparativo geral */}
-      <div className="bg-card rounded-2xl p-6 border border-border shadow-card">
+      <div className="surface-card p-5 sm:p-6">
         <h2 className="font-heading font-bold text-foreground mb-4 flex items-center gap-2">
           <TrendingUp className="w-5 h-5 text-secondary" /> Evolução por bimestre
         </h2>

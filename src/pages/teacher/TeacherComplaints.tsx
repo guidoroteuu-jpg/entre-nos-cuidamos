@@ -116,7 +116,7 @@ const StudentComplaints = () => {
           {filteredComplaints.map((complaint) => {
             const config = statusConfig[complaint.status];
             return (
-              <div key={complaint.id} className="bg-card rounded-xl p-5 border border-border shadow-card">
+              <div key={complaint.id} className="surface-card p-5">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${config.bg} ${config.color}`}>

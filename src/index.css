@@ -46,12 +46,17 @@
     --status-problem: 0 84% 60%;
     --status-severe: 0 0% 15%;
 
-    --gradient-hero: linear-gradient(135deg, hsl(245 44% 37%), hsl(245 40% 52%));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(245 60% 99%));
+    --gradient-hero: linear-gradient(135deg, hsl(245 44% 37%), hsl(262 46% 52%));
+    --gradient-card: linear-gradient(160deg, hsl(0 0% 100%), hsl(248 60% 99.2%));
     --gradient-accent: linear-gradient(135deg, hsl(245 40% 52%), hsl(280 50% 55%));
+    --gradient-surface: linear-gradient(180deg, hsl(248 60% 98.5%), hsl(240 20% 99.5%));
 
-    --shadow-card: 0 4px 20px -4px hsl(245 44% 37% / 0.08);
-    --shadow-elevated: 0 8px 30px -6px hsl(245 44% 37% / 0.15);
+    --shadow-card:
+      0 1px 2px -1px hsl(245 44% 37% / 0.06),
+      0 8px 24px -12px hsl(245 44% 37% / 0.14);
+    --shadow-elevated:
+      0 2px 4px -2px hsl(245 44% 37% / 0.08),
+      0 18px 40px -16px hsl(245 44% 37% / 0.22);
     --shadow-glow: 0 0 40px -8px hsl(245 44% 37% / 0.25);
 
     --font-heading: 'Nunito', sans-serif;
@@ -86,11 +91,26 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
     font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+  /* Foco visível consistente em toda a plataforma */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: calc(var(--radius) - 4px);
   }
 }
 
@@ -118,6 +138,76 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+  .gradient-surface {
+    background: var(--gradient-surface);
+  }
+
+  /* ─── Superfícies e hierarquia (redesign) ─── */
+  .surface-card {
+    background: var(--gradient-card);
+    border: 1px solid hsl(var(--border) / 0.7);
+    box-shadow: var(--shadow-card);
+    border-radius: 1.25rem;
+    transition: box-shadow 220ms ease, transform 220ms ease, border-color 220ms ease;
+  }
+  .surface-card:hover {
+    box-shadow: var(--shadow-elevated);
+    border-color: hsl(var(--primary) / 0.18);
+  }
+  .surface-inset {
+    background: hsl(var(--muted) / 0.7);
+    border: 1px solid hsl(var(--border) / 0.6);
+    border-radius: 1rem;
+  }
+  /* Título de seção */
+  .section-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: hsl(var(--foreground));
+  }
+  .section-eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+  }
+  /* Número principal de indicadores */
+  .stat-value {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    color: hsl(var(--foreground));
+  }
+  .stat-caption {
+    font-size: 0.75rem;
+    color: hsl(var(--muted-foreground));
+    line-height: 1.35;
+  }
+  /* Ícone em cápsula, alinhado e consistente */
+  .icon-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.875rem;
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+    flex: none;
+  }
+  /* Área clicável mínima confortável */
+  .tap-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  /* Estado selecionado claro */
+  .is-selected {
+    border-color: hsl(var(--primary) / 0.5);
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.14), var(--shadow-card);
   }
 
   .high-accessibility {

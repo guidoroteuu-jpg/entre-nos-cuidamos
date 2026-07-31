@@ -31,7 +31,7 @@ const DirectionSettings = () => {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-card rounded-2xl p-6 border border-border shadow-card space-y-4"
+          className="surface-card p-5 sm:p-6 space-y-4"
         >
           <h2 className="font-heading font-bold text-foreground flex items-center gap-2">
             <School className="w-5 h-5 text-secondary" /> Dados da escola
@@ -54,7 +54,7 @@ const DirectionSettings = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-card rounded-2xl p-6 border border-border shadow-card space-y-4"
+          className="surface-card p-5 sm:p-6 space-y-4"
         >
           <h2 className="font-heading font-bold text-foreground flex items-center gap-2">
             <Bell className="w-5 h-5 text-secondary" /> Notificações
@@ -89,7 +89,7 @@ const DirectionSettings = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-card rounded-2xl p-6 border border-border shadow-card space-y-4"
+          className="surface-card p-5 sm:p-6 space-y-4"
         >
           <h2 className="font-heading font-bold text-foreground flex items-center gap-2">
             <Shield className="w-5 h-5 text-secondary" /> Privacidade e segurança
@@ -114,7 +114,7 @@ const DirectionSettings = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-card rounded-2xl p-6 border border-border shadow-card space-y-4"
+          className="surface-card p-5 sm:p-6 space-y-4"
         >
           <h2 className="font-heading font-bold text-foreground flex items-center gap-2">
             <Users className="w-5 h-5 text-secondary" /> Equipe

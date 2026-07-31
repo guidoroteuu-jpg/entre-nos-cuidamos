@@ -25,7 +25,7 @@ const FamilyWellbeing = () => {
       />
 
       <div className="grid grid-cols-2 gap-3 mb-5">
-        <Card className="p-5 rounded-2xl shadow-card border-border/60">
+        <Card className="p-5 surface-card border-0">
           <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
             <Heart className="w-4 h-4" /> Humor atual
           </div>
@@ -35,7 +35,7 @@ const FamilyWellbeing = () => {
           </div>
           <div className="text-xs text-muted-foreground">{last.toFixed(1)} de 5</div>
         </Card>
-        <Card className="p-5 rounded-2xl shadow-card border-border/60">
+        <Card className="p-5 surface-card border-0">
           <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
             <Sparkles className="w-4 h-4" /> Média do período
           </div>
@@ -47,7 +47,7 @@ const FamilyWellbeing = () => {
         </Card>
       </div>
 
-      <Card className="p-5 mb-5 rounded-2xl shadow-card border-border/60">
+      <Card className="p-5 mb-5 surface-card border-0">
         <h2 className="font-semibold text-foreground mb-3">Evolução semanal</h2>
         <ResponsiveContainer width="100%" height={260}>
           <AreaChart data={data}>
@@ -61,11 +61,11 @@ const FamilyWellbeing = () => {
                 <stop offset="95%" stopColor="hsl(var(--secondary))" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-            <XAxis dataKey="week" fontSize={11} />
-            <YAxis domain={[1, 5]} fontSize={11} />
-            <Tooltip />
-            <Legend />
+            <CartesianGrid strokeDasharray="4 6" stroke="hsl(var(--border))" vertical={false} />
+            <XAxis dataKey="week" fontSize={11} tickLine={false} axisLine={false} stroke="hsl(var(--muted-foreground))" />
+            <YAxis domain={[1, 5]} fontSize={11} tickLine={false} axisLine={false} stroke="hsl(var(--muted-foreground))" />
+            <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid hsl(var(--border))", boxShadow: "var(--shadow-card)", fontSize: 12 }} />
+            <Legend iconType="circle" wrapperStyle={{ fontSize: 12, paddingTop: 8 }} />
             <Area type="monotone" dataKey="humor" stroke="hsl(var(--primary))" fill="url(#humorGrad)" strokeWidth={2.5} name="Humor" />
             <Area type="monotone" dataKey="bemEstar" stroke="hsl(var(--secondary))" fill="url(#bemGrad)" strokeWidth={2.5} name="Bem-estar" />
           </AreaChart>

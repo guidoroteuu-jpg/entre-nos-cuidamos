@@ -31,7 +31,7 @@ const FamilyGrades = () => {
         onStudent={setStudentId}
       />
 
-      <Card className="p-5 mb-5 rounded-2xl shadow-card border-border/60">
+      <Card className="p-5 mb-5 surface-card border-0">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">Comparativo por bimestre</h2>
           <div className="flex gap-4">
@@ -49,10 +49,10 @@ const FamilyGrades = () => {
         </div>
         <ResponsiveContainer width="100%" height={260}>
           <BarChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-            <XAxis dataKey="subject" fontSize={10} interval={0} angle={-20} textAnchor="end" height={60} />
-            <YAxis domain={[0, 10]} fontSize={11} />
-            <Tooltip />
+            <CartesianGrid strokeDasharray="4 6" stroke="hsl(var(--border))" vertical={false} />
+            <XAxis dataKey="subject" fontSize={10} interval={0} angle={-20} textAnchor="end" height={60} tickLine={false} axisLine={false} stroke="hsl(var(--muted-foreground))" />
+            <YAxis domain={[0, 10]} fontSize={11} tickLine={false} axisLine={false} stroke="hsl(var(--muted-foreground))" />
+            <Tooltip cursor={{ fill: "hsl(var(--muted))", opacity: 0.5 }} contentStyle={{ borderRadius: 12, border: "1px solid hsl(var(--border))", boxShadow: "var(--shadow-card)", fontSize: 12 }} />
             <Bar dataKey="B1" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
             <Bar dataKey="B2" fill="hsl(var(--secondary))" radius={[4, 4, 0, 0]} />
             <Bar dataKey="B3" fill="hsl(var(--accent-foreground))" radius={[4, 4, 0, 0]} />
@@ -60,7 +60,7 @@ const FamilyGrades = () => {
         </ResponsiveContainer>
       </Card>
 
-      <Card className="rounded-2xl shadow-card border-border/60 overflow-hidden">
+      <Card className="surface-card border-0 overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow className="bg-muted/60 hover:bg-muted/60">

@@ -24,8 +24,8 @@ const TeacherLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="min-h-screen bg-background flex">
       {/* Sidebar - desktop */}
-      <aside className="hidden md:flex w-60 gradient-hero flex-col p-4">
-        <div className="mb-8">
+      <aside className="hidden md:flex w-64 gradient-hero flex-col p-4 shadow-elevated">
+        <div className="mb-8 px-1">
           <Logo variante="escura" largura={140} />
         </div>
         <nav className="space-y-1 flex-1 relative">
@@ -35,29 +35,31 @@ const TeacherLayout = ({ children }: { children: ReactNode }) => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group ${
+                aria-current={active ? "page" : undefined}
+                className={`relative flex items-center gap-3 px-3 py-2.5 min-h-[44px] rounded-xl text-sm transition-all group ${
                   active
-                    ? "bg-primary-foreground/20 text-primary-foreground"
-                    : "text-primary-foreground/60 hover:text-primary-foreground hover:bg-primary-foreground/10"
+                    ? "bg-primary-foreground/[0.18] text-primary-foreground font-semibold shadow-sm"
+                    : "text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/10 font-medium"
                 }`}
               >
                 {active && (
                   <motion.div
                     layoutId="teacher-sidebar-bar"
-                    className="absolute left-0 top-1 bottom-1 w-[3px] rounded-full bg-primary-foreground"
+                    className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-full bg-primary-foreground"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
-                <item.icon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                <item.icon className="w-[18px] h-[18px] flex-none transition-transform group-hover:translate-x-0.5" strokeWidth={active ? 2.3 : 1.9} />
                 {item.label}
               </Link>
             );
           })}
         </nav>
-        <Link to="/login" className="flex items-center gap-3 px-3 py-2.5 text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors micro-btn">
+        <Link to="/login" className="mt-2 flex items-center gap-3 px-3 py-2.5 min-h-[44px] rounded-xl text-sm text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-colors micro-btn">
           <LogOut className="w-4 h-4" /> Sair
         </Link>
       </aside>
+
 
       {/* Header mobile */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-card border-b border-border h-14 flex items-center justify-between px-4">
@@ -77,32 +79,34 @@ const TeacherLayout = ({ children }: { children: ReactNode }) => {
       </main>
 
       {/* Navegação inferior mobile */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border px-2 py-1 flex justify-around z-40">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-md border-t border-border px-1 pt-1 pb-[max(0.25rem,env(safe-area-inset-bottom))] flex justify-around z-40 shadow-elevated overflow-x-auto">
         {navItems.map((item) => {
           const active = location.pathname === item.path;
           return (
             <Link
               key={item.path}
               to={item.path}
-              className={`relative flex flex-col items-center gap-0.5 py-2 px-2 rounded-lg transition-colors ${
-                active ? "text-secondary" : "text-muted-foreground"
+              aria-current={active ? "page" : undefined}
+              className={`relative flex flex-col items-center justify-center gap-0.5 py-1.5 px-2 min-h-[44px] rounded-xl transition-colors ${
+                active ? "text-primary" : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <motion.div whileTap={{ scale: 0.85 }}>
-                <item.icon className="w-5 h-5" />
-              </motion.div>
-              <span className="text-[10px] font-medium">{item.label}</span>
               {active && (
-                <motion.div
-                  layoutId="teacher-nav-dot"
-                  className="absolute -bottom-0.5 w-5 h-1 rounded-full bg-secondary"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                <motion.span
+                  layoutId="teacher-nav-pill"
+                  className="absolute inset-0 rounded-xl bg-accent"
+                  transition={{ type: "spring", stiffness: 400, damping: 32 }}
                 />
               )}
+              <motion.div whileTap={{ scale: 0.85 }} className="relative z-10">
+                <item.icon className="w-5 h-5" strokeWidth={active ? 2.4 : 1.9} />
+              </motion.div>
+              <span className={`relative z-10 text-[10px] whitespace-nowrap ${active ? "font-bold" : "font-medium"}`}>{item.label}</span>
             </Link>
           );
         })}
       </nav>
+
     </div>
   );
 };

@@ -159,7 +159,7 @@ const DirectionClasses = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-card rounded-2xl p-6 border border-border shadow-card space-y-4"
+            className="surface-card p-5 sm:p-6 space-y-4"
           >
             <h2 className="font-heading font-bold text-foreground flex items-center gap-2">
               <Eye className="w-5 h-5 text-secondary" />

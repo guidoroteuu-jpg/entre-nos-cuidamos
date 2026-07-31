@@ -189,7 +189,7 @@ const AccessibilitySettingsPanel = () => {
       <motion.section
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-card rounded-2xl p-6 border border-border shadow-card space-y-4"
+        className="surface-card p-5 sm:p-6 space-y-4"
       >
         <header className="flex items-center gap-2">
           <Sun className="w-5 h-5 text-secondary" aria-hidden="true" />
@@ -224,7 +224,7 @@ const AccessibilitySettingsPanel = () => {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.05 }}
-        className="bg-card rounded-2xl p-6 border border-border shadow-card space-y-4"
+        className="surface-card p-5 sm:p-6 space-y-4"
       >
         <header className="flex items-center gap-2">
           <Languages className="w-5 h-5 text-secondary" aria-hidden="true" />
@@ -258,7 +258,7 @@ const AccessibilitySettingsPanel = () => {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-card rounded-2xl p-6 border border-border shadow-card space-y-4"
+        className="surface-card p-5 sm:p-6 space-y-4"
       >
         <header className="flex items-center gap-2">
           <Type className="w-5 h-5 text-secondary" aria-hidden="true" />
@@ -292,7 +292,7 @@ const AccessibilitySettingsPanel = () => {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15 }}
-        className="bg-card rounded-2xl p-6 border border-border shadow-card space-y-4"
+        className="surface-card p-5 sm:p-6 space-y-4"
       >
         <header className="flex items-center gap-2">
           <Contrast className="w-5 h-5 text-secondary" aria-hidden="true" />
@@ -325,7 +325,7 @@ const AccessibilitySettingsPanel = () => {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="bg-card rounded-2xl p-6 border border-border shadow-card space-y-1"
+        className="surface-card p-5 sm:p-6 space-y-1"
       >
         <header className="flex items-center gap-2 mb-3">
           <Eye className="w-5 h-5 text-secondary" aria-hidden="true" />
@@ -374,7 +374,7 @@ const AccessibilitySettingsPanel = () => {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.25 }}
-        className="bg-card rounded-2xl p-6 border border-border shadow-card space-y-3"
+        className="surface-card p-5 sm:p-6 space-y-3"
       >
         <h2 className="font-heading font-bold text-foreground">{t.preview}</h2>
         <p className="text-foreground">{t.previewText}</p>

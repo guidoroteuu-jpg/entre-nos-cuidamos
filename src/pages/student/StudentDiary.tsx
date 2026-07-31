@@ -292,7 +292,7 @@ const StudentDiary = () => {
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-card rounded-2xl p-5 border border-border shadow-card"
+            className="surface-card p-5"
           >
             <div className="flex items-center justify-between mb-4">
               <div>
@@ -481,7 +481,7 @@ const StudentDiary = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-card rounded-2xl p-6 border border-border shadow-card text-center"
+              className="surface-card p-5 sm:p-6 text-center"
             >
               <p className="font-heading font-bold text-foreground mb-4">Como você está agora?</p>
               <div className="grid grid-cols-3 gap-3">

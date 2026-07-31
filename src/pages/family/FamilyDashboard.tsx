@@ -53,64 +53,103 @@ const FamilyDashboard = () => {
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
-        <Card className="p-5 rounded-2xl shadow-card border-border/60 micro-card">
-          <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
-            <GraduationCap className="w-4 h-4" /> Média geral
+        <Card className="surface-card p-5 border-0">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="icon-chip w-8 h-8 rounded-xl">
+              <GraduationCap className="w-4 h-4" />
+            </span>
+            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Média geral</span>
           </div>
-          <div className="text-2xl font-bold text-foreground">{overallAvg.toFixed(1)}</div>
-          <div className="text-xs text-muted-foreground">de 10,0 nas disciplinas</div>
+          <div className="stat-value text-3xl leading-none">{overallAvg.toFixed(1)}</div>
+          <div className="stat-caption mt-1.5">de 10,0 nas disciplinas</div>
         </Card>
-        <Card className="p-5 rounded-2xl shadow-card border-border/60 micro-card">
-          <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
-            <CalendarCheck className="w-4 h-4" /> Frequência
+        <Card className="surface-card p-5 border-0">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="icon-chip w-8 h-8 rounded-xl">
+              <CalendarCheck className="w-4 h-4" />
+            </span>
+            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Frequência</span>
           </div>
-          <div className="text-2xl font-bold text-foreground">{presPct}%</div>
-          <div className="text-xs text-muted-foreground">
+          <div className="stat-value text-3xl leading-none">{presPct}%</div>
+          <div className="mt-2 h-1.5 w-full rounded-full bg-muted overflow-hidden">
+            <div className="h-full rounded-full bg-primary" style={{ width: `${presPct}%` }} />
+          </div>
+          <div className="stat-caption mt-1.5">
             {totalFalt} falta{totalFalt !== 1 && "s"} no período
           </div>
         </Card>
-        <Card className="p-5 rounded-2xl shadow-card border-border/60 micro-card">
-          <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
-            <Heart className="w-4 h-4" /> Bem-estar
+        <Card className="surface-card p-5 border-0">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="icon-chip w-8 h-8 rounded-xl">
+              <Heart className="w-4 h-4" />
+            </span>
+            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Bem-estar</span>
           </div>
-          <div className="text-2xl font-bold text-foreground flex items-center gap-2">
-            <MoodCat mood={catByScore5(lastMood)} alt={moodLabel(lastMood)} className="w-8 h-8" />
+          <div className="stat-value text-2xl leading-none flex items-center gap-2">
+            <MoodCat mood={catByScore5(lastMood)} alt={moodLabel(lastMood)} className="w-9 h-9" />
             {moodLabel(lastMood)}
             <TrendIcon className={`w-4 h-4 ${trendColor}`} />
           </div>
-          <div className="text-xs text-muted-foreground">
+          <div className="stat-caption mt-1.5">
             humor médio {lastMood.toFixed(1)} de 5
           </div>
         </Card>
       </div>
 
-      <Card className="p-5 mb-5 rounded-2xl shadow-card border-border/60">
-        <div className="flex items-center justify-between mb-2">
-          <h2 className="font-semibold text-foreground">Bem-estar nas últimas semanas</h2>
-          <Link to="/familia/bem-estar" className="text-xs text-primary hover:underline">
+      <Card className="surface-card p-5 mb-5 border-0">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="section-title text-base">Bem-estar nas últimas semanas</h2>
+            <p className="text-xs text-muted-foreground mt-0.5">Escala de 1 (difícil) a 5 (ótimo)</p>
+          </div>
+          <Link
+            to="/familia/bem-estar"
+            className="text-xs font-semibold text-primary hover:underline underline-offset-4 tap-target flex items-center"
+          >
             Ver detalhes
           </Link>
         </div>
-        <ResponsiveContainer width="100%" height={180}>
-          <LineChart data={mood}>
-            <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-            <XAxis dataKey="week" fontSize={11} />
-            <YAxis domain={[1, 5]} fontSize={11} />
-            <Tooltip />
+        <ResponsiveContainer width="100%" height={190}>
+          <LineChart data={mood} margin={{ top: 6, right: 8, left: -18, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="4 6" stroke="hsl(var(--border))" vertical={false} />
+            <XAxis
+              dataKey="week"
+              fontSize={11}
+              tickLine={false}
+              axisLine={false}
+              stroke="hsl(var(--muted-foreground))"
+            />
+            <YAxis
+              domain={[1, 5]}
+              fontSize={11}
+              tickLine={false}
+              axisLine={false}
+              stroke="hsl(var(--muted-foreground))"
+            />
+            <Tooltip
+              contentStyle={{
+                borderRadius: 12,
+                border: "1px solid hsl(var(--border))",
+                boxShadow: "var(--shadow-card)",
+                fontSize: 12,
+              }}
+            />
             <Line
               type="monotone"
               dataKey="humor"
               stroke="hsl(var(--primary))"
-              strokeWidth={2.5}
-              dot={{ r: 3 }}
+              strokeWidth={3}
+              dot={{ r: 3, strokeWidth: 2, fill: "hsl(var(--card))" }}
+              activeDot={{ r: 5 }}
               name="Humor"
             />
             <Line
               type="monotone"
               dataKey="bemEstar"
               stroke="hsl(var(--secondary))"
-              strokeWidth={2.5}
-              dot={{ r: 3 }}
+              strokeWidth={3}
+              dot={{ r: 3, strokeWidth: 2, fill: "hsl(var(--card))" }}
+              activeDot={{ r: 5 }}
               name="Bem-estar"
             />
           </LineChart>
@@ -118,29 +157,34 @@ const FamilyDashboard = () => {
       </Card>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <Link to="/familia/notas">
-          <Card className="p-5 rounded-2xl shadow-card border-border/60 micro-card h-full">
-            <div className="flex items-center gap-2 mb-1">
-              <GraduationCap className="w-4 h-4 text-primary" />
-              <h3 className="font-semibold text-foreground">Notas por disciplina</h3>
+        <Link to="/familia/notas" className="block">
+          <Card className="surface-card p-5 border-0 h-full">
+            <div className="flex items-center gap-2.5 mb-1.5">
+              <span className="icon-chip w-8 h-8 rounded-xl">
+                <GraduationCap className="w-4 h-4" />
+              </span>
+              <h3 className="section-title text-[15px]">Notas por disciplina</h3>
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-muted-foreground leading-relaxed">
               Veja a evolução em cada matéria por bimestre.
             </p>
           </Card>
         </Link>
-        <Link to="/familia/frequencia">
-          <Card className="p-5 rounded-2xl shadow-card border-border/60 micro-card h-full">
-            <div className="flex items-center gap-2 mb-1">
-              <CalendarCheck className="w-4 h-4 text-primary" />
-              <h3 className="font-semibold text-foreground">Frequência</h3>
+        <Link to="/familia/frequencia" className="block">
+          <Card className="surface-card p-5 border-0 h-full">
+            <div className="flex items-center gap-2.5 mb-1.5">
+              <span className="icon-chip w-8 h-8 rounded-xl">
+                <CalendarCheck className="w-4 h-4" />
+              </span>
+              <h3 className="section-title text-[15px]">Frequência</h3>
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-muted-foreground leading-relaxed">
               Presenças, faltas e justificativas mês a mês.
             </p>
           </Card>
         </Link>
       </div>
+
     </FamilyLayout>
   );
 };

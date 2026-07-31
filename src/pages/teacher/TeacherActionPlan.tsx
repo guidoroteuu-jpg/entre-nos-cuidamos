@@ -114,7 +114,7 @@ const TeacherActionPlan = () => {
           </aside>
 
           <div className="space-y-5">
-            <section className="bg-card rounded-2xl p-5 border border-border shadow-card space-y-4">
+            <section className="surface-card p-5 space-y-4">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <h2 className="font-heading font-bold text-foreground flex items-center gap-2"><UserRound className="w-5 h-5 text-secondary" /> Perfil do aluno</h2>
@@ -128,14 +128,14 @@ const TeacherActionPlan = () => {
               </div>
             </section>
 
-            <section className="bg-card rounded-2xl p-5 border border-border shadow-card space-y-4">
+            <section className="surface-card p-5 space-y-4">
               <h2 className="font-heading font-bold text-foreground flex items-center gap-2"><Sparkles className="w-5 h-5 text-secondary" /> Ajuda da IA</h2>
               <Textarea className="min-h-24" value={aiContext} onChange={(event) => setAiContext(event.target.value)} placeholder="Descreva o contexto observado sem expor dados sensíveis..." />
               <Button onClick={generatePlan} disabled={loadingAi}>{loadingAi ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />} Sugerir ações</Button>
               {aiResult && <div className="rounded-xl border border-border bg-accent p-4"><pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed text-foreground">{aiResult}</pre></div>}
             </section>
 
-            <form onSubmit={addAction} className="bg-card rounded-2xl p-5 border border-border shadow-card space-y-4" noValidate>
+            <form onSubmit={addAction} className="surface-card p-5 space-y-4" noValidate>
               <h2 className="font-heading font-bold text-foreground">Nova ação do plano</h2>
               <Field label="Ação">
                 <Input value={form.action} onChange={(event) => setForm((current) => ({ ...current, action: event.target.value }))} />
@@ -164,7 +164,7 @@ const TeacherActionPlan = () => {
               <Button type="submit"><CheckCircle className="w-4 h-4" /> Adicionar ação</Button>
             </form>
 
-            <section className="bg-card rounded-2xl p-5 border border-border shadow-card space-y-4">
+            <section className="surface-card p-5 space-y-4">
               <div className="flex items-center justify-between gap-3">
                 <h2 className="font-heading font-bold text-foreground">Ações do plano</h2>
                 <span className="text-sm text-muted-foreground">{completed}/{studentActions.length} concluídas</span>

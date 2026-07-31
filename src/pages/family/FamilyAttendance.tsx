@@ -31,7 +31,7 @@ const FamilyAttendance = () => {
         onStudent={setStudentId}
       />
 
-      <Card className="p-5 mb-5 rounded-2xl shadow-card border-border/60">
+      <Card className="p-5 mb-5 surface-card border-0">
         <div className="flex items-end justify-between mb-2">
           <div>
             <p className="text-xs text-muted-foreground">Frequência total</p>
@@ -49,15 +49,15 @@ const FamilyAttendance = () => {
         </p>
       </Card>
 
-      <Card className="p-5 mb-5 rounded-2xl shadow-card border-border/60">
+      <Card className="p-5 mb-5 surface-card border-0">
         <h2 className="font-semibold text-foreground mb-3">Mês a mês</h2>
         <ResponsiveContainer width="100%" height={240}>
           <BarChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-            <XAxis dataKey="month" fontSize={11} />
-            <YAxis fontSize={11} />
-            <Tooltip />
-            <Legend />
+            <CartesianGrid strokeDasharray="4 6" stroke="hsl(var(--border))" vertical={false} />
+            <XAxis dataKey="month" fontSize={11} tickLine={false} axisLine={false} stroke="hsl(var(--muted-foreground))" />
+            <YAxis fontSize={11} tickLine={false} axisLine={false} stroke="hsl(var(--muted-foreground))" />
+            <Tooltip cursor={{ fill: "hsl(var(--muted))", opacity: 0.5 }} contentStyle={{ borderRadius: 12, border: "1px solid hsl(var(--border))", boxShadow: "var(--shadow-card)", fontSize: 12 }} />
+            <Legend iconType="circle" wrapperStyle={{ fontSize: 12, paddingTop: 8 }} />
             <Bar dataKey="presencas" stackId="a" fill="hsl(var(--primary))" name="Presenças" radius={[0, 0, 0, 0]} />
             <Bar dataKey="justificadas" stackId="a" fill="hsl(var(--secondary))" name="Justificadas" />
             <Bar dataKey="faltas" stackId="a" fill="hsl(var(--destructive))" name="Faltas" radius={[4, 4, 0, 0]} />
@@ -65,7 +65,7 @@ const FamilyAttendance = () => {
         </ResponsiveContainer>
       </Card>
 
-      <Card className="p-5 rounded-2xl shadow-card border-border/60">
+      <Card className="p-5 surface-card border-0">
         <h2 className="font-semibold text-foreground mb-2">Detalhamento</h2>
         <div className="space-y-2">
           {data.map((m) => {

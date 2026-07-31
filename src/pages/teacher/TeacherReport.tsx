@@ -27,7 +27,7 @@ const TeacherReport = () => (
 
       {/* Tendência */}
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="bg-card rounded-xl p-5 border border-border shadow-card">
+        <div className="surface-card p-5">
           <div className="flex items-center gap-2 mb-1">
             <TrendingDown className="w-4 h-4 text-status-problem" />
             <span className="text-sm font-medium text-foreground">Tendência do mês</span>
@@ -35,7 +35,7 @@ const TeacherReport = () => (
           <p className="text-2xl font-heading font-bold text-status-problem">-8%</p>
           <p className="text-xs text-muted-foreground">O humor geral piorou em relação ao mês anterior</p>
         </div>
-        <div className="bg-card rounded-xl p-5 border border-border shadow-card">
+        <div className="surface-card p-5">
           <div className="flex items-center gap-2 mb-1">
             <TrendingUp className="w-4 h-4 text-status-good" />
             <span className="text-sm font-medium text-foreground">Participação no chat</span>
@@ -46,7 +46,7 @@ const TeacherReport = () => (
       </div>
 
       {/* Chart */}
-      <div className="bg-card rounded-2xl p-6 border border-border shadow-card">
+      <div className="surface-card p-5 sm:p-6">
         <h2 className="font-heading font-bold text-foreground mb-4">Humor por Semana</h2>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">

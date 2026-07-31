@@ -84,7 +84,7 @@ const TeacherSchoolYear = () => (
 
       {/* Resumo anual */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-card rounded-xl p-5 border border-border shadow-card">
+        <div className="surface-card p-5">
           <div className="flex items-center gap-2 mb-1">
             {Number(evolucao) >= 0 ? (
               <TrendingUp className="w-4 h-4 text-status-good" />
@@ -98,7 +98,7 @@ const TeacherSchoolYear = () => (
           </p>
           <p className="text-xs text-muted-foreground">no bem-estar ao longo do ano</p>
         </div>
-        <div className="bg-card rounded-xl p-5 border border-border shadow-card">
+        <div className="surface-card p-5">
           <div className="flex items-center gap-2 mb-1">
             <Bell className="w-4 h-4 text-secondary" />
             <span className="text-sm font-medium text-foreground">Alertas resolvidos</span>
@@ -106,7 +106,7 @@ const TeacherSchoolYear = () => (
           <p className="text-2xl font-heading font-bold text-foreground">{totalAlertas}</p>
           <p className="text-xs text-muted-foreground">ao longo do ano</p>
         </div>
-        <div className="bg-card rounded-xl p-5 border border-border shadow-card">
+        <div className="surface-card p-5">
           <div className="flex items-center gap-2 mb-1">
             <Award className="w-4 h-4 text-status-good" />
             <span className="text-sm font-medium text-foreground">Melhor período</span>
@@ -122,7 +122,7 @@ const TeacherSchoolYear = () => (
           const prev = idx > 0 ? bimestres[idx - 1] : null;
           const diff = prev ? ((b.humorMedio - prev.humorMedio) / prev.humorMedio * 100).toFixed(0) : null;
           return (
-            <div key={b.label} className="bg-card rounded-2xl p-6 border border-border shadow-card">
+            <div key={b.label} className="surface-card p-5 sm:p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h2 className="font-heading font-bold text-foreground">{b.label}</h2>

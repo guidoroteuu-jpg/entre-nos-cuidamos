@@ -15,13 +15,14 @@ const StudentSelector = ({
         <button
           key={s.id}
           onClick={() => onChange(s.id)}
-          className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-all ${
+          aria-pressed={active}
+          className={`min-h-[40px] px-4 py-2 rounded-full text-sm font-semibold border transition-all ${
             active
-              ? "bg-primary text-primary-foreground border-primary"
-              : "bg-card text-muted-foreground border-border hover:text-foreground"
+              ? "bg-primary text-primary-foreground border-primary shadow-card"
+              : "bg-card text-muted-foreground border-border hover:text-foreground hover:border-primary/30"
           }`}
         >
-          {s.name} <span className="opacity-60 text-xs">· {s.grade}</span>
+          {s.name} <span className="opacity-70 text-xs font-medium">· {s.grade}</span>
         </button>
       );
     })}
@@ -41,15 +42,16 @@ export const FamilyPageHeader = ({
   onStudent: (id: string) => void;
   children?: ReactNode;
 }) => (
-  <div className="space-y-3 mb-5">
+  <div className="space-y-3.5 mb-6">
     <div>
-      <h1 className="text-2xl font-bold text-foreground">{title}</h1>
-      <p className="text-sm text-muted-foreground">{description}</p>
+      <h1 className="font-heading text-[26px] leading-tight font-extrabold tracking-tight text-foreground">{title}</h1>
+      <p className="text-sm text-muted-foreground mt-1.5">{description}</p>
     </div>
     <StudentSelector studentId={studentId} onChange={onStudent} />
     {children}
   </div>
 );
+
 
 export const useFamilyStudent = () => {
   const [studentId, setStudentId] = useState(familyStudents[0].id);

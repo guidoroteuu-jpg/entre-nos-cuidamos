@@ -6,7 +6,7 @@ import catExcluido from "@/assets/cat-mood-excluido.png";
 import catMuitoTriste from "@/assets/cat-mood-muito-triste.png";
 
 /**
- * Gatinhos de humor padronizados — fonte única para todas as telas
+ * Cachorrinhos de humor padronizados — fonte única para todas as telas
  * (check-in, diário, pesquisa de clima, professor e família).
  */
 export const catMoods = {

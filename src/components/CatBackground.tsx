@@ -12,7 +12,7 @@ interface CatBackgroundProps {
 }
 
 /**
- * Background decorativo com gatos roxos flutuantes da Lis.
+ * Background decorativo com cachorrinhos dálmatas flutuantes da Lis.
  * Espalha a identidade gentil, serena e leve por todas as telas dos alunos.
  * Não interfere na interação (pointer-events-none).
  */
@@ -21,12 +21,12 @@ const CatBackground = ({ variant = "subtle", opacity }: CatBackgroundProps) => {
 
   /* Distribuição cuidadosa: cantos e bordas, nunca sobre o conteúdo central */
   const cats = [
-    { src: catSleeping, top: "8%", left: "4%", size: 90, delay: 0, duration: 8, alt: "Gatinho dormindo" },
-    { src: catPlaying, top: "15%", right: "6%", size: 80, delay: 1.2, duration: 9, alt: "Gatinho brincando" },
-    { src: catSitting, top: "55%", left: "3%", size: 70, delay: 2.4, duration: 10, alt: "Gatinho sentado" },
-    { src: catWaving, top: "70%", right: "4%", size: 85, delay: 0.6, duration: 11, alt: "Gatinho acenando" },
-    { src: catSleeping, top: "85%", left: "45%", size: 60, delay: 3, duration: 9, alt: "Gatinho dormindo" },
-    { src: catSitting, top: "35%", right: "40%", size: 50, delay: 1.8, duration: 12, alt: "Gatinho sentado" },
+    { src: catSleeping, top: "8%", left: "4%", size: 90, delay: 0, duration: 8, alt: "Cachorrinho dormindo" },
+    { src: catPlaying, top: "15%", right: "6%", size: 80, delay: 1.2, duration: 9, alt: "Cachorrinho brincando" },
+    { src: catSitting, top: "55%", left: "3%", size: 70, delay: 2.4, duration: 10, alt: "Cachorrinho sentado" },
+    { src: catWaving, top: "70%", right: "4%", size: 85, delay: 0.6, duration: 11, alt: "Cachorrinho acenando" },
+    { src: catSleeping, top: "85%", left: "45%", size: 60, delay: 3, duration: 9, alt: "Cachorrinho dormindo" },
+    { src: catSitting, top: "35%", right: "40%", size: 50, delay: 1.8, duration: 12, alt: "Cachorrinho sentado" },
   ];
 
   return (

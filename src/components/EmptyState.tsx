@@ -6,9 +6,9 @@ interface EmptyStateProps {
   title?: string;
   /** Texto complementar */
   description?: string;
-  /** Tamanho da ilustração do gatinho. Default: 96px */
+  /** Tamanho da ilustração do cachorrinho. Default: 96px */
   catSize?: number;
-  /** Variante do gato. Default: "sleeping" */
+  /** Variante do cachorrinho. Default: "sleeping" */
   catVariant?: "sleeping" | "sitting" | "playing" | "waving";
   /** Ação opcional (botão, link) abaixo do texto */
   children?: React.ReactNode;
@@ -17,7 +17,7 @@ interface EmptyStateProps {
 }
 
 /**
- * Estado vazio universal com gatinho roxo da Lis.
+ * Estado vazio universal com cachorrinho dálmata da Lis.
  * Mantém o tom gentil sem distrair, presente em todas as listas/telas sem dados.
  */
 const EmptyState = ({

@@ -159,7 +159,9 @@ const StudentDiary = () => {
   const handleDelete = (id: number) =>
     setEntries(entries.filter((e) => e.id !== id));
   const getMoodEmoji = (mood: string) =>
-    moodOptions.find((m) => m.value === mood)?.emoji || "😐";
+    moodOptions.find((m) => m.value === mood)?.emoji || catNeutro;
+  const getMoodLabel = (mood: string) =>
+    moodOptions.find((m) => m.value === mood)?.label || "Neutro";
 
   // ==== Áudio ====
   const startRecording = async () => {

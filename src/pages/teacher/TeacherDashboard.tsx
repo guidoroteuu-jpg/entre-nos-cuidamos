@@ -54,6 +54,7 @@ const TeacherDashboard = () => (
             transition={{ delay: i * 0.08 }}
           >
             <div className="flex items-center gap-2 mb-2">
+              <MoodCat mood={s.mood} alt={s.label} className="w-6 h-6" />
               <div className={`w-3 h-3 rounded-full ${s.color}`} />
               <span className="text-sm text-muted-foreground">{s.label}</span>
             </div>

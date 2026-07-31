@@ -206,7 +206,7 @@ const ClimateSurvey = () => {
                             onClick={() => responder(o.value)}
                             className="w-full flex items-center gap-3 p-3 rounded-xl bg-accent/40 hover:bg-accent/70 border border-border transition-all micro-btn text-left"
                           >
-                            <span className="text-2xl">{o.emoji}</span>
+                            <MoodCat mood={catByScore5(o.value)} alt={o.label} className="w-8 h-8" />
                             <span className="text-sm font-medium text-foreground">{o.label}</span>
                           </button>
                         ))}

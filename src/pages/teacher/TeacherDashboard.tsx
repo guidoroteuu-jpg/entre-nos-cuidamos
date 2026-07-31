@@ -22,11 +22,11 @@ const statusLabel: Record<string, string> = {
   good: "Bem", attention: "Atenção", problem: "Problema", severe: "Grave",
 };
 
-const stats = [
-  { label: "Bem", count: 13, color: "bg-status-good", pct: "65%" },
-  { label: "Atenção", count: 3, color: "bg-status-attention", pct: "15%" },
-  { label: "Problema", count: 2, color: "bg-status-problem", pct: "10%" },
-  { label: "Grave", count: 1, color: "bg-status-severe", pct: "5%" },
+const stats: { label: string; count: number; color: string; pct: string; mood: CatMoodKey }[] = [
+  { label: "Bem", count: 13, color: "bg-status-good", pct: "65%", mood: "otimo" },
+  { label: "Atenção", count: 3, color: "bg-status-attention", pct: "15%", mood: "neutro" },
+  { label: "Problema", count: 2, color: "bg-status-problem", pct: "10%", mood: "triste" },
+  { label: "Grave", count: 1, color: "bg-status-severe", pct: "5%", mood: "muito_triste" },
 ];
 
 const suggestions = [

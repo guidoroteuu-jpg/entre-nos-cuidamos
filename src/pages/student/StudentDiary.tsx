@@ -320,7 +320,7 @@ const StudentDiary = () => {
               {monthDays.map((d) => (
                 <div
                   key={d.iso}
-                  title={d.mood ? `${fmtBR(d.iso)} • ${getMoodEmoji(d.mood)}` : `${fmtBR(d.iso)} • sem registro`}
+                  title={d.mood ? `${fmtBR(d.iso)} • ${getMoodLabel(d.mood)}` : `${fmtBR(d.iso)} • sem registro`}
                   className={`aspect-square rounded-md ${moodColor(d.score)} flex items-center justify-center text-[10px] font-medium ${d.score === 0 ? "text-muted-foreground/60" : "text-white"} transition-transform hover:scale-110`}
                 >
                   {d.day}
@@ -501,7 +501,7 @@ const StudentDiary = () => {
                     whileTap={{ scale: 0.95 }}
                     className="flex flex-col items-center gap-1 p-3 rounded-xl hover:bg-accent transition-all"
                   >
-                    <span className="text-2xl">{m.emoji}</span>
+                    <img src={m.emoji} alt={m.label} width={512} height={512} loading="lazy" className="w-8 h-8 object-contain" />
                     <span className="text-xs text-muted-foreground">{m.label}</span>
                   </motion.button>
                 ))}
@@ -540,7 +540,7 @@ const StudentDiary = () => {
                     )}
                   </span>
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">{getMoodEmoji(entry.mood)}</span>
+                    <img src={getMoodEmoji(entry.mood)} alt={getMoodLabel(entry.mood)} width={512} height={512} loading="lazy" className="w-6 h-6 object-contain" />
                     {expandedId === entry.id
                       ? <ChevronUp className="w-4 h-4 text-muted-foreground" />
                       : <ChevronDown className="w-4 h-4 text-muted-foreground" />}

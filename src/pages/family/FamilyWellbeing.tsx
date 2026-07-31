@@ -61,11 +61,11 @@ const FamilyWellbeing = () => {
                 <stop offset="95%" stopColor="hsl(var(--secondary))" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-            <XAxis dataKey="week" fontSize={11} />
-            <YAxis domain={[1, 5]} fontSize={11} />
-            <Tooltip />
-            <Legend />
+            <CartesianGrid strokeDasharray="4 6" stroke="hsl(var(--border))" vertical={false} />
+            <XAxis dataKey="week" fontSize={11} tickLine={false} axisLine={false} stroke="hsl(var(--muted-foreground))" />
+            <YAxis domain={[1, 5]} fontSize={11} tickLine={false} axisLine={false} stroke="hsl(var(--muted-foreground))" />
+            <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid hsl(var(--border))", boxShadow: "var(--shadow-card)", fontSize: 12 }} />
+            <Legend iconType="circle" wrapperStyle={{ fontSize: 12, paddingTop: 8 }} />
             <Area type="monotone" dataKey="humor" stroke="hsl(var(--primary))" fill="url(#humorGrad)" strokeWidth={2.5} name="Humor" />
             <Area type="monotone" dataKey="bemEstar" stroke="hsl(var(--secondary))" fill="url(#bemGrad)" strokeWidth={2.5} name="Bem-estar" />
           </AreaChart>

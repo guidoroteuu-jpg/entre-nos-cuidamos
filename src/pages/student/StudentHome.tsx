@@ -232,13 +232,15 @@ const StudentHome = () => {
         {/* Botão para abrir exercício de calma a qualquer momento */}
         <motion.button
           onClick={() => { setCalmIntro(undefined); setShowCalm(true); }}
-          className="w-full bg-card hover:bg-accent/40 rounded-xl p-4 border border-border shadow-card transition-all flex items-center justify-center gap-2 micro-btn text-foreground"
+          className="w-full surface-card p-4 min-h-[52px] hover:bg-accent/40 transition-all flex items-center justify-center gap-2.5 micro-btn text-foreground"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.28 }}
         >
-          <Wind className="w-4 h-4 text-secondary" />
-          <span className="font-medium text-sm">Fazer exercício de calma com a Lis</span>
+          <span className="icon-chip w-8 h-8 rounded-xl">
+            <Wind className="w-4 h-4" />
+          </span>
+          <span className="font-semibold text-sm">Fazer exercício de calma com a Lis</span>
         </motion.button>
 
         {/* Links rápidos */}
@@ -253,9 +255,11 @@ const StudentHome = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 + i * 0.08 }}
             >
-              <Link to={item.to} className="surface-card p-4 hover:shadow-elevated transition-all text-center block micro-card">
-                <item.icon className="w-6 h-6 text-secondary mx-auto" />
-                <p className="text-sm font-medium text-foreground mt-2">{item.label}</p>
+              <Link to={item.to} className="surface-card p-5 transition-all text-center block micro-card">
+                <span className="icon-chip mx-auto">
+                  <item.icon className="w-5 h-5" />
+                </span>
+                <p className="text-sm font-semibold text-foreground mt-2.5">{item.label}</p>
               </Link>
             </motion.div>
           ))}
@@ -264,14 +268,15 @@ const StudentHome = () => {
         {/* Botão de denúncia */}
         <motion.button
           onClick={() => setShowComplaintModal(true)}
-          className="w-full bg-destructive/10 hover:bg-destructive/15 text-destructive rounded-xl p-4 border border-destructive/20 transition-all flex items-center justify-center gap-2 micro-btn"
+          className="w-full bg-destructive/[0.08] hover:bg-destructive/15 text-destructive rounded-2xl p-4 min-h-[52px] border border-destructive/25 transition-all flex items-center justify-center gap-2.5 micro-btn"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
           <AlertTriangle className="w-5 h-5" />
-          <span className="font-medium text-sm">Fazer uma denúncia</span>
+          <span className="font-semibold text-sm">Fazer uma denúncia</span>
         </motion.button>
+
       </div>
 
       {/* Modal de denúncia */}

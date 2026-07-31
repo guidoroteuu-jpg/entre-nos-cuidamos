@@ -145,7 +145,7 @@ const StudentHome = () => {
                     : selected !== null ? "opacity-50 hover:opacity-100" : "hover:bg-accent/50"
                 }`}
               >
-                <span className="text-3xl">{e.emoji}</span>
+                <img src={e.emoji} alt={e.label} width={512} height={512} loading="lazy" className="w-10 h-10 object-contain" />
                 <span className="text-xs font-medium text-foreground">{e.label}</span>
                 <span className="text-[10px] text-muted-foreground">{e.desc}</span>
               </motion.button>

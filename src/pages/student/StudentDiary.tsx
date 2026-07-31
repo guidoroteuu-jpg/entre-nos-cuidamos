@@ -496,7 +496,7 @@ const StudentDiary = () => {
                     whileTap={{ scale: 0.95 }}
                     className="flex flex-col items-center gap-1 p-3 rounded-xl hover:bg-accent transition-all"
                   >
-                    <img src={m.emoji} alt={m.label} width={512} height={512} loading="lazy" className="w-8 h-8 object-contain" />
+                    <MoodCat mood={m.value} alt={m.label} className="w-8 h-8" />
                     <span className="text-xs text-muted-foreground">{m.label}</span>
                   </motion.button>
                 ))}

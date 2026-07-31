@@ -9,14 +9,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import EmptyState from "@/components/EmptyState";
+import catOtimo from "@/assets/cat-mood-otimo.png";
+import catNeutro from "@/assets/cat-mood-neutro.png";
+import catTriste from "@/assets/cat-mood-triste.png";
+import catFrustrado from "@/assets/cat-mood-frustrado.png";
+import catExcluido from "@/assets/cat-mood-excluido.png";
+import catMuitoTriste from "@/assets/cat-mood-muito-triste.png";
 
 const moodOptions = [
-  { emoji: "😊", label: "Ótimo", value: "otimo", score: 6 },
-  { emoji: "😐", label: "Neutro", value: "neutro", score: 5 },
-  { emoji: "😢", label: "Triste", value: "triste", score: 4 },
-  { emoji: "😤", label: "Frustrado", value: "frustrado", score: 3 },
-  { emoji: "😔", label: "Excluído", value: "excluido", score: 2 },
-  { emoji: "😞", label: "Muito triste", value: "muito_triste", score: 1 },
+  { emoji: catOtimo, label: "Ótimo", value: "otimo", score: 6 },
+  { emoji: catNeutro, label: "Neutro", value: "neutro", score: 5 },
+  { emoji: catTriste, label: "Triste", value: "triste", score: 4 },
+  { emoji: catFrustrado, label: "Frustrado", value: "frustrado", score: 3 },
+  { emoji: catExcluido, label: "Excluído", value: "excluido", score: 2 },
+  { emoji: catMuitoTriste, label: "Muito triste", value: "muito_triste", score: 1 },
 ];
 
 const guidedPrompts = [

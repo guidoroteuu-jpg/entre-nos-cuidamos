@@ -535,7 +535,7 @@ const StudentDiary = () => {
                     )}
                   </span>
                   <div className="flex items-center gap-2">
-                    <img src={getMoodEmoji(entry.mood)} alt={getMoodLabel(entry.mood)} width={512} height={512} loading="lazy" className="w-6 h-6 object-contain" />
+                    <MoodCat mood={getMoodKey(entry.mood)} alt={getMoodLabel(entry.mood)} className="w-7 h-7" />
                     {expandedId === entry.id
                       ? <ChevronUp className="w-4 h-4 text-muted-foreground" />
                       : <ChevronDown className="w-4 h-4 text-muted-foreground" />}

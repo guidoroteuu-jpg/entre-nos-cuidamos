@@ -21,7 +21,7 @@ const StudentLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col relative">
-      {/* Decoração de gatinhos ao fundo — gentil, sereno, leve */}
+      {/* Decoração de cachorrinhos ao fundo — gentil, sereno, leve */}
       <CatBackground variant="subtle" />
 
       {/* Barra superior */}

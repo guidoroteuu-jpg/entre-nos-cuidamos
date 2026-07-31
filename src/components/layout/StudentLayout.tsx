@@ -55,32 +55,34 @@ const StudentLayout = ({ children }: { children: ReactNode }) => {
       </main>
 
       {/* Navegação inferior */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border px-2 py-1 flex justify-around z-40">
+      <nav className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-md border-t border-border px-1 pt-1 pb-[max(0.25rem,env(safe-area-inset-bottom))] flex justify-around z-40 shadow-elevated">
         {navItems.map((item) => {
           const active = location.pathname === item.path;
           return (
             <Link
               key={item.path}
               to={item.path}
-              className={`relative flex flex-col items-center gap-0.5 py-2 px-2 rounded-lg transition-all ${
-                active ? "text-secondary" : "text-muted-foreground"
+              aria-current={active ? "page" : undefined}
+              className={`relative flex flex-col items-center justify-center gap-0.5 py-1.5 px-2 min-h-[44px] rounded-xl transition-colors ${
+                active ? "text-primary" : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <motion.div whileTap={{ scale: 0.85 }} transition={{ duration: 0.15 }}>
-                <item.icon className="w-5 h-5" />
-              </motion.div>
-              <span className="text-[10px] font-medium">{item.label}</span>
               {active && (
-                <motion.div
-                  layoutId="student-nav-dot"
-                  className="absolute -bottom-0.5 w-5 h-1 rounded-full bg-secondary"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                <motion.span
+                  layoutId="student-nav-pill"
+                  className="absolute inset-0 rounded-xl bg-accent"
+                  transition={{ type: "spring", stiffness: 400, damping: 32 }}
                 />
               )}
+              <motion.div whileTap={{ scale: 0.85 }} transition={{ duration: 0.15 }} className="relative z-10">
+                <item.icon className="w-5 h-5" strokeWidth={active ? 2.4 : 1.9} />
+              </motion.div>
+              <span className={`relative z-10 text-[10px] ${active ? "font-bold" : "font-medium"}`}>{item.label}</span>
             </Link>
           );
         })}
       </nav>
+
     </div>
   );
 };

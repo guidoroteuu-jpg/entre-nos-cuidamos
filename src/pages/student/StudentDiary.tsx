@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import EmptyState from "@/components/EmptyState";
-import MoodCat, { catMoods, type CatMoodKey } from "@/components/MoodCat";
+import MoodCat, { type CatMoodKey } from "@/components/MoodCat";
 
 const moodOptions: { label: string; value: CatMoodKey; score: number }[] = [
   { label: "Ótimo", value: "otimo", score: 6 },

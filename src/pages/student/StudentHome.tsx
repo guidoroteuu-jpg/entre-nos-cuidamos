@@ -8,6 +8,7 @@ import WeeklyMission from "@/components/WeeklyMission";
 import CalmExercise from "@/components/CalmExercise";
 import AchievementsPanel, { trackCheckinToday } from "@/components/AchievementsPanel";
 import ClimateSurvey from "@/components/ClimateSurvey";
+import FacialCheckin from "@/components/FacialCheckin";
 import MoodCat, { catByScore6 } from "@/components/MoodCat";
 
 const emojis = [
@@ -182,6 +183,8 @@ const StudentHome = () => {
             )}
           </AnimatePresence>
         </motion.section>
+
+        <FacialCheckin />
 
         {/* Histórico da semana */}
         <motion.section

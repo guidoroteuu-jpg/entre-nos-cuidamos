@@ -374,6 +374,45 @@ export type Database = {
         }
         Relationships: []
       }
+      expressao_checkins: {
+        Row: {
+          created_at: string
+          felicidade: number
+          id: string
+          medo: number
+          mood_score: number
+          neutro: number
+          raiva: number
+          surpresa: number
+          tristeza: number
+          turma_nome: string
+        }
+        Insert: {
+          created_at?: string
+          felicidade?: number
+          id?: string
+          medo?: number
+          mood_score: number
+          neutro?: number
+          raiva?: number
+          surpresa?: number
+          tristeza?: number
+          turma_nome: string
+        }
+        Update: {
+          created_at?: string
+          felicidade?: number
+          id?: string
+          medo?: number
+          mood_score?: number
+          neutro?: number
+          raiva?: number
+          surpresa?: number
+          tristeza?: number
+          turma_nome?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

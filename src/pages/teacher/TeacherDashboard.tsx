@@ -2,6 +2,7 @@ import TeacherLayout from "@/components/layout/TeacherLayout";
 import { Users, Lightbulb } from "lucide-react";
 import { motion } from "framer-motion";
 import MoodCat, { type CatMoodKey } from "@/components/MoodCat";
+import FacialMoodPanel from "@/components/FacialMoodPanel";
 
 const students = [
   { id: 1, status: "good" },{ id: 2, status: "good" },{ id: 3, status: "attention" },
@@ -116,6 +117,8 @@ const TeacherDashboard = () => (
           ))}
         </div>
       </motion.div>
+
+      <FacialMoodPanel turmaNome="5A" />
 
       {/* Sugestões */}
       <motion.div

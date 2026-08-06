@@ -1,5 +1,6 @@
 import DirectionLayout from "@/components/layout/DirectionLayout";
 import { Users, TrendingUp, TrendingDown, AlertTriangle, BarChart3, Lightbulb, Bell } from "lucide-react";
+import FacialMoodPanel from "@/components/FacialMoodPanel";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, LineChart, Line } from "recharts";
 
 /* Dados das turmas */
@@ -155,6 +156,8 @@ const DirectionPanel = () => (
           </table>
         </div>
       </div>
+
+      <FacialMoodPanel mostrarTurmas />
 
       {/* Mapa de calor semanal */}
       <div className="surface-card p-5 sm:p-6">

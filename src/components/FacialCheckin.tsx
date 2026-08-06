@@ -120,6 +120,7 @@ const FacialCheckin = () => {
       }
     } catch (e) {
       pararCamera();
+      console.error("[FacialCheckin]", e);
       const msg = e instanceof Error ? e.message : "";
       setErro(
         msg.includes("Permission") || msg.includes("denied") || msg.includes("NotAllowed")

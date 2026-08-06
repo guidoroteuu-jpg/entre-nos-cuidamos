@@ -177,6 +177,17 @@ const FacialCheckin = () => {
         </div>
       </div>
 
+      {/* Elemento de vídeo sempre montado (só visível durante a leitura) */}
+      <div
+        className={
+          fase === "lendo"
+            ? "relative mx-auto w-full max-w-[280px] aspect-[4/3] rounded-2xl overflow-hidden surface-inset mb-3"
+            : "sr-only"
+        }
+      >
+        <video ref={videoRef} muted playsInline className="w-full h-full object-cover scale-x-[-1]" />
+      </div>
+
       <AnimatePresence mode="wait">
         {fase === "consentimento" && (
           <motion.div key="consent" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="surface-inset p-4 space-y-3">
@@ -228,12 +239,6 @@ const FacialCheckin = () => {
         {(fase === "carregando" || fase === "lendo") && (
           <motion.div key="lendo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-3">
             <div className="relative mx-auto w-full max-w-[280px] aspect-[4/3] rounded-2xl overflow-hidden surface-inset">
-              <video
-                ref={videoRef}
-                muted
-                playsInline
-                className="w-full h-full object-cover scale-x-[-1]"
-              />
               {fase === "carregando" && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-muted-foreground">
                   <Loader2 className="w-6 h-6 animate-spin" />

@@ -52,6 +52,20 @@ const FacialCheckin = () => {
 
     try {
       const faceapi = await import("@vladmandic/face-api");
+
+      // Backend de processamento local: GPU quando disponível, senão CPU.
+      try {
+        await faceapi.tf.setBackend("webgl");
+        await faceapi.tf.ready();
+      } catch {
+        await faceapi.tf.setBackend("cpu");
+        await faceapi.tf.ready();
+      }
+      if (faceapi.tf.getBackend() !== "webgl" && faceapi.tf.getBackend() !== "cpu") {
+        await faceapi.tf.setBackend("cpu");
+        await faceapi.tf.ready();
+      }
+
       await Promise.all([
         faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
         faceapi.nets.faceExpressionNet.loadFromUri("/models"),

@@ -79,7 +79,7 @@ const StudentChat = () => {
                       : "bg-accent text-foreground rounded-bl-md"
                   }`}>
                     <p className="text-sm">{msg.text}</p>
-                    <p className={`text-xs mt-1 ${msg.self ? "text-primary-foreground/60" : "text-muted-foreground"}`}>{msg.time}</p>
+                    <p className={`text-xs mt-1 ${msg.self ? "text-primary-foreground/85" : "text-muted-foreground"}`}>{msg.time}</p>
                   </div>
                 </div>
               </div>

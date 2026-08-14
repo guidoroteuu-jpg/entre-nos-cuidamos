@@ -219,7 +219,7 @@ const StudentChatIA = () => {
                     : "bg-accent text-foreground rounded-bl-md"
                 }`}>
                   <p className="text-sm whitespace-pre-line">{msg.content}</p>
-                  <p className={`text-xs mt-1 ${msg.role === "user" ? "text-secondary-foreground/60" : "text-muted-foreground"}`}>{msg.time}</p>
+                  <p className={`text-xs mt-1 ${msg.role === "user" ? "text-secondary-foreground/85" : "text-muted-foreground"}`}>{msg.time}</p>
                 </div>
               </div>
             </motion.div>

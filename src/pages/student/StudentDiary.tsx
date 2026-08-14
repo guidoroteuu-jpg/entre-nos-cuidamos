@@ -316,7 +316,7 @@ const StudentDiary = () => {
                 <div
                   key={d.iso}
                   title={d.mood ? `${fmtBR(d.iso)} • ${getMoodLabel(d.mood)}` : `${fmtBR(d.iso)} • sem registro`}
-                  className={`aspect-square rounded-md ${moodColor(d.score)} flex items-center justify-center text-xs font-medium ${d.score === 0 ? "text-muted-foreground/60" : "text-white"} transition-transform hover:scale-110`}
+                  className={`aspect-square rounded-md ${moodColor(d.score)} flex items-center justify-center text-xs font-medium ${d.score === 0 ? "text-muted-foreground" : "text-primary-foreground"} transition-transform hover:scale-110`}
                 >
                   {d.day}
                 </div>

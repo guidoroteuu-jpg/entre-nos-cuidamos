@@ -62,13 +62,13 @@ const mockEntries: DiaryEntry[] = (() => {
     const d = new Date();
     d.setDate(d.getDate() - i * 2);
     const iso = d.toISOString().slice(0, 10);
-    const content = samples[i % samples.length];
+    const content = samples[i % samples.length]!;
     out.push({
       id: Date.now() - i * 100000,
       date: fmtBR(iso),
       isoDate: iso,
       content,
-      mood: moods[i % moods.length],
+      mood: moods[i % moods.length]!,
       preview: content.slice(0, 50) + (content.length > 50 ? "..." : ""),
       source: i % 5 === 0 ? "audio" : "texto",
     });
@@ -237,7 +237,7 @@ const StudentDiary = () => {
     const year = now.getFullYear();
     const month = now.getMonth();
     const last = new Date(year, month + 1, 0).getDate();
-    const days: { iso: string; day: number; score: number; mood?: string }[] = [];
+    const days: { iso: string; day: number; score: number; mood?: string | undefined }[] = [];
     for (let d = 1; d <= last; d++) {
       const iso = new Date(year, month, d).toISOString().slice(0, 10);
       const entry = entries.find((e) => e.isoDate === iso);

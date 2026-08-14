@@ -23,6 +23,7 @@ import { Route as AlunoConfidenteRouteImport } from './routes/aluno/confidente'
 import { Route as AlunoDiarioRouteImport } from './routes/aluno/diario'
 import { Route as AlunoHomeRouteImport } from './routes/aluno/home'
 import { Route as AlunoTurmaRouteImport } from './routes/aluno/turma'
+import { Route as ApiChatLisRouteImport } from './routes/api/chat-lis'
 import { Route as DirecaoAcessibilidadeRouteImport } from './routes/direcao/acessibilidade'
 import { Route as DirecaoAnoLetivoRouteImport } from './routes/direcao/ano-letivo'
 import { Route as DirecaoConfiguracoesRouteImport } from './routes/direcao/configuracoes'
@@ -120,6 +121,11 @@ const AlunoHomeRoute = AlunoHomeRouteImport.update({
 const AlunoTurmaRoute = AlunoTurmaRouteImport.update({
   id: '/aluno/turma',
   path: '/aluno/turma',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiChatLisRoute = ApiChatLisRouteImport.update({
+  id: '/api/chat-lis',
+  path: '/api/chat-lis',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DirecaoAcessibilidadeRoute = DirecaoAcessibilidadeRouteImport.update({
@@ -280,6 +286,7 @@ export interface FileRoutesByFullPath {
   '/aluno/diario': typeof AlunoDiarioRoute
   '/aluno/home': typeof AlunoHomeRoute
   '/aluno/turma': typeof AlunoTurmaRoute
+  '/api/chat-lis': typeof ApiChatLisRoute
   '/direcao/acessibilidade': typeof DirecaoAcessibilidadeRoute
   '/direcao/ano-letivo': typeof DirecaoAnoLetivoRoute
   '/direcao/configuracoes': typeof DirecaoConfiguracoesRoute
@@ -324,6 +331,7 @@ export interface FileRoutesByTo {
   '/aluno/diario': typeof AlunoDiarioRoute
   '/aluno/home': typeof AlunoHomeRoute
   '/aluno/turma': typeof AlunoTurmaRoute
+  '/api/chat-lis': typeof ApiChatLisRoute
   '/direcao/acessibilidade': typeof DirecaoAcessibilidadeRoute
   '/direcao/ano-letivo': typeof DirecaoAnoLetivoRoute
   '/direcao/configuracoes': typeof DirecaoConfiguracoesRoute
@@ -369,6 +377,7 @@ export interface FileRoutesById {
   '/aluno/diario': typeof AlunoDiarioRoute
   '/aluno/home': typeof AlunoHomeRoute
   '/aluno/turma': typeof AlunoTurmaRoute
+  '/api/chat-lis': typeof ApiChatLisRoute
   '/direcao/acessibilidade': typeof DirecaoAcessibilidadeRoute
   '/direcao/ano-letivo': typeof DirecaoAnoLetivoRoute
   '/direcao/configuracoes': typeof DirecaoConfiguracoesRoute
@@ -415,6 +424,7 @@ export interface FileRouteTypes {
     | '/aluno/diario'
     | '/aluno/home'
     | '/aluno/turma'
+    | '/api/chat-lis'
     | '/direcao/acessibilidade'
     | '/direcao/ano-letivo'
     | '/direcao/configuracoes'
@@ -459,6 +469,7 @@ export interface FileRouteTypes {
     | '/aluno/diario'
     | '/aluno/home'
     | '/aluno/turma'
+    | '/api/chat-lis'
     | '/direcao/acessibilidade'
     | '/direcao/ano-letivo'
     | '/direcao/configuracoes'
@@ -503,6 +514,7 @@ export interface FileRouteTypes {
     | '/aluno/diario'
     | '/aluno/home'
     | '/aluno/turma'
+    | '/api/chat-lis'
     | '/direcao/acessibilidade'
     | '/direcao/ano-letivo'
     | '/direcao/configuracoes'
@@ -548,6 +560,7 @@ export interface RootRouteChildren {
   AlunoDiarioRoute: typeof AlunoDiarioRoute
   AlunoHomeRoute: typeof AlunoHomeRoute
   AlunoTurmaRoute: typeof AlunoTurmaRoute
+  ApiChatLisRoute: typeof ApiChatLisRoute
   DirecaoAcessibilidadeRoute: typeof DirecaoAcessibilidadeRoute
   DirecaoAnoLetivoRoute: typeof DirecaoAnoLetivoRoute
   DirecaoConfiguracoesRoute: typeof DirecaoConfiguracoesRoute
@@ -676,6 +689,13 @@ declare module '@tanstack/react-router' {
       path: '/aluno/turma'
       fullPath: '/aluno/turma'
       preLoaderRoute: typeof AlunoTurmaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chat-lis': {
+      id: '/api/chat-lis'
+      path: '/api/chat-lis'
+      fullPath: '/api/chat-lis'
+      preLoaderRoute: typeof ApiChatLisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/direcao/acessibilidade': {
@@ -892,6 +912,7 @@ const rootRouteChildren: RootRouteChildren = {
   AlunoDiarioRoute: AlunoDiarioRoute,
   AlunoHomeRoute: AlunoHomeRoute,
   AlunoTurmaRoute: AlunoTurmaRoute,
+  ApiChatLisRoute: ApiChatLisRoute,
   DirecaoAcessibilidadeRoute: DirecaoAcessibilidadeRoute,
   DirecaoAnoLetivoRoute: DirecaoAnoLetivoRoute,
   DirecaoConfiguracoesRoute: DirecaoConfiguracoesRoute,

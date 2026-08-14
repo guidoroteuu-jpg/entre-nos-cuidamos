@@ -10,10 +10,10 @@ import { Heart, Sparkles, Info } from "lucide-react";
 
 const FamilyWellbeing = () => {
   const { studentId, setStudentId, student } = useFamilyStudent();
-  const data = moodByStudent[studentId];
+  const data = moodByStudent[studentId]!;
 
   const avg = data.reduce((a, m) => a + m.humor, 0) / data.length;
-  const last = data[data.length - 1].humor;
+  const last = data[data.length - 1]!.humor;
 
   return (
     <FamilyLayout>

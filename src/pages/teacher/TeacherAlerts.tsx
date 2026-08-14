@@ -27,7 +27,7 @@ const TeacherAlerts = () => (
 
       <div className="space-y-4">
         {alerts.map((alert, i) => {
-          const config = severityConfig[alert.severity];
+          const config = severityConfig[alert.severity]!;
           const Icon = config.icon;
           return (
             <motion.div

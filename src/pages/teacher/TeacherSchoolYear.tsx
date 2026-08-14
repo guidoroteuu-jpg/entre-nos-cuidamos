@@ -64,8 +64,8 @@ const bimestres = [
 ];
 
 const totalAlertas = bimestres.reduce((a, b) => a + b.alertas, 0);
-const melhorBimestre = bimestres.reduce((best, b) => b.humorMedio > best.humorMedio ? b : best, bimestres[0]);
-const evolucao = ((bimestres[bimestres.length - 1].humorMedio - bimestres[0].humorMedio) / bimestres[0].humorMedio * 100).toFixed(0);
+const melhorBimestre = bimestres.reduce((best, b) => b.humorMedio > best.humorMedio ? b : best, bimestres[0]!);
+const evolucao = ((bimestres[bimestres.length - 1]!.humorMedio - bimestres[0]!.humorMedio) / bimestres[0]!.humorMedio * 100).toFixed(0);
 
 const TeacherSchoolYear = () => (
   <TeacherLayout>

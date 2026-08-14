@@ -19,7 +19,7 @@ const statusOf = (avg: number) => {
 
 const FamilyGrades = () => {
   const { studentId, setStudentId, student } = useFamilyStudent();
-  const grades = gradesByStudent[studentId];
+  const grades = gradesByStudent[studentId]!;
   const chartData = grades.map((g) => ({ subject: g.subject, B1: g.b1, B2: g.b2, B3: g.b3 }));
 
   return (

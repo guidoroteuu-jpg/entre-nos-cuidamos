@@ -40,7 +40,7 @@ const getWeekKey = () => {
 };
 
 const pickMission = (): Mission =>
-  MISSIONS[Math.floor(Math.random() * MISSIONS.length)];
+  MISSIONS[Math.floor(Math.random() * MISSIONS.length)]!;
 
 const WeeklyMission = () => {
   const [stored, setStored] = useState<Stored | null>(null);

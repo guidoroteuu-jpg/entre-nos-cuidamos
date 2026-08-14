@@ -38,28 +38,28 @@
     --sidebar-border: 245 40% 45%;
     --sidebar-ring: 245 60% 70%;
 
-    --purple-dark: 245 44% 37%;
-    --purple-medium: 245 40% 52%;
-    --purple-light: 245 60% 97%;
-    --purple-glow: 245 50% 65%;
+    --purple-dark: 246 45% 37%;
+    --purple-medium: 245 43% 50%;
+    --purple-light: 244 89% 96%;
+    --purple-glow: 245 55% 66%;
 
     --status-good: 142 70% 45%;
     --status-attention: 45 93% 47%;
     --status-problem: 0 84% 60%;
     --status-severe: 0 0% 15%;
 
-    --gradient-hero: linear-gradient(135deg, hsl(245 44% 37%), hsl(262 46% 52%));
-    --gradient-card: linear-gradient(160deg, hsl(0 0% 100%), hsl(248 60% 99.2%));
-    --gradient-accent: linear-gradient(135deg, hsl(245 40% 52%), hsl(280 50% 55%));
-    --gradient-surface: linear-gradient(180deg, hsl(248 60% 98.5%), hsl(240 20% 99.5%));
+    --gradient-hero: linear-gradient(135deg, hsl(246 45% 37%), hsl(245 43% 50%));
+    --gradient-card: linear-gradient(160deg, hsl(0 0% 100%), hsl(244 70% 99.2%));
+    --gradient-accent: linear-gradient(135deg, hsl(245 43% 50%), hsl(268 48% 56%));
+    --gradient-surface: linear-gradient(180deg, hsl(244 89% 98.6%), hsl(0 0% 100%));
 
     --shadow-card:
-      0 1px 2px -1px hsl(245 44% 37% / 0.06),
-      0 8px 24px -12px hsl(245 44% 37% / 0.14);
+      0 1px 2px -1px hsl(246 45% 37% / 0.05),
+      0 6px 20px -10px hsl(246 45% 37% / 0.12);
     --shadow-elevated:
-      0 2px 4px -2px hsl(245 44% 37% / 0.08),
-      0 18px 40px -16px hsl(245 44% 37% / 0.22);
-    --shadow-glow: 0 0 40px -8px hsl(245 44% 37% / 0.25);
+      0 2px 4px -2px hsl(246 45% 37% / 0.07),
+      0 16px 38px -14px hsl(246 45% 37% / 0.2);
+    --shadow-glow: 0 0 40px -8px hsl(245 43% 50% / 0.28);
 
     --font-heading: 'Nunito', sans-serif;
     --font-body: 'Inter', sans-serif;
@@ -165,8 +165,11 @@
   }
   .surface-card:hover {
     box-shadow: var(--shadow-elevated);
-    border-color: hsl(var(--primary) / 0.18);
+    border-color: hsl(var(--primary) / 0.2);
+    transform: translateY(-1px);
   }
+  /* Respiro padrão de conteúdo dentro de cartões */
+  .surface-card > * + * { }
   .surface-inset {
     background: hsl(var(--muted) / 0.7);
     border: 1px solid hsl(var(--border) / 0.6);

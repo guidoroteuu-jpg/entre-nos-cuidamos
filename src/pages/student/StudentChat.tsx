@@ -65,13 +65,13 @@ const StudentChat = () => {
             >
               <div className={`flex gap-2 max-w-[85%] ${msg.self ? "flex-row-reverse" : "flex-row"}`}>
                 {!msg.self && (
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold text-primary-foreground flex-shrink-0 ${getAvatarColor(msg.name)}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-primary-foreground flex-shrink-0 ${getAvatarColor(msg.name)}`}>
                     {getInitials(msg.name)}
                   </div>
                 )}
                 <div>
                   {!msg.self && (
-                    <p className="text-[10px] text-muted-foreground font-medium mb-0.5 ml-1">{msg.name}</p>
+                    <p className="text-xs text-muted-foreground font-medium mb-0.5 ml-1">{msg.name}</p>
                   )}
                   <div className={`rounded-2xl px-4 py-2.5 ${
                     msg.self
@@ -79,7 +79,7 @@ const StudentChat = () => {
                       : "bg-accent text-foreground rounded-bl-md"
                   }`}>
                     <p className="text-sm">{msg.text}</p>
-                    <p className={`text-[10px] mt-1 ${msg.self ? "text-primary-foreground/60" : "text-muted-foreground"}`}>{msg.time}</p>
+                    <p className={`text-xs mt-1 ${msg.self ? "text-primary-foreground/60" : "text-muted-foreground"}`}>{msg.time}</p>
                   </div>
                 </div>
               </div>

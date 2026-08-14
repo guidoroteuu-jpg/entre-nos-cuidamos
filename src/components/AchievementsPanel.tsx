@@ -168,7 +168,7 @@ const AchievementsPanel = () => {
           </div>
           <div className="text-left">
             <p className="font-heading font-bold text-sm text-foreground">Minhas conquistas</p>
-            <p className="text-[11px] text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               {earned.length}/{BADGES.length} emblemas conquistados
             </p>
           </div>
@@ -176,7 +176,7 @@ const AchievementsPanel = () => {
         <div className="flex items-center gap-1.5 bg-card rounded-full px-3 py-1.5 border border-border">
           <Flame className={`w-4 h-4 ${stats.streak > 0 ? "text-status-attention" : "text-muted-foreground"}`} />
           <span className="text-sm font-bold text-foreground">{stats.streak}</span>
-          <span className="text-[10px] text-muted-foreground">dias</span>
+          <span className="text-xs text-muted-foreground">dias</span>
         </div>
       </motion.button>
 
@@ -214,17 +214,17 @@ const AchievementsPanel = () => {
                 <div className="bg-accent/40 rounded-xl p-3 text-center">
                   <Flame className="w-4 h-4 mx-auto text-status-attention" />
                   <p className="text-lg font-bold text-foreground mt-1">{stats.streak}</p>
-                  <p className="text-[10px] text-muted-foreground">streak</p>
+                  <p className="text-xs text-muted-foreground">streak</p>
                 </div>
                 <div className="bg-accent/40 rounded-xl p-3 text-center">
                   <Sparkles className="w-4 h-4 mx-auto text-secondary" />
                   <p className="text-lg font-bold text-foreground mt-1">{stats.missionsDone}</p>
-                  <p className="text-[10px] text-muted-foreground">missões</p>
+                  <p className="text-xs text-muted-foreground">missões</p>
                 </div>
                 <div className="bg-accent/40 rounded-xl p-3 text-center">
                   <Award className="w-4 h-4 mx-auto text-secondary" />
                   <p className="text-lg font-bold text-foreground mt-1">{earned.length}</p>
-                  <p className="text-[10px] text-muted-foreground">emblemas</p>
+                  <p className="text-xs text-muted-foreground">emblemas</p>
                 </div>
               </div>
 
@@ -250,7 +250,7 @@ const AchievementsPanel = () => {
                         <p className={`text-sm font-medium ${done ? "text-foreground" : "text-muted-foreground"}`}>
                           {b.title}
                         </p>
-                        <p className="text-[11px] text-muted-foreground">{b.description}</p>
+                        <p className="text-xs text-muted-foreground">{b.description}</p>
                         {!done && (
                           <div className="mt-1.5 h-1 rounded-full bg-muted overflow-hidden">
                             <div

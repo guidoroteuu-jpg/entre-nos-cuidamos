@@ -113,7 +113,7 @@ const DirectionSchoolYear = () => (
                 {bim.humorMedio !== null && (
                   <div className="text-right">
                     <p className="text-2xl font-bold text-secondary">{bim.humorMedio.toFixed(1)}</p>
-                    <p className="text-[10px] text-muted-foreground">humor médio</p>
+                    <p className="text-xs text-muted-foreground">humor médio</p>
                   </div>
                 )}
               </div>
@@ -125,17 +125,17 @@ const DirectionSchoolYear = () => (
                 <div className="bg-accent rounded-xl p-3 text-center">
                   <Bell className="w-4 h-4 mx-auto text-status-attention mb-1" />
                   <p className="text-lg font-bold text-foreground">{bim.alertas}</p>
-                  <p className="text-[10px] text-muted-foreground">Alertas</p>
+                  <p className="text-xs text-muted-foreground">Alertas</p>
                 </div>
                 <div className="bg-accent rounded-xl p-3 text-center">
                   <AlertTriangle className="w-4 h-4 mx-auto text-status-problem mb-1" />
                   <p className="text-lg font-bold text-foreground">{bim.denuncias}</p>
-                  <p className="text-[10px] text-muted-foreground">Denúncias</p>
+                  <p className="text-xs text-muted-foreground">Denúncias</p>
                 </div>
                 <div className="bg-accent rounded-xl p-3 text-center">
                   <Users className="w-4 h-4 mx-auto text-secondary mb-1" />
                   <p className="text-lg font-bold text-foreground">{bim.alunosAtencao}</p>
-                  <p className="text-[10px] text-muted-foreground">Em atenção</p>
+                  <p className="text-xs text-muted-foreground">Em atenção</p>
                 </div>
               </div>
 

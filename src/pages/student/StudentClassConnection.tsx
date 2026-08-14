@@ -150,17 +150,17 @@ const StudentClassConnection = () => {
                 {signalSent ? (
                   <>
                     <CheckCircle2 className="w-7 h-7 text-status-good" />
-                    <span className="text-[10px] font-medium text-status-good">Avisado</span>
+                    <span className="text-xs font-medium text-status-good">Avisado</span>
                   </>
                 ) : (
                   <>
                     <ShieldAlert className="w-7 h-7 text-status-attention" />
-                    <span className="text-[10px] font-medium text-foreground/80">Segurar</span>
+                    <span className="text-xs font-medium text-foreground/80">Segurar</span>
                   </>
                 )}
               </div>
             </button>
-            <p className="text-[11px] text-muted-foreground mt-3 text-center max-w-[260px]">
+            <p className="text-xs text-muted-foreground mt-3 text-center max-w-[260px]">
               {signalSent
                 ? "Pronto. Em breve um adulto da escola vai chegar perto, com calma."
                 : "Segure o botão por 2 segundos. Nenhum colega vê esse pedido."}
@@ -204,7 +204,7 @@ const StudentClassConnection = () => {
                 maxLength={280}
                 className="mt-1 bg-card min-h-[90px]"
               />
-              <p className="text-[10px] text-muted-foreground mt-1 text-right">
+              <p className="text-xs text-muted-foreground mt-1 text-right">
                 {message.length}/280
               </p>
             </div>
@@ -239,14 +239,14 @@ const StudentClassConnection = () => {
                 >
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] uppercase tracking-wide text-muted-foreground">Para</span>
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground">Para</span>
                       <span className="text-sm font-bold text-secondary">{c.to}</span>
                     </div>
-                    <span className="text-[10px] text-muted-foreground">{c.createdAt}</span>
+                    <span className="text-xs text-muted-foreground">{c.createdAt}</span>
                   </div>
                   <p className="text-sm text-foreground leading-relaxed">"{c.message}"</p>
                   <div className="flex items-center justify-between mt-3 pt-3 border-t border-border">
-                    <span className="text-[11px] text-muted-foreground italic">— anônimo</span>
+                    <span className="text-xs text-muted-foreground italic">— anônimo</span>
                     <button
                       onClick={() => handleReact(c.id)}
                       className="flex items-center gap-1 text-xs text-muted-foreground hover:text-status-problem transition-colors"

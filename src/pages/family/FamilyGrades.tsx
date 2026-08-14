@@ -64,12 +64,12 @@ const FamilyGrades = () => {
         <Table>
           <TableHeader>
             <TableRow className="bg-muted/60 hover:bg-muted/60">
-              <TableHead className="text-[11px] uppercase tracking-wider font-semibold">Disciplina</TableHead>
-              <TableHead className="text-center text-[11px] uppercase tracking-wider font-semibold">B1</TableHead>
-              <TableHead className="text-center text-[11px] uppercase tracking-wider font-semibold">B2</TableHead>
-              <TableHead className="text-center text-[11px] uppercase tracking-wider font-semibold">B3</TableHead>
-              <TableHead className="text-center text-[11px] uppercase tracking-wider font-semibold text-foreground">Média</TableHead>
-              <TableHead className="text-[11px] uppercase tracking-wider font-semibold">Status</TableHead>
+              <TableHead className="text-xs uppercase tracking-wider font-semibold">Disciplina</TableHead>
+              <TableHead className="text-center text-xs uppercase tracking-wider font-semibold">B1</TableHead>
+              <TableHead className="text-center text-xs uppercase tracking-wider font-semibold">B2</TableHead>
+              <TableHead className="text-center text-xs uppercase tracking-wider font-semibold">B3</TableHead>
+              <TableHead className="text-center text-xs uppercase tracking-wider font-semibold text-foreground">Média</TableHead>
+              <TableHead className="text-xs uppercase tracking-wider font-semibold">Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

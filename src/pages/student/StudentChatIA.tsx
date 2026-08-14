@@ -188,7 +188,7 @@ const StudentChatIA = () => {
             </div>
             <div>
               <h1 className="font-heading text-lg font-bold text-foreground">Conversa com a Lis</h1>
-              <p className="text-[10px] text-muted-foreground flex items-center gap-1">
+              <p className="text-xs text-muted-foreground flex items-center gap-1">
                 <Lock className="w-2.5 h-2.5" /> Privado — só você vê isso
               </p>
             </div>
@@ -219,7 +219,7 @@ const StudentChatIA = () => {
                     : "bg-accent text-foreground rounded-bl-md"
                 }`}>
                   <p className="text-sm whitespace-pre-line">{msg.content}</p>
-                  <p className={`text-[10px] mt-1 ${msg.role === "user" ? "text-secondary-foreground/60" : "text-muted-foreground"}`}>{msg.time}</p>
+                  <p className={`text-xs mt-1 ${msg.role === "user" ? "text-secondary-foreground/60" : "text-muted-foreground"}`}>{msg.time}</p>
                 </div>
               </div>
             </motion.div>

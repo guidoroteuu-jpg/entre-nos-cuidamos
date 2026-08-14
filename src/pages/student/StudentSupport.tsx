@@ -189,10 +189,10 @@ const StudentSupport = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-0.5">
-                      <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">
+                      <span className="text-xs uppercase tracking-wider text-muted-foreground font-bold">
                         {c.tipo === "video" ? "Vídeo" : c.tipo === "texto" ? "Texto" : "Exercício"}
                       </span>
-                      <span className="text-[10px] text-muted-foreground">• {c.duracao}</span>
+                      <span className="text-xs text-muted-foreground">• {c.duracao}</span>
                     </div>
                     <p className="text-sm font-medium text-foreground leading-tight">{c.titulo}</p>
                     <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{c.resumo}</p>
@@ -224,7 +224,7 @@ const StudentSupport = () => {
             >
               <div className="flex items-start justify-between mb-4 gap-3">
                 <div>
-                  <span className="text-[10px] uppercase tracking-wider text-secondary font-bold">
+                  <span className="text-xs uppercase tracking-wider text-secondary font-bold">
                     {aberto.tipo === "video" ? "Vídeo" : aberto.tipo === "texto" ? "Texto" : "Exercício"} • {aberto.duracao}
                   </span>
                   <h2 className="font-heading font-bold text-foreground mt-1">{aberto.titulo}</h2>

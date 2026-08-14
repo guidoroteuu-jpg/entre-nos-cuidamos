@@ -150,7 +150,7 @@ const StudentHome = () => {
               >
                 <MoodCat mood={catByScore6(e.value)} alt={e.label} className="w-11 h-11" />
                 <span className="text-[13px] font-semibold text-foreground leading-tight">{e.label}</span>
-                <span className="text-[11px] text-muted-foreground leading-tight">{e.desc}</span>
+                <span className="text-xs text-muted-foreground leading-tight">{e.desc}</span>
               </motion.button>
             ))}
           </div>
@@ -195,7 +195,7 @@ const StudentHome = () => {
         >
           <div className="flex items-baseline justify-between mb-4">
             <h2 className="section-title text-base">Sua semana</h2>
-            <span className="text-[11px] text-muted-foreground">quanto mais alto, melhor o dia</span>
+            <span className="text-xs text-muted-foreground">quanto mais alto, melhor o dia</span>
           </div>
           <div className="flex items-end justify-between gap-2 h-36">
             {weekData.map((d, i) => (
@@ -214,9 +214,9 @@ const StudentHome = () => {
                 {d.value > 0 ? (
                   <MoodCat mood={catByScore6(d.value)} alt="" className="w-5 h-5 opacity-90" />
                 ) : (
-                  <span className="w-5 h-5 flex items-center justify-center text-[10px] text-muted-foreground">–</span>
+                  <span className="w-5 h-5 flex items-center justify-center text-xs text-muted-foreground">–</span>
                 )}
-                <span className="text-[11px] text-muted-foreground font-medium">{d.day}</span>
+                <span className="text-xs text-muted-foreground font-medium">{d.day}</span>
               </div>
             ))}
           </div>

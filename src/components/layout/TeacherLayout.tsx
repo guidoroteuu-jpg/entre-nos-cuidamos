@@ -102,7 +102,7 @@ const TeacherLayout = ({ children }: { children: ReactNode }) => {
               <motion.div whileTap={{ scale: 0.85 }} className="relative z-10">
                 <item.icon className="w-5 h-5" strokeWidth={active ? 2.4 : 1.9} />
               </motion.div>
-              <span className={`relative z-10 text-[10px] whitespace-nowrap ${active ? "font-bold" : "font-medium"}`}>{item.label}</span>
+              <span className={`relative z-10 text-xs whitespace-nowrap ${active ? "font-bold" : "font-medium"}`}>{item.label}</span>
             </Link>
           );
         })}

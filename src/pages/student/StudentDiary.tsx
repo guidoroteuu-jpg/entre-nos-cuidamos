@@ -6,7 +6,7 @@ import {
   Sparkles, Mic, Square, Loader2, TrendingUp,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { supabase } from "@/integrations/supabase/client";
+import { transcribeAudio } from "@/lib/transcribe-audio.functions";
 import { toast } from "sonner";
 import EmptyState from "@/components/EmptyState";
 import MoodCat, { type CatMoodKey } from "@/components/MoodCat";

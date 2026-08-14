@@ -1,4 +1,4 @@
-import { createServerFileRoute } from "@tanstack/react-start/server";
+import { createFileRoute } from "@tanstack/react-router";
 
 const SYSTEM_PROMPT = `Você é a Lis, assistente de bem-estar emocional da plataforma "Entre Nós", voltada para alunos do ensino fundamental e médio em escolas brasileiras.
 

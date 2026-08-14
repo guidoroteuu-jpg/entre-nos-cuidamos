@@ -65,7 +65,7 @@ const comparativo = bimestres
 
 const DirectionSchoolYear = () => (
   <DirectionLayout>
-    <div className="max-w-5xl space-y-6">
+    <div className="w-full space-y-6">
       <div>
         <h1 className="font-heading text-2xl font-bold text-foreground">Ano Letivo 2024</h1>
         <p className="text-sm text-muted-foreground">Visão completa do bem-estar escolar ao longo do ano</p>

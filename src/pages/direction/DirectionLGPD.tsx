@@ -77,7 +77,7 @@ const DirectionLGPD = () => {
 
   return (
     <DirectionLayout>
-      <div className="max-w-4xl space-y-6">
+      <div className="w-full space-y-6">
         <div>
           <h1 className="font-heading text-2xl font-bold text-foreground flex items-center gap-2">
             <Shield className="w-6 h-6 text-primary" /> LGPD & Controle de acesso

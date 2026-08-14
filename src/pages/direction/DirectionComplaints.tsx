@@ -236,7 +236,7 @@ const DirectionComplaints = () => {
 
   return (
     <DirectionLayout>
-      <div className="max-w-5xl space-y-6">
+      <div className="w-full space-y-6">
         <div>
           <h1 className="font-heading text-2xl font-bold text-foreground">Denúncias</h1>
           <p className="text-sm text-muted-foreground">Triagem automática, log de ações e documentação legal</p>

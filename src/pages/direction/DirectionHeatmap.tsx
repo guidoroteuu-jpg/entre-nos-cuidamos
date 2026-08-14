@@ -93,7 +93,7 @@ const DirectionHeatmap = () => {
 
   return (
     <DirectionLayout>
-      <div className="max-w-5xl space-y-6">
+      <div className="w-full space-y-6">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
             <h1 className="font-heading text-2xl font-bold text-foreground">Mapa de calor</h1>

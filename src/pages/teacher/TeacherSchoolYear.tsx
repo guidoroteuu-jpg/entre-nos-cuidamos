@@ -69,7 +69,7 @@ const evolucao = ((bimestres[bimestres.length - 1].humorMedio - bimestres[0].hum
 
 const TeacherSchoolYear = () => (
   <TeacherLayout>
-    <div className="max-w-5xl space-y-6">
+    <div className="w-full space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="font-heading text-2xl font-bold text-foreground flex items-center gap-2">

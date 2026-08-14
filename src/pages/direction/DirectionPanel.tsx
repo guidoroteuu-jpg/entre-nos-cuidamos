@@ -72,7 +72,7 @@ if (totalComplaints > 3) {
 
 const DirectionPanel = () => (
   <DirectionLayout>
-    <div className="max-w-6xl space-y-6">
+    <div className="w-full space-y-6">
       <div>
         <h1 className="font-heading text-2xl font-bold text-foreground">Painel da Escola</h1>
         <p className="text-sm text-muted-foreground">Dados agregados · Nenhum aluno identificado</p>

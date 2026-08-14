@@ -6,26 +6,28 @@
 
 @layer base {
   :root {
-    --background: 240 20% 99%;
-    --foreground: 245 30% 20%;
+    /* Paleta oficial da marca:
+       #3C3489 roxo escuro · #534AB7 roxo médio · #EEEDFE roxo claro · #FFFFFF branco */
+    --background: 244 40% 99.2%;
+    --foreground: 245 38% 18%;
     --card: 0 0% 100%;
-    --card-foreground: 245 30% 20%;
+    --card-foreground: 245 38% 18%;
     --popover: 0 0% 100%;
-    --popover-foreground: 245 30% 20%;
-    --primary: 245 44% 37%;
+    --popover-foreground: 245 38% 18%;
+    --primary: 246 45% 37%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 245 40% 52%;
+    --secondary: 245 43% 50%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 245 60% 97%;
-    --muted-foreground: 245 15% 50%;
-    --accent: 245 60% 97%;
-    --accent-foreground: 245 44% 37%;
-    --destructive: 0 84% 60%;
+    --muted: 244 80% 97.5%;
+    --muted-foreground: 245 20% 44%;
+    --accent: 244 89% 96%;
+    --accent-foreground: 246 45% 33%;
+    --destructive: 0 74% 52%;
     --destructive-foreground: 0 0% 100%;
-    --border: 245 25% 90%;
-    --input: 245 25% 90%;
-    --ring: 245 44% 37%;
-    --radius: 0.75rem;
+    --border: 245 40% 91%;
+    --input: 245 40% 89%;
+    --ring: 245 43% 50%;
+    --radius: 0.875rem;
 
     --sidebar-background: 245 44% 37%;
     --sidebar-foreground: 0 0% 100%;

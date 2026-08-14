@@ -168,8 +168,7 @@
     border-color: hsl(var(--primary) / 0.2);
     transform: translateY(-1px);
   }
-  /* Respiro padrão de conteúdo dentro de cartões */
-  .surface-card > * + * { }
+
   .surface-inset {
     background: hsl(var(--muted) / 0.7);
     border: 1px solid hsl(var(--border) / 0.6);

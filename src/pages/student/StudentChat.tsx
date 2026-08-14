@@ -95,7 +95,7 @@ const StudentChat = () => {
             className="flex-1 h-11 rounded-full micro-input"
           />
           <motion.div whileHover={{ rotate: 15 }} whileTap={{ scale: 0.9 }}>
-            <Button type="submit" variant="hero" size="icon" className="h-11 w-11 rounded-full">
+            <Button type="submit" variant="hero" size="icon" aria-label="Enviar mensagem" className="h-11 w-11 rounded-full">
               <Send className="w-4 h-4" />
             </Button>
           </motion.div>

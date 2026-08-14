@@ -141,7 +141,7 @@ const StudentComplaints = () => {
                     value={complaint.notes}
                     onChange={(e) => updateNotes(complaint.id, e.target.value)}
                     placeholder="Adicionar anotação..."
-                    className="w-full bg-accent rounded-lg p-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-secondary resize-none min-h-[60px]"
+                    className="w-full bg-accent rounded-lg p-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none min-h-[60px]"
                   />
                 </div>
 

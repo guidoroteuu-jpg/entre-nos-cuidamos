@@ -316,7 +316,7 @@ const StudentDiary = () => {
                 <div
                   key={d.iso}
                   title={d.mood ? `${fmtBR(d.iso)} • ${getMoodLabel(d.mood)}` : `${fmtBR(d.iso)} • sem registro`}
-                  className={`aspect-square rounded-md ${moodColor(d.score)} flex items-center justify-center text-[10px] font-medium ${d.score === 0 ? "text-muted-foreground/60" : "text-white"} transition-transform hover:scale-110`}
+                  className={`aspect-square rounded-md ${moodColor(d.score)} flex items-center justify-center text-xs font-medium ${d.score === 0 ? "text-muted-foreground" : "text-primary-foreground"} transition-transform hover:scale-110`}
                 >
                   {d.day}
                 </div>
@@ -324,7 +324,7 @@ const StudentDiary = () => {
             </div>
 
             {/* Legenda */}
-            <div className="flex items-center gap-3 mt-4 text-[11px] text-muted-foreground flex-wrap">
+            <div className="flex items-center gap-3 mt-4 text-xs text-muted-foreground flex-wrap">
               <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm bg-muted"></span>Sem registro</div>
               <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm bg-status-severe"></span>Muito triste</div>
               <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm bg-status-problem"></span>Excluído</div>
@@ -434,7 +434,7 @@ const StudentDiary = () => {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Como você está se sentindo? Escreva livremente..."
-                className="w-full min-h-[200px] bg-transparent text-foreground placeholder:text-muted-foreground text-sm leading-[28px] focus:outline-none resize-none"
+                className="w-full min-h-[200px] bg-transparent text-foreground placeholder:text-muted-foreground text-sm leading-[28px] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-lg resize-none"
                 autoFocus
               />
               <div className="flex gap-2 justify-between items-center mt-3 flex-wrap">

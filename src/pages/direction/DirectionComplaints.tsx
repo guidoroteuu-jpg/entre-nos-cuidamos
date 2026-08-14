@@ -326,7 +326,7 @@ const DirectionComplaints = () => {
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1 flex-wrap">
-                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold ${catCfg.bg}`}>
+                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold ${catCfg.bg}`}>
                           <CatIcon className="w-3 h-3" />
                           {catCfg.label}
                         </span>
@@ -408,8 +408,8 @@ const DirectionComplaints = () => {
                                     <div className="flex items-center gap-2 mb-1">
                                       <Icon className="w-3.5 h-3.5 text-primary" />
                                       <span className="font-medium text-foreground text-xs">{acaoConfig[a.tipo].label}</span>
-                                      <span className="text-[10px] text-muted-foreground">· {a.responsavel}</span>
-                                      <span className="text-[10px] text-muted-foreground ml-auto">{new Date(a.data).toLocaleString("pt-BR")}</span>
+                                      <span className="text-xs text-muted-foreground">· {a.responsavel}</span>
+                                      <span className="text-xs text-muted-foreground ml-auto">{new Date(a.data).toLocaleString("pt-BR")}</span>
                                     </div>
                                     <p className="text-foreground text-xs">{a.descricao}</p>
                                   </div>

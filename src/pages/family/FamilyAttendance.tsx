@@ -44,7 +44,7 @@ const FamilyAttendance = () => {
           </div>
         </div>
         <Progress value={presPct} />
-        <p className="text-[11px] text-muted-foreground mt-2">
+        <p className="text-xs text-muted-foreground mt-2">
           A frequência mínima exigida por lei é de 75%.
         </p>
       </Card>

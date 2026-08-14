@@ -96,7 +96,7 @@ const FacialMoodPanel = ({ turmaNome, mostrarTurmas = false }: Props) => {
           {/* Resumo */}
           <div className="grid grid-cols-3 gap-3">
             <div className="surface-inset p-3.5">
-              <p className="text-[11px] text-muted-foreground">Humor médio</p>
+              <p className="text-xs text-muted-foreground">Humor médio</p>
               <div className="flex items-center gap-2 mt-1">
                 <MoodCat mood={catByScore6(Math.round(dados.media))} alt="" className="w-7 h-7" />
                 <p className="stat-value text-2xl leading-none">{dados.media.toFixed(1)}</p>
@@ -104,12 +104,12 @@ const FacialMoodPanel = ({ turmaNome, mostrarTurmas = false }: Props) => {
               <p className="stat-caption mt-1">de 6</p>
             </div>
             <div className="surface-inset p-3.5">
-              <p className="text-[11px] text-muted-foreground">Leituras</p>
+              <p className="text-xs text-muted-foreground">Leituras</p>
               <p className="stat-value text-2xl leading-none mt-2">{dados.total}</p>
               <p className="stat-caption mt-1">registros anônimos</p>
             </div>
             <div className="surface-inset p-3.5">
-              <p className="text-[11px] text-muted-foreground">Tendência</p>
+              <p className="text-xs text-muted-foreground">Tendência</p>
               <div className={`flex items-center gap-1.5 mt-2 ${tendCor}`}>
                 <TendIcon className="w-5 h-5" />
                 <p className="text-2xl font-heading font-bold leading-none">

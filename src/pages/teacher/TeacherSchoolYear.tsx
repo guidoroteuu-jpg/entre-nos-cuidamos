@@ -139,19 +139,19 @@ const TeacherSchoolYear = () => (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                 <div className="bg-accent rounded-lg p-3 text-center">
                   <p className="text-lg font-bold text-foreground">{b.humorMedio.toFixed(1)}</p>
-                  <p className="text-[10px] text-muted-foreground">Humor médio</p>
+                  <p className="text-xs text-muted-foreground">Humor médio</p>
                 </div>
                 <div className="bg-accent rounded-lg p-3 text-center">
                   <p className="text-lg font-bold text-foreground">{b.alertas}</p>
-                  <p className="text-[10px] text-muted-foreground">Alertas</p>
+                  <p className="text-xs text-muted-foreground">Alertas</p>
                 </div>
                 <div className="bg-accent rounded-lg p-3 text-center">
                   <p className="text-lg font-bold text-foreground">{b.denuncias}</p>
-                  <p className="text-[10px] text-muted-foreground">Denúncias</p>
+                  <p className="text-xs text-muted-foreground">Denúncias</p>
                 </div>
                 <div className="bg-accent rounded-lg p-3 text-center">
                   <p className="text-lg font-bold text-foreground">{b.alunosAtencao}</p>
-                  <p className="text-[10px] text-muted-foreground">Alunos atenção</p>
+                  <p className="text-xs text-muted-foreground">Alunos atenção</p>
                 </div>
               </div>
 

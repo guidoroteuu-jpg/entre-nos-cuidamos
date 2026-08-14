@@ -141,10 +141,10 @@ const DirectionProtocols = () => {
                   )}
                 </div>
                 <div className="flex gap-1">
-                  <Button size="icon" variant="ghost" onClick={() => setEditing(editing === p.id ? null : p.id)}>
+                  <Button size="icon" variant="ghost" aria-label={editing === p.id ? `Salvar protocolo ${p.titulo}` : `Editar protocolo ${p.titulo}`} onClick={() => setEditing(editing === p.id ? null : p.id)}>
                     {editing === p.id ? <Save className="w-4 h-4" /> : <GripVertical className="w-4 h-4" />}
                   </Button>
-                  <Button size="icon" variant="ghost" onClick={() => removeProtocolo(p.id)}>
+                  <Button size="icon" variant="ghost" aria-label={`Remover protocolo ${p.titulo}`} onClick={() => removeProtocolo(p.id)}>
                     <Trash2 className="w-4 h-4 text-destructive" />
                   </Button>
                 </div>
@@ -161,7 +161,7 @@ const DirectionProtocols = () => {
                         <Input value={passo.acao} onChange={(e) => updatePasso(p.id, passo.id, { acao: e.target.value })} placeholder="Ação" className="text-sm h-9" />
                         <Input value={passo.responsavel} onChange={(e) => updatePasso(p.id, passo.id, { responsavel: e.target.value })} placeholder="Responsável" className="text-sm h-9" />
                         <Input type="number" value={passo.prazoDias} onChange={(e) => updatePasso(p.id, passo.id, { prazoDias: parseInt(e.target.value) || 0 })} placeholder="Dias" className="text-sm h-9" />
-                        <Button size="icon" variant="ghost" onClick={() => removePasso(p.id, passo.id)}>
+                        <Button size="icon" variant="ghost" aria-label="Remover passo do protocolo" onClick={() => removePasso(p.id, passo.id)}>
                           <Trash2 className="w-3.5 h-3.5 text-destructive" />
                         </Button>
                       </div>

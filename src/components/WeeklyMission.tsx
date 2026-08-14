@@ -104,7 +104,7 @@ const WeeklyMission = () => {
           </div>
           <div>
             <h2 className="font-heading font-bold text-sm text-foreground">Missão da semana da Lis</h2>
-            <p className="text-[10px] text-muted-foreground">Pequeno passo, grande diferença.</p>
+            <p className="text-xs text-muted-foreground">Pequeno passo, grande diferença.</p>
           </div>
         </div>
         {!stored.done && (

@@ -29,7 +29,7 @@ const DirectionLayout = ({ children }: { children: ReactNode }) => {
         <div className="mb-2 px-1">
           <Logo variante="escura" largura={140} />
         </div>
-        <span className="text-[11px] font-semibold uppercase tracking-[0.09em] text-primary-foreground/60 mb-8 ml-1">Direção</span>
+        <span className="text-xs font-semibold uppercase tracking-[0.09em] text-primary-foreground/85 mb-8 ml-1">Direção</span>
         <nav className="space-y-1 flex-1 relative">
           {navItems.map((item) => {
             const active = location.pathname === item.path;
@@ -107,7 +107,7 @@ const DirectionLayout = ({ children }: { children: ReactNode }) => {
               <motion.div whileTap={{ scale: 0.85 }} className="relative z-10">
                 <item.icon className="w-5 h-5" strokeWidth={active ? 2.4 : 1.9} />
               </motion.div>
-              <span className={`relative z-10 text-[10px] ${active ? "font-bold" : "font-medium"}`}>{item.label}</span>
+              <span className={`relative z-10 text-xs ${active ? "font-bold" : "font-medium"}`}>{item.label}</span>
             </Link>
           );
         })}

@@ -71,7 +71,7 @@ const FamilyLayout = ({ children }: { children: ReactNode }) => {
               <motion.div whileTap={{ scale: 0.85 }} transition={{ duration: 0.15 }} className="relative z-10">
                 <item.icon className="w-5 h-5" strokeWidth={active ? 2.4 : 1.9} />
               </motion.div>
-              <span className={`relative z-10 text-[11px] ${active ? "font-bold" : "font-medium"}`}>{item.label}</span>
+              <span className={`relative z-10 text-xs ${active ? "font-bold" : "font-medium"}`}>{item.label}</span>
             </Link>
           );
         })}

@@ -111,7 +111,7 @@ const ClimateSurvey = () => {
         <CheckCircle2 className="w-5 h-5 text-status-good flex-shrink-0" />
         <div>
           <p className="text-sm font-medium text-foreground">Pesquisa da semana respondida</p>
-          <p className="text-[11px] text-muted-foreground">Obrigado! Sua voz ajuda a turma toda.</p>
+          <p className="text-xs text-muted-foreground">Obrigado! Sua voz ajuda a turma toda.</p>
         </div>
       </motion.div>
     );
@@ -132,7 +132,7 @@ const ClimateSurvey = () => {
           </div>
           <div>
             <p className="font-heading font-bold text-sm text-foreground">Pesquisa de clima da turma</p>
-            <p className="text-[11px] text-muted-foreground flex items-center gap-1 mt-0.5">
+            <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
               <Lock className="w-3 h-3" /> 100% anônima • 3 perguntas • 1 min
             </p>
           </div>
@@ -170,10 +170,10 @@ const ClimateSurvey = () => {
                 <>
                   {/* Header com badge anônimo */}
                   <div className="flex items-center justify-between mb-1">
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-secondary bg-secondary/10 rounded-full px-2 py-0.5">
+                    <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-secondary bg-secondary/10 rounded-full px-2 py-0.5">
                       <Lock className="w-3 h-3" /> Anônimo
                     </span>
-                    <span className="text-[11px] text-muted-foreground">
+                    <span className="text-xs text-muted-foreground">
                       {step + 1}/{PERGUNTAS.length}
                     </span>
                   </div>
@@ -214,7 +214,7 @@ const ClimateSurvey = () => {
                     </motion.div>
                   </AnimatePresence>
 
-                  <p className="text-[10px] text-muted-foreground text-center mt-4 flex items-center justify-center gap-1">
+                  <p className="text-xs text-muted-foreground text-center mt-4 flex items-center justify-center gap-1">
                     <Lock className="w-2.5 h-2.5" />
                     Suas respostas são agregadas. Ninguém sabe que foi você.
                   </p>

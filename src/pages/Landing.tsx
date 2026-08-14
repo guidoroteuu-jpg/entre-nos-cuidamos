@@ -206,7 +206,7 @@ const Landing = () => {
               <Link to="/login" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.login")}</Link>
               <Link to="/familia/painel" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">Família</Link>
             </div>
-            <p className="text-xs text-primary-foreground/50">{t("landing.rights")}</p>
+            <p className="text-xs text-primary-foreground/80">{t("landing.rights")}</p>
           </div>
         </div>
       </footer>

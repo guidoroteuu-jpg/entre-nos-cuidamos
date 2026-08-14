@@ -132,5 +132,7 @@ export const Route = createFileRoute("/api/chat-lis")({
       console.error("chat-lis error:", e);
       return json({ error: e instanceof Error ? e.message : "Erro desconhecido" }, 500);
     }
-  }),
-}));
+      },
+    },
+  },
+});

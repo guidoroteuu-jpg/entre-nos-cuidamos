@@ -24,9 +24,9 @@ import {
 const FamilyDashboard = () => {
   const { studentId, setStudentId, student } = useFamilyStudent();
 
-  const grades = gradesByStudent[studentId];
-  const attendance = attendanceByStudent[studentId];
-  const mood = moodByStudent[studentId];
+  const grades = gradesByStudent[studentId]!;
+  const attendance = attendanceByStudent[studentId]!;
+  const mood = moodByStudent[studentId]!;
 
   const overallAvg =
     grades.reduce((acc, g) => acc + average(g), 0) / grades.length;
@@ -35,8 +35,8 @@ const FamilyDashboard = () => {
   const totalJust = attendance.reduce((a, m) => a + m.justificadas, 0);
   const totalDays = totalPres + totalFalt + totalJust;
   const presPct = Math.round((totalPres / totalDays) * 100);
-  const lastMood = mood[mood.length - 1].humor;
-  const prevMood = mood[mood.length - 2].humor;
+  const lastMood = mood[mood.length - 1]!.humor;
+  const prevMood = mood[mood.length - 2]!.humor;
   const moodTrend = lastMood - prevMood;
 
   const TrendIcon = moodTrend > 0.1 ? TrendingUp : moodTrend < -0.1 ? TrendingDown : Minus;

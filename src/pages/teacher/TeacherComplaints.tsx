@@ -114,7 +114,7 @@ const StudentComplaints = () => {
         {/* Lista de denúncias */}
         <div className="space-y-4">
           {filteredComplaints.map((complaint) => {
-            const config = statusConfig[complaint.status];
+            const config = statusConfig[complaint.status]!;
             return (
               <div key={complaint.id} className="surface-card p-5">
                 <div className="flex items-start justify-between mb-3">

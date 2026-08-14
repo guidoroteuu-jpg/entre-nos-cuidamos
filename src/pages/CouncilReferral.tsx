@@ -523,7 +523,7 @@ const ReferralContent = ({ role }: { role: "teacher" | "admin" }) => {
   );
 };
 
-const Field = ({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) => (
+const Field = ({ label, error, children }: { label: string; error?: string | undefined; children: React.ReactNode }) => (
   <div className="space-y-2">
     <Label className="text-foreground">{label}</Label>
     {children}

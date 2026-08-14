@@ -9,9 +9,9 @@ interface Props {
   open: boolean;
   onClose: () => void;
   /** "breathing" inicia direto na respiração; "grounding" no 5-4-3-2-1; undefined mostra o seletor */
-  initialKind?: ExerciseKind;
+  initialKind?: ExerciseKind | undefined;
   /** Mensagem de contexto opcional (ex.: "Vi que hoje você está se sentindo triste...") */
-  intro?: string;
+  intro?: string | undefined;
 }
 
 /* ===== Respiração 4-7-8 guiada ===== */

@@ -58,7 +58,7 @@ const getHeatColor = (val: number) => {
 const riskPct = Math.round((totalRisk / totalStudents) * 100);
 
 /* Sugestões automáticas */
-const suggestions = [];
+const suggestions: string[] = [];
 const isolatedClasses = classes.filter((c) => c.severe > 0 || c.problem >= 2);
 if (isolatedClasses.length >= 2) {
   suggestions.push(`${isolatedClasses.length} turmas têm padrão de isolamento — considere dinâmicas de integração`);

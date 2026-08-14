@@ -35,7 +35,7 @@ const initialActions: PlanAction[] = [
 const statusLabels: Record<ActionStatus, string> = { pendente: "Pendente", em_andamento: "Em andamento", concluida: "Concluída" };
 
 const TeacherActionPlan = () => {
-  const [selectedStudentId, setSelectedStudentId] = useState(students[0].id);
+  const [selectedStudentId, setSelectedStudentId] = useState(students[0]!.id);
   const [actions, setActions] = useState(initialActions);
   const [form, setForm] = useState({ action: "", owner: "", status: "pendente" as ActionStatus });
   const [dueDate, setDueDate] = useState<Date>();
@@ -43,7 +43,7 @@ const TeacherActionPlan = () => {
   const [aiResult, setAiResult] = useState("");
   const [loadingAi, setLoadingAi] = useState(false);
 
-  const selectedStudent = students.find((student) => student.id === selectedStudentId) || students[0];
+  const selectedStudent = students.find((student) => student.id === selectedStudentId) || students[0]!;
   const studentActions = useMemo(() => actions.filter((item) => item.studentId === selectedStudent.id), [actions, selectedStudent.id]);
   const completed = studentActions.filter((item) => item.status === "concluida").length;
 

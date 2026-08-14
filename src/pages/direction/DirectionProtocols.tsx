@@ -141,10 +141,10 @@ const DirectionProtocols = () => {
                   )}
                 </div>
                 <div className="flex gap-1">
-                  <Button size="icon" variant="ghost" aria-label={editing === p.id ? `Salvar protocolo ${p.titulo}` : `Editar protocolo ${p.titulo}`} onClick={() => setEditing(editing === p.id ? null : p.id)}>
+                  <Button size="icon" variant="ghost" aria-label={editing === p.id ? `Salvar protocolo ${p.tipo}` : `Editar protocolo ${p.tipo}`} onClick={() => setEditing(editing === p.id ? null : p.id)}>
                     {editing === p.id ? <Save className="w-4 h-4" /> : <GripVertical className="w-4 h-4" />}
                   </Button>
-                  <Button size="icon" variant="ghost" aria-label={`Remover protocolo ${p.titulo}`} onClick={() => removeProtocolo(p.id)}>
+                  <Button size="icon" variant="ghost" aria-label={`Remover protocolo ${p.tipo}`} onClick={() => removeProtocolo(p.id)}>
                     <Trash2 className="w-4 h-4 text-destructive" />
                   </Button>
                 </div>

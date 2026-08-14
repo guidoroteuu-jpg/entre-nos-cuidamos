@@ -120,7 +120,7 @@ const DirectionComplaints = () => {
   const [filterStatus, setFilterStatus] = useState<Status | "todas">("todas");
   const [expanded, setExpanded] = useState<string | null>(null);
   const [novaAcao, setNovaAcao] = useState<{ tipo: AcaoTipo; descricao: string; responsavel: string }>({
-    tipo: "conversa_aluno", descricao: "", responsavel: orientadores[0],
+    tipo: "conversa_aluno", descricao: "", responsavel: orientadores[0]!,
   });
 
   useEffect(() => {

@@ -9,7 +9,7 @@ import {
 
 const FamilyAttendance = () => {
   const { studentId, setStudentId, student } = useFamilyStudent();
-  const data = attendanceByStudent[studentId];
+  const data = attendanceByStudent[studentId]!;
 
   const totals = data.reduce(
     (acc, m) => ({

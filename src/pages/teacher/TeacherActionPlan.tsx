@@ -75,17 +75,22 @@ const TeacherActionPlan = () => {
 
     setLoadingAi(true);
     setAiResult("");
-    const { data, error } = await supabase.functions.invoke("generate-action-plan", {
-      body: { studentProfile: `${selectedStudent.name} · ${selectedStudent.className}`, status: selectedStudent.status, context: aiContext.trim() },
-    });
-    setLoadingAi(false);
+    try {
+      const data = await generateActionPlan({
+        data: { studentProfile: `${selectedStudent.name} · ${selectedStudent.className}`, status: selectedStudent.status, context: aiContext.trim() },
+      });
+      setLoadingAi(false);
 
-    if (error || !data?.content) {
-      toast.error(data?.error || "Não foi possível gerar o plano.");
-      return;
+      if (data?.error || !data?.content) {
+        toast.error(data?.error || "Não foi possível gerar o plano.");
+        return;
+      }
+      setAiResult(data.content);
+      toast.success("Sugestões geradas com apoio da IA.");
+    } catch (err) {
+      setLoadingAi(false);
+      toast.error(err instanceof Error ? err.message : "Não foi possível gerar o plano.");
     }
-    setAiResult(data.content);
-    toast.success("Sugestões geradas com apoio da IA.");
   };
 
   return (

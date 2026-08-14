@@ -213,11 +213,9 @@ const StudentDiary = () => {
       }
       const base64 = btoa(binary);
 
-      const { data, error } = await supabase.functions.invoke("transcribe-audio", {
-        body: { audio: base64, mimeType },
-      });
-      if (error) throw error;
-      const transcript: string = (data as any)?.transcript ?? "";
+      const data = await transcribeAudio({ data: { audio: base64, mimeType } });
+      if (data?.error) throw new Error(data.error);
+      const transcript: string = data?.transcript ?? "";
       if (!transcript.trim()) {
         toast.error("Não consegui ouvir o que você disse. Tente de novo.");
         return;

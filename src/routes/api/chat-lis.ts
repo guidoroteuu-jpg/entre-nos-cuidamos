@@ -41,9 +41,11 @@ const json = (body: unknown, status = 200) =>
     headers: { "Content-Type": "application/json" },
   });
 
-export const ServerRoute = createServerFileRoute("/api/chat-lis").methods((api) => ({
-  POST: api.handler(async ({ request }) => {
-    try {
+export const Route = createFileRoute("/api/chat-lis")({
+  server: {
+    handlers: {
+      POST: async ({ request }: { request: Request }) => {
+        try {
       const body = await request.json();
       const messages = body?.messages;
 

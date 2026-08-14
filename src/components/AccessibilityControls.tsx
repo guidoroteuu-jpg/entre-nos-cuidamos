@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "@/lib/router-compat";
 import { Languages, Accessibility } from "lucide-react";
 import { useI18n, type Language } from "@/lib/i18n";
 import { applySettings, loadSettings, saveSettings } from "@/lib/accessibility";
@@ -28,7 +28,7 @@ const AccessibilityControls = () => {
           id="global-language-select"
           value={language}
           onChange={(event) => setLanguage(event.target.value as Language)}
-          className="h-9 rounded-md border border-input bg-background px-2 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+          className="h-9 rounded-md border border-input bg-background px-2 text-sm font-medium text-foreground focus:outline-hidden focus:ring-2 focus:ring-ring"
           aria-label={t("a11y.languageLabel")}
         >
           {Object.entries(languages).map(([value, label]) => (
@@ -39,7 +39,7 @@ const AccessibilityControls = () => {
       <button
         type="button"
         onClick={() => setHighAccessibility((current) => !current)}
-        className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background text-foreground transition-colors hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring"
+        className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background text-foreground transition-colors hover:bg-accent focus:outline-hidden focus:ring-2 focus:ring-ring"
         aria-pressed={highAccessibility}
         aria-label={highAccessibility ? t("a11y.highAccessibilityOff") : t("a11y.highAccessibilityOn")}
         title={highAccessibility ? t("a11y.highAccessibilityOff") : t("a11y.highAccessibilityOn")}

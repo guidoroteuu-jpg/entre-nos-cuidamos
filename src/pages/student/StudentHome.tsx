@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import StudentLayout from "@/components/layout/StudentLayout";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, BookOpen, AlertTriangle, MessageSquare, X, Wind } from "lucide-react";
@@ -340,7 +340,7 @@ const StudentHome = () => {
                       value={complaintDesc}
                       onChange={(e) => setComplaintDesc(e.target.value)}
                       placeholder="Conte o que aconteceu..."
-                      className="w-full min-h-[100px] bg-accent rounded-xl p-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none micro-input"
+                      className="w-full min-h-[100px] bg-accent rounded-xl p-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring resize-none micro-input"
                     />
                   </div>
                   <label className="flex items-center gap-2 cursor-pointer">

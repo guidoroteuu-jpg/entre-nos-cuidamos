@@ -8,7 +8,7 @@ import {
   moodLabel,
   average,
 } from "@/lib/familyData";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import MoodCat, { catByScore5 } from "@/components/MoodCat";
 import { GraduationCap, CalendarCheck, Heart, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import {

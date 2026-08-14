@@ -95,7 +95,7 @@ const TeacherDashboard = () => (
           {students.map((s, i) => (
             <motion.div
               key={s.id}
-              className={`aspect-square rounded-xl ${statusColor[s.status]} shadow-sm ring-1 ring-inset ring-foreground/5 hover:ring-2 hover:ring-foreground/20 transition-all cursor-pointer relative group`}
+              className={`aspect-square rounded-xl ${statusColor[s.status]} shadow-xs ring-1 ring-inset ring-foreground/5 hover:ring-2 hover:ring-foreground/20 transition-all cursor-pointer relative group`}
               title={`Aluno #${s.id} · ${statusLabel[s.status]}`}
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 0.92, scale: 1 }}

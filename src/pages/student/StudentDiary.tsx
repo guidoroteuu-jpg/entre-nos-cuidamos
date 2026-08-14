@@ -434,7 +434,7 @@ const StudentDiary = () => {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Como você está se sentindo? Escreva livremente..."
-                className="w-full min-h-[200px] bg-transparent text-foreground placeholder:text-muted-foreground text-sm leading-[28px] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-lg resize-none"
+                className="w-full min-h-[200px] bg-transparent text-foreground placeholder:text-muted-foreground text-sm leading-[28px] focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring rounded-lg resize-none"
                 autoFocus
               />
               <div className="flex gap-2 justify-between items-center mt-3 flex-wrap">

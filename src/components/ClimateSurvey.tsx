@@ -77,7 +77,7 @@ const ClimateSurvey = () => {
   }, []);
 
   const responder = (value: number) => {
-    const novas = { ...respostas, [PERGUNTAS[step].id]: value };
+    const novas = { ...respostas, [PERGUNTAS[step]!.id]: value };
     setRespostas(novas);
     if (step < PERGUNTAS.length - 1) {
       setTimeout(() => setStep(step + 1), 200);
@@ -190,17 +190,17 @@ const ClimateSurvey = () => {
 
                   <AnimatePresence mode="wait">
                     <motion.div
-                      key={PERGUNTAS[step].id}
+                      key={PERGUNTAS[step]!.id}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
                       transition={{ duration: 0.25 }}
                     >
                       <h3 className="font-heading font-bold text-foreground text-base leading-tight mb-4">
-                        {PERGUNTAS[step].texto}
+                        {PERGUNTAS[step]!.texto}
                       </h3>
                       <div className="space-y-2">
-                        {PERGUNTAS[step].opcoes.map((o) => (
+                        {PERGUNTAS[step]!.opcoes.map((o) => (
                           <button
                             key={o.value}
                             onClick={() => responder(o.value)}

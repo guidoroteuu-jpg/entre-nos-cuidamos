@@ -54,7 +54,7 @@ export const FamilyPageHeader = ({
 
 
 export const useFamilyStudent = () => {
-  const [studentId, setStudentId] = useState(familyStudents[0].id);
+  const [studentId, setStudentId] = useState(familyStudents[0]!.id);
   const student = familyStudents.find((s) => s.id === studentId)!;
   return { studentId, setStudentId, student };
 };

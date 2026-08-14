@@ -24,7 +24,7 @@ const BREATHING_PHASES: { label: string; duration: number; scale: number }[] = [
 const BreathingExercise = ({ onDone }: { onDone: () => void }) => {
   const [cycle, setCycle] = useState(0);
   const [phaseIdx, setPhaseIdx] = useState(0);
-  const [count, setCount] = useState(BREATHING_PHASES[0].duration);
+  const [count, setCount] = useState(BREATHING_PHASES[0]!.duration);
   const totalCycles = 4;
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const BreathingExercise = ({ onDone }: { onDone: () => void }) => {
             }
             return next;
           });
-          return BREATHING_PHASES[(phaseIdx + 1) % BREATHING_PHASES.length].duration;
+          return BREATHING_PHASES[(phaseIdx + 1) % BREATHING_PHASES.length]!.duration;
         }
         return c - 1;
       });
@@ -48,7 +48,7 @@ const BreathingExercise = ({ onDone }: { onDone: () => void }) => {
     return () => window.clearInterval(t);
   }, [phaseIdx, cycle]);
 
-  const phase = BREATHING_PHASES[phaseIdx];
+  const phase = BREATHING_PHASES[phaseIdx] ?? BREATHING_PHASES[0]!;
   const finished = cycle >= totalCycles;
 
   if (finished) {
@@ -124,7 +124,7 @@ const GroundingExercise = ({ onDone }: { onDone: () => void }) => {
     );
   }
 
-  const cur = GROUNDING_STEPS[step];
+  const cur = GROUNDING_STEPS[step] ?? GROUNDING_STEPS[0]!;
   return (
     <div className="text-center space-y-5">
       <div className="text-xs text-muted-foreground">Passo {step + 1} de {GROUNDING_STEPS.length}</div>

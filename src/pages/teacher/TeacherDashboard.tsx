@@ -38,7 +38,7 @@ const suggestions = [
 
 const TeacherDashboard = () => (
   <TeacherLayout>
-    <div className="max-w-5xl space-y-5">
+    <div className="w-full space-y-6">
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
         <p className="section-eyebrow mb-1">Visão geral</p>
         <h1 className="font-heading text-[26px] leading-tight font-extrabold text-foreground tracking-tight">

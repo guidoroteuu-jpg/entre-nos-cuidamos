@@ -74,7 +74,7 @@ const DirectionClasses = () => {
 
   return (
     <DirectionLayout>
-      <div className="max-w-6xl space-y-6">
+      <div className="w-full space-y-6">
         <div>
           <h1 className="font-heading text-2xl font-bold text-foreground">Turmas</h1>
           <p className="text-sm text-muted-foreground">Visão geral de todas as turmas da escola</p>

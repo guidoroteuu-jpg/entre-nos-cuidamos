@@ -17,7 +17,7 @@ const severityConfig: Record<string, { icon: typeof Bell; color: string; bg: str
 
 const TeacherAlerts = () => (
   <TeacherLayout>
-    <div className="max-w-3xl space-y-6">
+    <div className="w-full space-y-6">
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="font-heading text-2xl font-bold text-foreground flex items-center gap-2">
           <Bell className="w-6 h-6 text-secondary" /> Alertas

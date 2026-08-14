@@ -57,7 +57,7 @@ const TeacherResourceLibrary = () => {
 
   return (
     <TeacherLayout>
-      <div className="max-w-6xl space-y-6">
+      <div className="w-full space-y-6">
         <div>
           <div className="flex items-center gap-2 text-secondary mb-2">
             <BookOpen className="w-5 h-5" />

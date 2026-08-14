@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "@/lib/router-compat";
 import { Home, BookOpen, Users, MessageSquare, LogOut, HeartHandshake, LifeBuoy, Accessibility } from "lucide-react";
 import { motion } from "framer-motion";
 import Logo from "@/components/Logo";
@@ -25,7 +25,7 @@ const StudentLayout = ({ children }: { children: ReactNode }) => {
       <CatBackground variant="subtle" />
 
       {/* Barra superior */}
-      <header className="bg-card/80 backdrop-blur-sm border-b border-border px-4 h-14 flex items-center justify-between relative z-10">
+      <header className="bg-card/80 backdrop-blur-xs border-b border-border px-4 h-14 flex items-center justify-between relative z-10">
         <div className="flex items-center gap-2">
           <img
             src={lisAvatar}

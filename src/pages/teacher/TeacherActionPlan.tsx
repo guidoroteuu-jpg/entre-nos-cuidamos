@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { supabase } from "@/integrations/supabase/client";
+import { generateActionPlan } from "@/lib/generate-action-plan.functions";
 import { cn } from "@/lib/utils";
 
 type ActionStatus = "pendente" | "em_andamento" | "concluida";
@@ -75,17 +75,22 @@ const TeacherActionPlan = () => {
 
     setLoadingAi(true);
     setAiResult("");
-    const { data, error } = await supabase.functions.invoke("generate-action-plan", {
-      body: { studentProfile: `${selectedStudent.name} · ${selectedStudent.className}`, status: selectedStudent.status, context: aiContext.trim() },
-    });
-    setLoadingAi(false);
+    try {
+      const data = await generateActionPlan({
+        data: { studentProfile: `${selectedStudent.name} · ${selectedStudent.className}`, status: selectedStudent.status, context: aiContext.trim() },
+      });
+      setLoadingAi(false);
 
-    if (error || !data?.content) {
-      toast.error(data?.error || "Não foi possível gerar o plano.");
-      return;
+      if (data?.error || !data?.content) {
+        toast.error(data?.error || "Não foi possível gerar o plano.");
+        return;
+      }
+      setAiResult(data.content);
+      toast.success("Sugestões geradas com apoio da IA.");
+    } catch (err) {
+      setLoadingAi(false);
+      toast.error(err instanceof Error ? err.message : "Não foi possível gerar o plano.");
     }
-    setAiResult(data.content);
-    toast.success("Sugestões geradas com apoio da IA.");
   };
 
   return (

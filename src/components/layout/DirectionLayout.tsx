@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "@/lib/router-compat";
 import { LayoutDashboard, Users, AlertTriangle, CalendarDays, Settings, LogOut, ShieldAlert, MailCheck, Stethoscope, BookOpenCheck, Flame, Shield, Accessibility } from "lucide-react";
 import { motion } from "framer-motion";
 import Logo from "@/components/Logo";
@@ -40,7 +40,7 @@ const DirectionLayout = ({ children }: { children: ReactNode }) => {
                 aria-current={active ? "page" : undefined}
                 className={`relative flex items-center gap-3 px-3 py-2.5 min-h-[44px] rounded-xl text-sm transition-all group ${
                   active
-                    ? "bg-primary-foreground/[0.18] text-primary-foreground font-semibold shadow-sm"
+                    ? "bg-primary-foreground/[0.18] text-primary-foreground font-semibold shadow-xs"
                     : "text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/10 font-medium"
                 }`}
               >

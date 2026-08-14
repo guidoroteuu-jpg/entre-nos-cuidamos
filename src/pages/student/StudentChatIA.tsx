@@ -30,8 +30,8 @@ const riskWords = [
 ];
 const severeRiskWords = ["quero sumir", "desaparecer", "me machucar"];
 
-/* URL da edge function */
-const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-lis`;
+/* URL do endpoint de chat (server route TanStack) */
+const CHAT_URL = "/api/chat-lis";
 
 const StudentChatIA = () => {
   const [messages, setMessages] = useState<Message[]>([welcomeMessage]);

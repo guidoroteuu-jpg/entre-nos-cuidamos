@@ -6,7 +6,7 @@ import {
   Sparkles, Mic, Square, Loader2, TrendingUp,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { supabase } from "@/integrations/supabase/client";
+import { transcribeAudio } from "@/lib/transcribe-audio.functions";
 import { toast } from "sonner";
 import EmptyState from "@/components/EmptyState";
 import MoodCat, { type CatMoodKey } from "@/components/MoodCat";
@@ -213,11 +213,9 @@ const StudentDiary = () => {
       }
       const base64 = btoa(binary);
 
-      const { data, error } = await supabase.functions.invoke("transcribe-audio", {
-        body: { audio: base64, mimeType },
-      });
-      if (error) throw error;
-      const transcript: string = (data as any)?.transcript ?? "";
+      const data = await transcribeAudio({ data: { audio: base64, mimeType } });
+      if (data?.error) throw new Error(data.error);
+      const transcript: string = data?.transcript ?? "";
       if (!transcript.trim()) {
         toast.error("Não consegui ouvir o que você disse. Tente de novo.");
         return;
@@ -434,7 +432,7 @@ const StudentDiary = () => {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Como você está se sentindo? Escreva livremente..."
-                className="w-full min-h-[200px] bg-transparent text-foreground placeholder:text-muted-foreground text-sm leading-[28px] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-lg resize-none"
+                className="w-full min-h-[200px] bg-transparent text-foreground placeholder:text-muted-foreground text-sm leading-[28px] focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring rounded-lg resize-none"
                 autoFocus
               />
               <div className="flex gap-2 justify-between items-center mt-3 flex-wrap">

@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { supabase } from "@/integrations/supabase/client";
+import { generateDynamics } from "@/lib/generate-dynamics.functions";
 
 const situations = ["bullying", "ansiedade", "exclusão", "conflito"] as const;
 
@@ -41,18 +41,23 @@ const TeacherResourceLibrary = () => {
 
     setLoading(true);
     setGenerated("");
-    const { data, error } = await supabase.functions.invoke("generate-dynamics", {
-      body: { situation: selectedSituation, grade: grade.trim(), objective: objective.trim() },
-    });
-    setLoading(false);
+    try {
+      const data = await generateDynamics({
+        data: { situation: selectedSituation, grade: grade.trim(), objective: objective.trim() },
+      });
+      setLoading(false);
 
-    if (error || !data?.content) {
-      toast.error(data?.error || "Não foi possível gerar a dinâmica.");
-      return;
+      if (data?.error || !data?.content) {
+        toast.error(data?.error || "Não foi possível gerar a dinâmica.");
+        return;
+      }
+
+      setGenerated(data.content);
+      toast.success("Dinâmica gerada com apoio da IA.");
+    } catch (err) {
+      setLoading(false);
+      toast.error(err instanceof Error ? err.message : "Não foi possível gerar a dinâmica.");
     }
-
-    setGenerated(data.content);
-    toast.success("Dinâmica gerada com apoio da IA.");
   };
 
   return (

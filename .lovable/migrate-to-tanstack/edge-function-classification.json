@@ -1,0 +1,6 @@
+{"functions": [
+  {"name": "chat-lis", "classification": "internal-only (custom response: SSE stream)", "signal": "raw fetch to /functions/v1/chat-lis in src/pages/student/StudentChatIA.tsx; streams SSE", "outcome": "migrated"},
+  {"name": "transcribe-audio", "classification": "internal-only", "signal": "supabase.functions.invoke in src/pages/student/StudentDiary.tsx", "outcome": "migrated"},
+  {"name": "generate-action-plan", "classification": "internal-only", "signal": "supabase.functions.invoke in src/pages/teacher/TeacherActionPlan.tsx", "outcome": "migrated"},
+  {"name": "generate-dynamics", "classification": "internal-only", "signal": "supabase.functions.invoke in src/pages/teacher/TeacherResourceLibrary.tsx", "outcome": "migrated"}
+]}

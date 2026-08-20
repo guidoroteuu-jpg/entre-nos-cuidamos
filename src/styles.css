@@ -180,6 +180,13 @@
   @media (min-width: 640px) {
     body { font-size: 16px; }
   }
+  .dark body {
+    background:
+      radial-gradient(120% 80% at 80% -10%, hsl(250 45% 16%) 0%, transparent 55%),
+      radial-gradient(100% 70% at -10% 110%, hsl(245 45% 14%) 0%, transparent 55%),
+      hsl(245 30% 8%);
+    background-attachment: fixed;
+  }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     letter-spacing: -0.02em;

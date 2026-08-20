@@ -54,8 +54,8 @@
   --color-status-problem: hsl(var(--status-problem));
   --color-status-severe: hsl(var(--status-severe));
 
-  --font-heading: 'Nunito', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Sora', sans-serif;
+  --font-body: 'Manrope', sans-serif;
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
@@ -132,8 +132,8 @@
       0 16px 38px -14px hsl(246 45% 37% / 0.2);
     --shadow-glow: 0 0 40px -8px hsl(245 43% 50% / 0.28);
 
-    --font-heading: 'Nunito', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --font-heading: 'Sora', sans-serif;
+    --font-body: 'Manrope', sans-serif;
   }
 
   .dark {

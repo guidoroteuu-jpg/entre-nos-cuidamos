@@ -256,6 +256,21 @@
     transform: translateY(-3px);
   }
 
+  /* Vidro global: toda superfície de card vira vidro fosco */
+  .bg-card {
+    background-color: hsl(0 0% 100% / 0.62);
+    backdrop-filter: blur(20px) saturate(150%);
+  }
+  .dark .bg-card {
+    background-color: hsl(245 30% 14% / 0.68);
+  }
+  .border-border {
+    border-color: hsl(0 0% 100% / 0.6);
+  }
+  .dark .border-border {
+    border-color: hsl(245 40% 70% / 0.16);
+  }
+
   /* Painel de vidro genérico (navs, barras, popovers) */
   .glass-panel {
     background: hsl(0 0% 100% / 0.55);

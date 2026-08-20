@@ -22,7 +22,7 @@ const TeacherLayout = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-transparent flex">
       {/* Sidebar - desktop */}
       <aside className="hidden md:flex w-64 gradient-hero flex-col p-4 shadow-elevated">
         <div className="mb-8 px-1">

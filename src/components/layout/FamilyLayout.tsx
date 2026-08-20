@@ -17,7 +17,7 @@ const FamilyLayout = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-accent/40 via-background to-background flex flex-col relative">
+    <div className="min-h-screen bg-transparent flex flex-col relative">
       <CatBackground variant="subtle" />
 
       <header className="glass-panel border-b px-4 h-14 flex items-center justify-between relative z-10">

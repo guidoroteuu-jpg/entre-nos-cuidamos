@@ -20,7 +20,7 @@ const StudentLayout = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-background flex flex-col relative">
+    <div className="min-h-screen bg-transparent flex flex-col relative">
       {/* Decoração de cachorrinhos ao fundo — gentil, sereno, leve */}
       <CatBackground variant="subtle" />
 

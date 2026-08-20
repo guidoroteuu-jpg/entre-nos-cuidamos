@@ -164,7 +164,12 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply text-foreground antialiased;
+    background:
+      radial-gradient(120% 80% at 80% -10%, hsl(255 90% 95%) 0%, transparent 55%),
+      radial-gradient(100% 70% at -10% 110%, hsl(245 80% 94%) 0%, transparent 55%),
+      hsl(244 60% 98.5%);
+    background-attachment: fixed;
     font-family: var(--font-body);
     font-size: 15px;
     line-height: 1.65;
@@ -272,7 +277,7 @@
     inset: 0;
     pointer-events: none;
     overflow: hidden;
-    z-index: 0;
+    z-index: -1;
   }
   .aurora-blob {
     position: absolute;

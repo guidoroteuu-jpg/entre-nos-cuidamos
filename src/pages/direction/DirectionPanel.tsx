@@ -120,7 +120,7 @@ const DirectionPanel = () => (
       </div>
 
       {/* Comparativo de turmas (tabela) */}
-      <div className="bg-card rounded-2xl border border-border shadow-card overflow-hidden">
+      <div className="surface-card overflow-hidden">
         <div className="p-5 border-b border-border">
           <h2 className="font-heading font-bold text-foreground flex items-center gap-2">
             <Users className="w-5 h-5 text-secondary" /> Comparativo entre turmas

@@ -97,7 +97,7 @@ const DirectionSchoolYear = () => (
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.1 }}
-            className="bg-card rounded-2xl border border-border shadow-card overflow-hidden"
+            className="surface-card overflow-hidden"
           >
             <div className="p-5 border-b border-border">
               <div className="flex items-center justify-between">

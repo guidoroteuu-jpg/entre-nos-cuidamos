@@ -26,7 +26,7 @@ const Landing = () => {
   const { t } = useI18n();
 
   return (
-    <div className="min-h-screen bg-background relative">
+    <div className="min-h-screen bg-transparent relative">
       <CatBackground variant="lively" opacity={0.08} />
       <Navbar />
 

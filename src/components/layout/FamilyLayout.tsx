@@ -17,10 +17,10 @@ const FamilyLayout = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-accent/40 via-background to-background flex flex-col relative">
+    <div className="min-h-screen bg-transparent flex flex-col relative">
       <CatBackground variant="subtle" />
 
-      <header className="bg-card/80 backdrop-blur-xs border-b border-border px-4 h-14 flex items-center justify-between relative z-10">
+      <header className="glass-panel border-b px-4 h-14 flex items-center justify-between relative z-10">
         <div className="flex items-center gap-2">
           <img
             src={lisAvatar}
@@ -49,7 +49,7 @@ const FamilyLayout = ({ children }: { children: ReactNode }) => {
         </motion.div>
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-md border-t border-border px-2 pt-1 pb-[max(0.25rem,env(safe-area-inset-bottom))] flex justify-around z-40 shadow-elevated">
+      <nav className="fixed bottom-0 left-0 right-0 glass-panel border-t px-2 pt-1 pb-[max(0.25rem,env(safe-area-inset-bottom))] flex justify-around z-40 shadow-elevated">
         {navItems.map((item) => {
           const active = location.pathname === item.path;
           return (

@@ -22,7 +22,7 @@ const TeacherLayout = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-transparent flex">
       {/* Sidebar - desktop */}
       <aside className="hidden md:flex w-64 gradient-hero flex-col p-4 shadow-elevated">
         <div className="mb-8 px-1">
@@ -80,7 +80,7 @@ const TeacherLayout = ({ children }: { children: ReactNode }) => {
       </main>
 
       {/* Navegação inferior mobile */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-md border-t border-border px-1 pt-1 pb-[max(0.25rem,env(safe-area-inset-bottom))] flex justify-around z-40 shadow-elevated overflow-x-auto">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 glass-panel border-t px-1 pt-1 pb-[max(0.25rem,env(safe-area-inset-bottom))] flex justify-around z-40 shadow-elevated overflow-x-auto">
         {navItems.map((item) => {
           const active = location.pathname === item.path;
           return (

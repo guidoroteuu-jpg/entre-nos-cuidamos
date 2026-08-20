@@ -71,7 +71,7 @@ const Login = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-transparent flex items-center justify-center p-4 relative overflow-hidden">
       {/* Círculos flutuantes de fundo */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="float-circle-1 absolute top-[10%] left-[10%] w-64 h-64 rounded-full bg-secondary opacity-[0.06]" />

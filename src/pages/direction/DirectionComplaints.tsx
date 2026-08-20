@@ -320,7 +320,7 @@ const DirectionComplaints = () => {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04 }}
-                className="bg-card rounded-2xl border border-border shadow-card overflow-hidden"
+                className="surface-card overflow-hidden"
               >
                 <div className="p-5 cursor-pointer hover:bg-accent/30 transition-colors" onClick={() => { setExpanded(isExpanded ? null : c.id); if (!isExpanded) logAccess("visualizou", `Denúncia #${c.id}`); }}>
                   <div className="flex items-start justify-between gap-3">

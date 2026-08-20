@@ -96,6 +96,11 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
         <TooltipProvider>
+          <div className="aurora-field" aria-hidden="true">
+            <span className="aurora-blob aurora-blob-a" />
+            <span className="aurora-blob aurora-blob-b" />
+            <span className="aurora-blob aurora-blob-c" />
+          </div>
           <Toaster />
           <Sonner />
           <AccessibilityControls />
@@ -103,6 +108,7 @@ function RootComponent() {
         </TooltipProvider>
       </I18nProvider>
     </QueryClientProvider>
+
   );
 }
 

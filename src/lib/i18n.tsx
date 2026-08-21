@@ -326,7 +326,13 @@ const I18nContext = createContext<{
 } | null>(null);
 
 export const I18nProvider = ({ children }: { children: React.ReactNode }) => {
-  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
+  const [language, setLanguageState] = useState<Language>("pt-BR");
+
+  useEffect(() => {
+    const detected = getInitialLanguage();
+    if (detected !== language) setLanguageState(detected);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const setLanguage = (nextLanguage: Language) => {
     localStorage.setItem(languageStorageKey, nextLanguage);
@@ -336,6 +342,7 @@ export const I18nProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     document.documentElement.lang = language;
   }, [language]);
+
 
   const value = useMemo(
     () => ({

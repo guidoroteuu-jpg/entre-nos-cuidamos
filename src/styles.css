@@ -88,8 +88,8 @@
     --popover-foreground: 240 24% 96%;
     --primary: 245 75% 59%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 240 51% 24%;
-    --secondary-foreground: 245 100% 92%;
+    --secondary: 250 90% 76%;
+    --secondary-foreground: 240 45% 10%;
     --muted: 240 38% 17%;
     --muted-foreground: 240 22% 78%;
     --accent: 240 45% 21%;
@@ -147,8 +147,8 @@
     --popover-foreground: 240 24% 97%;
     --primary: 245 80% 66%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 240 51% 22%;
-    --secondary-foreground: 245 100% 92%;
+    --secondary: 250 90% 78%;
+    --secondary-foreground: 240 45% 8%;
     --muted: 240 40% 14%;
     --muted-foreground: 240 22% 76%;
     --accent: 240 45% 18%;
@@ -347,12 +347,12 @@
   .surface-inset {
     background: hsl(0 0% 100% / 0.4);
     backdrop-filter: blur(12px) saturate(140%);
-    border: 1px solid hsl(0 0% 100% / 0.5);
+    border: 1px solid hsl(245 80% 80% / 0.14);
     border-radius: 1.25rem;
   }
   .dark .surface-inset {
-    background: hsl(245 30% 16% / 0.5);
-    border-color: hsl(245 40% 70% / 0.14);
+    background: hsl(243 45% 18% / 0.5);
+    border-color: hsl(245 80% 80% / 0.14);
   }
 
   /* Título de seção */

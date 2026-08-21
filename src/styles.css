@@ -139,25 +139,25 @@
 
 
   .dark {
-    --background: 245 30% 8%;
-    --foreground: 245 10% 95%;
-    --card: 245 30% 12%;
-    --card-foreground: 245 10% 95%;
-    --popover: 245 30% 12%;
-    --popover-foreground: 245 10% 95%;
-    --primary: 245 50% 65%;
+    --background: 240 45% 5%;
+    --foreground: 240 24% 97%;
+    --card: 240 45% 11%;
+    --card-foreground: 240 24% 97%;
+    --popover: 240 45% 11%;
+    --popover-foreground: 240 24% 97%;
+    --primary: 245 80% 66%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 245 40% 52%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 245 25% 18%;
-    --muted-foreground: 245 18% 72%;
-    --accent: 245 25% 18%;
-    --accent-foreground: 245 50% 75%;
-    --destructive: 0 62% 30%;
+    --secondary: 240 51% 22%;
+    --secondary-foreground: 245 100% 92%;
+    --muted: 240 40% 14%;
+    --muted-foreground: 240 22% 76%;
+    --accent: 240 45% 18%;
+    --accent-foreground: 245 100% 90%;
+    --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border: 245 25% 20%;
-    --input: 245 25% 20%;
-    --ring: 245 50% 65%;
+    --border: 243 38% 24%;
+    --input: 243 38% 22%;
+    --ring: 245 85% 72%;
   }
 }
 
@@ -168,9 +168,9 @@
   body {
     @apply text-foreground antialiased;
     background:
-      radial-gradient(120% 80% at 80% -10%, hsl(255 90% 95%) 0%, transparent 55%),
-      radial-gradient(100% 70% at -10% 110%, hsl(245 80% 94%) 0%, transparent 55%),
-      hsl(244 60% 98.5%);
+      radial-gradient(120% 80% at 82% -12%, hsl(245 75% 32%) 0%, transparent 58%),
+      radial-gradient(100% 70% at -12% 108%, hsl(252 70% 26%) 0%, transparent 55%),
+      hsl(240 43% 7%);
     background-attachment: fixed;
     font-family: var(--font-body);
     font-size: 15px;
@@ -184,11 +184,12 @@
   }
   .dark body {
     background:
-      radial-gradient(120% 80% at 80% -10%, hsl(250 45% 16%) 0%, transparent 55%),
-      radial-gradient(100% 70% at -10% 110%, hsl(245 45% 14%) 0%, transparent 55%),
-      hsl(245 30% 8%);
+      radial-gradient(120% 80% at 82% -12%, hsl(245 70% 26%) 0%, transparent 58%),
+      radial-gradient(100% 70% at -12% 108%, hsl(252 65% 20%) 0%, transparent 55%),
+      hsl(240 45% 5%);
     background-attachment: fixed;
   }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     letter-spacing: -0.02em;

@@ -241,11 +241,11 @@
     background: var(--gradient-surface);
   }
 
-  /* ─── Superfícies de vidro (Vidro Sereno) ─── */
+  /* ─── Superfícies de vidro (Meia-noite Índigo) ─── */
   .surface-card {
-    background: linear-gradient(150deg, hsl(0 0% 100% / 0.62), hsl(0 0% 100% / 0.34));
-    backdrop-filter: blur(22px) saturate(150%);
-    border: 1px solid hsl(0 0% 100% / 0.6);
+    background: linear-gradient(150deg, hsl(243 45% 22% / 0.62), hsl(240 45% 11% / 0.42));
+    backdrop-filter: blur(24px) saturate(150%);
+    border: 1px solid hsl(245 80% 80% / 0.18);
     box-shadow: var(--shadow-card);
     border-radius: 1.75rem;
     transition: box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -253,48 +253,48 @@
       border-color 320ms ease;
   }
   .surface-card:hover {
-    background: linear-gradient(150deg, hsl(0 0% 100% / 0.78), hsl(0 0% 100% / 0.5));
+    background: linear-gradient(150deg, hsl(243 50% 27% / 0.75), hsl(240 45% 13% / 0.55));
     box-shadow: var(--shadow-elevated);
-    border-color: hsl(0 0% 100% / 0.85);
+    border-color: hsl(245 90% 82% / 0.36);
     transform: translateY(-3px);
   }
 
   /* Vidro global: toda superfície de card vira vidro fosco */
   .bg-card {
-    background-color: hsl(0 0% 100% / 0.62);
-    backdrop-filter: blur(20px) saturate(150%);
+    background-color: hsl(243 45% 18% / 0.58);
+    backdrop-filter: blur(22px) saturate(150%);
   }
   .dark .bg-card {
-    background-color: hsl(245 30% 14% / 0.68);
+    background-color: hsl(240 45% 12% / 0.66);
   }
   .border-border {
-    border-color: hsl(0 0% 100% / 0.6);
+    border-color: hsl(245 80% 80% / 0.18);
   }
   .dark .border-border {
-    border-color: hsl(245 40% 70% / 0.16);
+    border-color: hsl(245 80% 80% / 0.16);
   }
 
   /* Painel de vidro genérico (navs, barras, popovers) */
   .glass-panel {
-    background: hsl(0 0% 100% / 0.55);
-    backdrop-filter: blur(24px) saturate(160%);
-    border: 1px solid hsl(0 0% 100% / 0.55);
+    background: hsl(240 45% 10% / 0.6);
+    backdrop-filter: blur(26px) saturate(160%);
+    border: 1px solid hsl(245 80% 80% / 0.16);
   }
   .glass-soft {
-    background: hsl(0 0% 100% / 0.35);
-    backdrop-filter: blur(16px) saturate(140%);
-    border: 1px solid hsl(0 0% 100% / 0.45);
+    background: hsl(243 45% 20% / 0.35);
+    backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid hsl(245 80% 80% / 0.12);
   }
   .dark .surface-card {
-    background: linear-gradient(150deg, hsl(245 30% 20% / 0.7), hsl(245 30% 14% / 0.45));
-    border-color: hsl(245 40% 70% / 0.18);
+    background: linear-gradient(150deg, hsl(243 45% 20% / 0.66), hsl(240 45% 9% / 0.45));
+    border-color: hsl(245 80% 80% / 0.16);
   }
   .dark .surface-card:hover {
-    background: linear-gradient(150deg, hsl(245 30% 24% / 0.82), hsl(245 30% 16% / 0.6));
-    border-color: hsl(245 40% 70% / 0.3);
+    background: linear-gradient(150deg, hsl(243 50% 25% / 0.8), hsl(240 45% 11% / 0.6));
+    border-color: hsl(245 90% 82% / 0.32);
   }
-  .dark .glass-panel { background: hsl(245 30% 12% / 0.65); border-color: hsl(245 40% 70% / 0.16); }
-  .dark .glass-soft { background: hsl(245 30% 12% / 0.45); border-color: hsl(245 40% 70% / 0.14); }
+  .dark .glass-panel { background: hsl(240 45% 8% / 0.66); border-color: hsl(245 80% 80% / 0.14); }
+  .dark .glass-soft { background: hsl(240 45% 10% / 0.45); border-color: hsl(245 80% 80% / 0.12); }
 
   /* Aurora fluida de fundo */
   .aurora-field {
@@ -315,7 +315,7 @@
     right: -8%;
     width: 34rem;
     height: 34rem;
-    background: hsl(255 90% 82% / 0.55);
+    background: hsl(245 85% 62% / 0.5);
     animation: aurora-drift 26s ease-in-out infinite;
   }
   .aurora-blob-b {
@@ -323,7 +323,7 @@
     left: -10%;
     width: 28rem;
     height: 28rem;
-    background: hsl(245 43% 50% / 0.32);
+    background: hsl(240 60% 32% / 0.6);
     animation: aurora-drift 34s ease-in-out infinite reverse;
   }
   .aurora-blob-c {
@@ -331,9 +331,10 @@
     left: 45%;
     width: 22rem;
     height: 22rem;
-    background: hsl(268 70% 78% / 0.28);
+    background: hsl(268 80% 62% / 0.32);
     animation: aurora-drift 30s ease-in-out infinite;
   }
+
   @keyframes aurora-drift {
     0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
     33% { transform: translate3d(2.5rem, -3rem, 0) scale(1.08); }

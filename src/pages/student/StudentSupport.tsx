@@ -203,7 +203,7 @@ const StudentSupport = () => {
             })}
           </AnimatePresence>
         </div>
-      </div>
+      </PageShell>
 
       {/* Modal de leitura */}
       <AnimatePresence>
@@ -254,7 +254,7 @@ const StudentSupport = () => {
                       {p}
                     </p>
                   ))}
-                </PageShell>
+                </div>
               ) : (
                 <p className="text-sm text-muted-foreground italic">{aberto.resumo}</p>
               )}

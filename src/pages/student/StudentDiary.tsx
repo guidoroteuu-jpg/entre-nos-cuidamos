@@ -10,6 +10,7 @@ import { transcribeAudio } from "@/lib/transcribe-audio.functions";
 import { toast } from "sonner";
 import EmptyState from "@/components/EmptyState";
 import MoodCat, { type CatMoodKey } from "@/components/MoodCat";
+import { PageHeader } from "@/components/ui/kit";
 
 const moodOptions: { label: string; value: CatMoodKey; score: number }[] = [
   { label: "Ótimo", value: "otimo", score: 6 },

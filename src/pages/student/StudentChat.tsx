@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, Lock } from "lucide-react";
 import { motion } from "framer-motion";
+import { PageHeader } from "@/components/ui/kit";
 
 const mockMessages = [
   { id: 1, text: "Alguém mais achou a prova difícil?", time: "14:20", self: false, name: "Maria S." },

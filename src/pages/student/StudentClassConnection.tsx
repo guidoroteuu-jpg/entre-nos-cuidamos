@@ -7,6 +7,7 @@ import { Sparkles, Send, Heart, ShieldAlert, Users, Lock, CheckCircle2 } from "l
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import EmptyState from "@/components/EmptyState";
+import { PageHeader, PageShell } from "@/components/ui/kit";
 
 interface Compliment {
   id: number;

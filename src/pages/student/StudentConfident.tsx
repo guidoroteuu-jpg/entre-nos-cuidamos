@@ -3,6 +3,7 @@ import StudentLayout from "@/components/layout/StudentLayout";
 import { Button } from "@/components/ui/button";
 import { Users, ShieldCheck, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { PageHeader, PageShell } from "@/components/ui/kit";
 
 const classmates = [
   { id: 1, name: "Colega A" },

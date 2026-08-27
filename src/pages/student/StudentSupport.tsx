@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Brain, Users, Play, BookOpen, Wind, ChevronRight, X } from "lucide-react";
 import StudentLayout from "@/components/layout/StudentLayout";
 import CalmExercise from "@/components/CalmExercise";
+import { PageHeader, PageShell } from "@/components/ui/kit";
 
 type Categoria = "ansiedade" | "autoestima" | "amizade";
 

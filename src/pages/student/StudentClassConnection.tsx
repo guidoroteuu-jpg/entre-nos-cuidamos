@@ -267,7 +267,7 @@ const StudentClassConnection = () => {
             )}
           </div>
         </div>
-      </div>
+      </PageShell>
     </StudentLayout>
   );
 };

@@ -96,7 +96,7 @@ const StudentConfident = () => {
             </motion.div>
           </>
         )}
-      </div>
+      </PageShell>
     </StudentLayout>
   );
 };

@@ -254,7 +254,7 @@ const StudentSupport = () => {
                       {p}
                     </p>
                   ))}
-                </div>
+                </PageShell>
               ) : (
                 <p className="text-sm text-muted-foreground italic">{aberto.resumo}</p>
               )}

@@ -50,6 +50,8 @@ const StudentHome = () => {
   const [complaintSent, setComplaintSent] = useState(false);
   const [showCheckConfirm, setShowCheckConfirm] = useState(false);
 
+  const loading = useInitialLoading();
+
   const [showCalm, setShowCalm] = useState(false);
   const [calmIntro, setCalmIntro] = useState<string | undefined>(undefined);
 

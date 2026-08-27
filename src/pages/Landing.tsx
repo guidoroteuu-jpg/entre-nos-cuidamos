@@ -30,61 +30,120 @@ const Landing = () => {
       <CatBackground variant="lively" opacity={0.08} />
       <Navbar />
 
-      {/* Hero */}
-      <section className="pt-28 pb-20 px-4">
-        <div className="container mx-auto text-center max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 bg-accent rounded-full px-4 py-1.5 mb-6"
-          >
-            <ShieldCheck className="w-4 h-4 text-secondary" />
-            <span className="text-sm font-medium text-accent-foreground">{t("landing.badge")}</span>
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-heading text-4xl md:text-6xl font-extrabold text-foreground mb-6"
-          >
-            {t("landing.heroTitleStart")} {" "}
-            <span className="text-gradient">{t("landing.heroTitleHighlight")}</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8"
-          >
-            {t("landing.heroText")}
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <Link to="/cadastro">
-              <Button variant="hero" size="lg" className="text-base px-8 btn-shimmer micro-btn">
-                {t("landing.startTrial")}
-                <ArrowRight className="w-4 h-4 ml-1" />
-              </Button>
-            </Link>
-            <a href="#como-funciona">
-              <Button variant="hero-outline" size="lg" className="text-base px-8 micro-btn">
-                {t("nav.howItWorks")}
-              </Button>
-            </a>
-          </motion.div>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="text-xs text-muted-foreground mt-4"
-          >
-            {t("landing.noCard")}
-          </motion.p>
+      {/* Hero — split-screen de vidro */}
+      <section className="pt-24 pb-16 px-4 md:px-8">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 rounded-[2.5rem] glass-soft border border-white/70 shadow-elevated overflow-hidden">
+            {/* Coluna esquerda: conteúdo */}
+            <div className="p-8 sm:p-12 lg:p-16 xl:p-20 flex flex-col justify-center gap-8">
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-3 self-start rounded-full bg-primary/10 border border-primary/20 px-4 py-2"
+              >
+                <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+                <span className="text-xs font-semibold uppercase tracking-wider text-primary">
+                  {t("landing.badge")}
+                </span>
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.08 }}
+                className="font-heading text-5xl md:text-6xl xl:text-7xl font-extrabold text-foreground leading-[1.05]"
+              >
+                {t("landing.heroTitleStart")}{" "}
+                <span className="text-gradient italic">{t("landing.heroTitleHighlight")}</span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.16 }}
+                className="text-lg md:text-xl text-muted-foreground max-w-md leading-relaxed"
+              >
+                {t("landing.heroText")}
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.24 }}
+                className="flex flex-wrap gap-4"
+              >
+                <Link to="/cadastro">
+                  <Button variant="hero" size="lg" className="text-base px-8 py-6 rounded-2xl btn-shimmer micro-btn">
+                    {t("landing.startTrial")}
+                    <ArrowRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </Link>
+                <a href="#como-funciona">
+                  <Button variant="hero-outline" size="lg" className="text-base px-8 py-6 rounded-2xl micro-btn">
+                    {t("nav.howItWorks")}
+                  </Button>
+                </a>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="flex items-center gap-4 pt-4 border-t border-primary/10"
+              >
+                <div className="flex -space-x-3">
+                  <span className="w-9 h-9 rounded-full border-2 border-card bg-secondary" />
+                  <span className="w-9 h-9 rounded-full border-2 border-card bg-primary" />
+                  <span className="w-9 h-9 rounded-full border-2 border-card bg-accent flex items-center justify-center text-[10px] font-bold text-accent-foreground">
+                    +500
+                  </span>
+                </div>
+                <span className="text-sm text-muted-foreground font-medium">{t("landing.noCard")}</span>
+              </motion.div>
+            </div>
+
+            {/* Coluna direita: imagem em vidro */}
+            <div className="relative gradient-hero min-h-[420px] lg:min-h-[560px] flex items-center justify-center p-8 lg:p-14 overflow-hidden">
+              <span className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-secondary/40 blur-3xl" aria-hidden="true" />
+              <span className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-primary/60 blur-3xl" aria-hidden="true" />
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.96, y: 18 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+                className="relative w-full rounded-[2rem] border border-white/30 bg-white/10 backdrop-blur-md shadow-elevated overflow-hidden"
+              >
+                <div className="h-11 flex items-center justify-between px-5 border-b border-white/15 bg-white/10">
+                  <div className="flex gap-2" aria-hidden="true">
+                    <span className="w-2.5 h-2.5 rounded-full bg-white/30" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-white/30" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-white/30" />
+                  </div>
+                  <span className="w-28 h-1.5 rounded-full bg-white/20" aria-hidden="true" />
+                </div>
+                <img
+                  src={heroStudents}
+                  alt="Alunos acolhidos na escola com a mascote Lis, a dálmata roxa"
+                  width={1200}
+                  height={912}
+                  className="w-full h-auto object-cover"
+                />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.55 }}
+                className="absolute bottom-6 left-6 lg:bottom-10 lg:left-10 glass-panel rounded-2xl px-4 py-3 shadow-card flex items-center gap-3"
+              >
+                <span className="w-2.5 h-2.5 rounded-full bg-status-good" aria-hidden="true" />
+                <span className="text-xs font-bold uppercase tracking-wider text-foreground">
+                  {t("landing.stats.safe")}
+                </span>
+              </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -120,7 +120,7 @@
     --status-problem: 12 82% 55%;
     --status-severe: 0 72% 48%;
 
-    --gradient-hero: linear-gradient(135deg, hsl(246 45% 37%), hsl(245 42% 50%) 55%, hsl(333 100% 74%));
+    --gradient-hero: linear-gradient(135deg, hsl(246 45% 37%), hsl(245 42% 50%) 52%, hsl(318 60% 58%));
     --gradient-card: linear-gradient(160deg, hsl(0 0% 100% / 0.85), hsl(245 88% 97% / 0.6));
     --gradient-accent: linear-gradient(135deg, hsl(245 42% 50%), hsl(333 100% 74%));
     --gradient-surface: linear-gradient(180deg, hsl(252 100% 99%), hsl(245 88% 97%));

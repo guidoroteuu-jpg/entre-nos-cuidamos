@@ -189,6 +189,9 @@ const StudentHome = () => {
         <FacialCheckin />
 
         {/* Histórico da semana */}
+        {loading ? (
+          <ChartSkeleton height={144} />
+        ) : (
         <motion.section
           className="surface-card p-5 sm:p-6"
           initial={{ opacity: 0, y: 12 }}

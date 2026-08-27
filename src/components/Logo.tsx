@@ -37,19 +37,19 @@ const Logo = ({ variante = "clara", largura = 160 }: LogoProps) => {
       </g>
 
       {/* Texto "Entre" */}
-      <text x="100" y="46" fontFamily="'Nunito', sans-serif" fontWeight="700" fontSize="30" fill={isLight ? "#FFFFFF" : "#3C3489"}>
+      <text x="100" y="46" fontFamily="'Syne', sans-serif" fontWeight="700" fontSize="30" fill={isLight ? "#FFFFFF" : "#3C3489"}>
         Entre
       </text>
       {/* Linha separadora fina */}
       <line x1="100" y1="56" x2="210" y2="56" stroke={isLight ? "rgba(255,255,255,0.3)" : "rgba(60,52,137,0.2)"} strokeWidth="1" />
       {/* Texto "Nós" */}
-      <text x="100" y="82" fontFamily="'Nunito', sans-serif" fontWeight="800" fontSize="34" fill={isLight ? "#AFA9EC" : "#534AB7"}>
+      <text x="100" y="82" fontFamily="'Syne', sans-serif" fontWeight="800" fontSize="34" fill={isLight ? "#AFA9EC" : "#534AB7"}>
         Nós
       </text>
 
       {/* Slogan (só na variante slogan) */}
       {variante === "slogan" && (
-        <text x="100" y="120" fontFamily="'Inter', sans-serif" fontWeight="400" fontSize="11" fill="#888780" letterSpacing="1.5">
+        <text x="100" y="120" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="400" fontSize="11" fill="#888780" letterSpacing="1.5">
           Aqui, ninguém fica de fora.
         </text>
       )}

@@ -1,7 +1,8 @@
 import TeacherLayout from "@/components/layout/TeacherLayout";
 import { Button } from "@/components/ui/button";
 import { CalendarDays, Download, TrendingUp, TrendingDown, Award, Bell, AlertTriangle } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, CartesianGrid } from "recharts";
+import { brand, chartAxis, chartGrid, chartTooltip } from "@/lib/design-tokens";
 
 /* Dados por bimestre */
 const bimestres = [
@@ -159,10 +160,11 @@ const TeacherSchoolYear = () => (
               <div className="h-32">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={b.moodData}>
-                    <XAxis dataKey="semana" tick={{ fontSize: 11 }} />
-                    <YAxis domain={[0, 5]} tick={{ fontSize: 11 }} />
-                    <Tooltip />
-                    <Bar dataKey="humor" fill="hsl(245, 40%, 52%)" radius={[4, 4, 0, 0]} />
+                    <CartesianGrid {...chartGrid} />
+                    <XAxis dataKey="semana" {...chartAxis} />
+                    <YAxis domain={[0, 5]} {...chartAxis} width={24} />
+                    <Tooltip {...chartTooltip} />
+                    <Bar dataKey="humor" fill={brand.purple} radius={[8, 8, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>

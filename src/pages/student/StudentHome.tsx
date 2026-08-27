@@ -188,6 +188,8 @@ const StudentHome = () => {
             )}
           </AnimatePresence>
         </motion.section>
+        )}
+
 
         <FacialCheckin />
 

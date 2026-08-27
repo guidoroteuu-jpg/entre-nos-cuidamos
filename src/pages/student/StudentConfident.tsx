@@ -20,19 +20,16 @@ const StudentConfident = () => {
 
   return (
     <StudentLayout>
-      <div className="space-y-6">
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="font-heading text-xl font-bold text-foreground flex items-center gap-2">
-            <Users className="w-5 h-5 text-secondary" /> Meu Confidente
-          </h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Escolha alguém de confiança. Essa pessoa receberá alertas anônimos para te apoiar — sem saber quem enviou.
-          </p>
-        </motion.div>
+      <PageShell>
+        <PageHeader
+          title="Meu Confidente"
+          icon={Users}
+          description="Escolha alguém de confiança. Essa pessoa receberá alertas anônimos para te apoiar — sem saber quem enviou."
+        />
 
         {confirmed ? (
           <motion.div
-            className="bg-card rounded-2xl p-8 border border-border shadow-card text-center"
+            className="surface-card p-8 text-center"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
           >

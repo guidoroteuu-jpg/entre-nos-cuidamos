@@ -95,16 +95,16 @@ const StudentClassConnection = () => {
 
   return (
     <StudentLayout>
-      <div className="space-y-6">
-        {/* Header */}
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="font-heading text-xl font-bold text-foreground flex items-center gap-2">
-            <Users className="w-5 h-5 text-secondary" /> Conexão com a turma
-          </h1>
-          <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
-            <Lock className="w-3 h-3" /> Tudo aqui é anônimo. Ninguém vê quem enviou.
-          </p>
-        </motion.div>
+      <PageShell>
+        <PageHeader
+          title="Conexão com a turma"
+          icon={Users}
+          description={
+            <span className="flex items-center gap-1">
+              <Lock className="w-3 h-3" /> Tudo aqui é anônimo. Ninguém vê quem enviou.
+            </span>
+          }
+        />
 
         {/* Sinal silencioso */}
         <motion.div

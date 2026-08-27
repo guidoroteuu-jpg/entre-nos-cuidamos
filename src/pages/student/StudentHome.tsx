@@ -10,7 +10,7 @@ import AchievementsPanel, { trackCheckinToday } from "@/components/AchievementsP
 import ClimateSurvey from "@/components/ClimateSurvey";
 import FacialCheckin from "@/components/FacialCheckin";
 import MoodCat, { catByScore6 } from "@/components/MoodCat";
-import { PageHeader, PageShell } from "@/components/ui/kit";
+import { CardSkeleton, ChartSkeleton, PageHeader, PageShell, useInitialLoading } from "@/components/ui/kit";
 
 const emojis = [
   { label: "Ótimo", desc: "Estou bem!", value: 6 },

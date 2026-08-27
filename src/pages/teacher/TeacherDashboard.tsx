@@ -60,9 +60,10 @@ const TeacherDashboard = () => {
 
       {/* Radar */}
       {loading ? (
-        <CardSkeleton lines={0} className="space-y-4">
-          <GridSkeleton count={20} />
-        </CardSkeleton>
+        <div className="surface-card p-5 sm:p-6 space-y-4" aria-hidden="true">
+          <CardSkeleton lines={0} className="!p-0 !bg-transparent !shadow-none !border-0" />
+          <GridSkeleton count={20} className="surface-inset p-3" />
+        </div>
       ) : (
       <GlassCard delay={0.28}>
         <SectionHeader

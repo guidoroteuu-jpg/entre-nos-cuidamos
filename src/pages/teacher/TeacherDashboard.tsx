@@ -59,7 +59,11 @@ const TeacherDashboard = () => {
       )}
 
       {/* Radar */}
-      {loading ? <CardSkeleton lines={0} className="min-h-[220px]" /> : (
+      {loading ? (
+        <CardSkeleton lines={0} className="space-y-4">
+          <GridSkeleton count={20} />
+        </CardSkeleton>
+      ) : (
       <GlassCard delay={0.28}>
         <SectionHeader
           title="Radar da Turma"

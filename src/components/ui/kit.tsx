@@ -16,7 +16,7 @@ type GlassCardProps = HTMLMotionProps<"div"> & {
   padding?: "none" | "sm" | "md" | "lg";
   interactive?: boolean;
   /** índice para escalonar a entrada animada */
-  delay?: number;
+  delay?: number | undefined;
 };
 
 const paddings = {
@@ -59,12 +59,12 @@ export const PageHeader = ({
   actions,
   className,
 }: {
-  eyebrow?: string;
+  eyebrow?: string | undefined;
   title: ReactNode;
-  description?: ReactNode;
-  icon?: ElementType;
-  actions?: ReactNode;
-  className?: string;
+  description?: ReactNode | undefined;
+  icon?: ElementType | undefined;
+  actions?: ReactNode | undefined;
+  className?: string | undefined;
 }) => (
   <motion.header
     initial={{ opacity: 0, y: 12 }}
@@ -98,10 +98,10 @@ export const SectionHeader = ({
   className,
 }: {
   title: ReactNode;
-  description?: ReactNode;
-  icon?: ElementType;
-  aside?: ReactNode;
-  className?: string;
+  description?: ReactNode | undefined;
+  icon?: ElementType | undefined;
+  aside?: ReactNode | undefined;
+  className?: string | undefined;
 }) => (
   <div className={cn("flex items-start justify-between gap-3", className)}>
     <div className="flex items-start gap-2.5 min-w-0">
@@ -134,14 +134,14 @@ export const StatTile = ({
 }: {
   label: string;
   value: ReactNode;
-  caption?: ReactNode;
-  icon?: ElementType;
-  visual?: ReactNode;
+  caption?: ReactNode | undefined;
+  icon?: ElementType | undefined;
+  visual?: ReactNode | undefined;
   /** 0–100 */
-  progress?: number;
-  status?: StatusKey;
-  delay?: number;
-  className?: string;
+  progress?: number | undefined;
+  status?: StatusKey | undefined;
+  delay?: number | undefined;
+  className?: string | undefined;
 }) => (
   <GlassCard padding="sm" delay={delay} className={cn("p-4 sm:p-5", className)}>
     <div className="flex items-center gap-2 mb-3">
@@ -174,8 +174,8 @@ export const StatusPill = ({
   className,
 }: {
   status: StatusKey;
-  label?: string;
-  className?: string;
+  label?: string | undefined;
+  className?: string | undefined;
 }) => (
   <span
     className={cn(
@@ -201,12 +201,12 @@ export const ChartCard = ({
   children,
 }: {
   title: ReactNode;
-  description?: ReactNode;
-  icon?: ElementType;
-  aside?: ReactNode;
-  height?: number;
-  delay?: number;
-  className?: string;
+  description?: ReactNode | undefined;
+  icon?: ElementType | undefined;
+  aside?: ReactNode | undefined;
+  height?: number | undefined;
+  delay?: number | undefined;
+  className?: string | undefined;
   children: ReactNode;
 }) => (
   <GlassCard delay={delay} className={className}>

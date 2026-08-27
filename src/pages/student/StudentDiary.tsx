@@ -10,6 +10,7 @@ import { transcribeAudio } from "@/lib/transcribe-audio.functions";
 import { toast } from "sonner";
 import EmptyState from "@/components/EmptyState";
 import MoodCat, { type CatMoodKey } from "@/components/MoodCat";
+import { PageHeader } from "@/components/ui/kit";
 
 const moodOptions: { label: string; value: CatMoodKey; score: number }[] = [
   { label: "Ótimo", value: "otimo", score: 6 },
@@ -260,30 +261,22 @@ const StudentDiary = () => {
     <StudentLayout>
       <div className="space-y-6">
         {/* Header */}
-        <motion.div
-          className="flex items-center justify-between"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <div>
-            <h1 className="font-heading text-xl font-bold text-foreground flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-secondary" /> Meu Diário
-            </h1>
-            <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+        <PageHeader
+          title="Meu Diário"
+          icon={BookOpen}
+          description={
+            <span className="flex items-center gap-1">
               <Lock className="w-3 h-3" /> Só você pode ler o que escreve aqui
-            </p>
-          </div>
-          {!isWriting && !showMoodPicker && (
-            <Button
-              variant="hero"
-              size="sm"
-              onClick={() => openWriting()}
-              className="micro-btn"
-            >
-              <Plus className="w-4 h-4 mr-1" /> Escrever
-            </Button>
-          )}
-        </motion.div>
+            </span>
+          }
+          actions={
+            !isWriting && !showMoodPicker ? (
+              <Button variant="hero" size="sm" onClick={() => openWriting()} className="micro-btn">
+                <Plus className="w-4 h-4 mr-1" /> Escrever
+              </Button>
+            ) : null
+          }
+        />
 
         {/* Linha do tempo de humor mensal */}
         {!isWriting && !showMoodPicker && (

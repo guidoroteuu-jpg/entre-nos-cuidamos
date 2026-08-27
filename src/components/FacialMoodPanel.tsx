@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ScanFace, TrendingDown, TrendingUp, Minus, AlertTriangle, RefreshCw } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip, CartesianGrid } from "recharts";
+import { brand, chartAxis, chartGrid, chartTooltip } from "@/lib/design-tokens";
 import MoodCat, { catByScore6 } from "@/components/MoodCat";
 import {
   aggregateFaceCheckins,
@@ -149,11 +150,11 @@ const FacialMoodPanel = ({ turmaNome, mostrarTurmas = false }: Props) => {
               <div className="h-40">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={dados.porDia}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-                    <XAxis dataKey="dia" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
-                    <YAxis domain={[0, 6]} tick={{ fontSize: 11 }} tickLine={false} axisLine={false} width={24} />
-                    <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                    <Line type="monotone" dataKey="media" stroke="hsl(var(--primary))" strokeWidth={3} dot={{ r: 4 }} />
+                    <CartesianGrid {...chartGrid} />
+                    <XAxis dataKey="dia" {...chartAxis} />
+                    <YAxis domain={[0, 6]} {...chartAxis} width={24} />
+                    <Tooltip {...chartTooltip} />
+                    <Line type="monotone" dataKey="media" stroke={brand.purple} strokeWidth={3} dot={{ r: 4, fill: brand.purple }} activeDot={{ r: 6 }} />
                   </LineChart>
                 </ResponsiveContainer>
               </div>

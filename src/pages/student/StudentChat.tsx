@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, Lock } from "lucide-react";
 import { motion } from "framer-motion";
+import { PageHeader } from "@/components/ui/kit";
 
 const mockMessages = [
   { id: 1, text: "Alguém mais achou a prova difícil?", time: "14:20", self: false, name: "Maria S." },
@@ -47,12 +48,15 @@ const StudentChat = () => {
   return (
     <StudentLayout>
       <div className="flex flex-col h-[calc(100vh-8rem)]">
-        <div className="mb-4">
-          <h1 className="font-heading text-xl font-bold text-foreground">Chat da Turma</h1>
-          <p className="text-xs text-muted-foreground flex items-center gap-1">
-            <Lock className="w-3 h-3" /> Mensagens moderadas automaticamente
-          </p>
-        </div>
+        <PageHeader
+          className="mb-4"
+          title="Chat da Turma"
+          description={
+            <span className="flex items-center gap-1">
+              <Lock className="w-3 h-3" /> Mensagens moderadas automaticamente
+            </span>
+          }
+        />
 
         <div className="flex-1 overflow-y-auto space-y-3 mb-4">
           {messages.map((msg, i) => (

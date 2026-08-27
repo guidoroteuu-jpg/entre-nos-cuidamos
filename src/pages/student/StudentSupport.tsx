@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Brain, Users, Play, BookOpen, Wind, ChevronRight, X } from "lucide-react";
 import StudentLayout from "@/components/layout/StudentLayout";
 import CalmExercise from "@/components/CalmExercise";
+import { PageHeader, PageShell } from "@/components/ui/kit";
 
 type Categoria = "ansiedade" | "autoestima" | "amizade";
 
@@ -129,13 +130,12 @@ const StudentSupport = () => {
 
   return (
     <StudentLayout>
-      <div className="space-y-6">
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="font-heading text-2xl font-bold text-foreground">Cantinho de apoio</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Conteúdo curado pra te ajudar com o que tá pesando.
-          </p>
-        </motion.div>
+      <PageShell>
+        <PageHeader
+          eyebrow="Conteúdo"
+          title="Cantinho de apoio"
+          description="Conteúdo curado pra te ajudar com o que tá pesando."
+        />
 
         {/* Categorias destaque */}
         <div className="grid grid-cols-3 gap-3">
@@ -148,8 +148,8 @@ const StudentSupport = () => {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 * i }}
-                className={`bg-gradient-to-br ${c.cor} rounded-2xl p-4 border transition-all micro-card ${
-                  ativo ? "border-secondary ring-2 ring-secondary/30" : "border-border"
+                className={`surface-card p-4 transition-all micro-card ${
+                  ativo ? "ring-2 ring-secondary/40" : ""
                 }`}
               >
                 <c.icon className="w-5 h-5 text-secondary mx-auto" />
@@ -203,7 +203,7 @@ const StudentSupport = () => {
             })}
           </AnimatePresence>
         </div>
-      </div>
+      </PageShell>
 
       {/* Modal de leitura */}
       <AnimatePresence>

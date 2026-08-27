@@ -10,6 +10,7 @@ import AchievementsPanel, { trackCheckinToday } from "@/components/AchievementsP
 import ClimateSurvey from "@/components/ClimateSurvey";
 import FacialCheckin from "@/components/FacialCheckin";
 import MoodCat, { catByScore6 } from "@/components/MoodCat";
+import { PageHeader, PageShell } from "@/components/ui/kit";
 
 const emojis = [
   { label: "Ótimo", desc: "Estou bem!", value: 6 },
@@ -94,13 +95,12 @@ const StudentHome = () => {
 
   return (
     <StudentLayout>
-      <div className="space-y-5">
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="font-heading text-[26px] leading-tight font-extrabold text-foreground tracking-tight">
-            Olá, {studentName}!
-          </h1>
-          <p className="text-muted-foreground text-sm mt-1.5">Como você está se sentindo hoje?</p>
-        </motion.div>
+      <PageShell>
+        <PageHeader
+          eyebrow="Seu espaço"
+          title={`Olá, ${studentName}!`}
+          description="Como você está se sentindo hoje?"
+        />
 
         {/* Check-in emocional — grid 3x2 */}
         <motion.section
@@ -280,7 +280,7 @@ const StudentHome = () => {
           <span className="font-semibold text-sm">Fazer uma denúncia</span>
         </motion.button>
 
-      </div>
+      </PageShell>
 
       {/* Modal de denúncia */}
       <AnimatePresence>
@@ -295,7 +295,7 @@ const StudentHome = () => {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-card rounded-2xl p-6 w-full max-w-md border border-border shadow-elevated"
+              className="surface-card p-6 w-full max-w-md shadow-elevated"
             >
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-heading font-bold text-foreground">Fazer uma denúncia</h2>

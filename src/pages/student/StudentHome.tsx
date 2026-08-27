@@ -105,6 +105,9 @@ const StudentHome = () => {
         />
 
         {/* Check-in emocional — grid 3x2 */}
+        {loading ? (
+          <CardSkeleton lines={4} />
+        ) : (
         <motion.section
           className="surface-card p-5 sm:p-6"
           initial={{ opacity: 0, y: 12 }}

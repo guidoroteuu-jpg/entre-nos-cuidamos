@@ -241,11 +241,11 @@
     background: var(--gradient-surface);
   }
 
-  /* ─── Superfícies de vidro (Meia-noite Índigo) ─── */
+  /* ─── Superfícies de vidro (Roxo Aurora Claro) ─── */
   .surface-card {
-    background: linear-gradient(150deg, hsl(243 45% 22% / 0.62), hsl(240 45% 11% / 0.42));
-    backdrop-filter: blur(24px) saturate(150%);
-    border: 1px solid hsl(245 80% 80% / 0.18);
+    background: linear-gradient(150deg, hsl(0 0% 100% / 0.78), hsl(245 88% 97% / 0.5));
+    backdrop-filter: blur(28px) saturate(160%);
+    border: 1px solid hsl(0 0% 100% / 0.85);
     box-shadow: var(--shadow-card);
     border-radius: 1.75rem;
     transition: box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -253,22 +253,22 @@
       border-color 320ms ease;
   }
   .surface-card:hover {
-    background: linear-gradient(150deg, hsl(243 50% 27% / 0.75), hsl(240 45% 13% / 0.55));
+    background: linear-gradient(150deg, hsl(0 0% 100% / 0.92), hsl(245 88% 97% / 0.7));
     box-shadow: var(--shadow-elevated);
-    border-color: hsl(245 90% 82% / 0.36);
+    border-color: hsl(0 0% 100%);
     transform: translateY(-3px);
   }
 
   /* Vidro global: toda superfície de card vira vidro fosco */
   .bg-card {
-    background-color: hsl(243 45% 18% / 0.58);
-    backdrop-filter: blur(22px) saturate(150%);
+    background-color: hsl(0 0% 100% / 0.72);
+    backdrop-filter: blur(24px) saturate(160%);
   }
   .dark .bg-card {
     background-color: hsl(240 45% 12% / 0.66);
   }
   .border-border {
-    border-color: hsl(245 80% 80% / 0.18);
+    border-color: hsl(246 45% 88% / 0.9);
   }
   .dark .border-border {
     border-color: hsl(245 80% 80% / 0.16);
@@ -276,14 +276,14 @@
 
   /* Painel de vidro genérico (navs, barras, popovers) */
   .glass-panel {
-    background: hsl(240 45% 10% / 0.6);
-    backdrop-filter: blur(26px) saturate(160%);
-    border: 1px solid hsl(245 80% 80% / 0.16);
+    background: hsl(0 0% 100% / 0.7);
+    backdrop-filter: blur(28px) saturate(170%);
+    border: 1px solid hsl(0 0% 100% / 0.9);
   }
   .glass-soft {
-    background: hsl(243 45% 20% / 0.35);
-    backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid hsl(245 80% 80% / 0.12);
+    background: hsl(245 88% 97% / 0.55);
+    backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid hsl(0 0% 100% / 0.75);
   }
   .dark .surface-card {
     background: linear-gradient(150deg, hsl(243 45% 20% / 0.66), hsl(240 45% 9% / 0.45));

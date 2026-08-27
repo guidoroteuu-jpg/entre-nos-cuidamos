@@ -49,7 +49,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a1c2097f-5b82-4589-a37f-d9cd2d7f63b6/id-preview-80524c55--f562642f-7ca1-44b1-87cb-1ceb224dcd85.lovable.app-1775158505315.png",
       },
-      { name: "theme-color", content: "#0a0a1a" },
+      { name: "theme-color", content: "#F7F5FF" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

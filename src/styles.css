@@ -54,8 +54,8 @@
   --color-status-problem: hsl(var(--status-problem));
   --color-status-severe: hsl(var(--status-severe));
 
-  --font-heading: 'Outfit', sans-serif;
-  --font-body: 'Figtree', sans-serif;
+  --font-heading: 'Syne', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
 
 
   --animate-accordion-down: accordion-down 0.2s ease-out;

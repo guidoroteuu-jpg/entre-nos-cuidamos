@@ -10,7 +10,7 @@ import AchievementsPanel, { trackCheckinToday } from "@/components/AchievementsP
 import ClimateSurvey from "@/components/ClimateSurvey";
 import FacialCheckin from "@/components/FacialCheckin";
 import MoodCat, { catByScore6 } from "@/components/MoodCat";
-import { PageHeader, PageShell } from "@/components/ui/kit";
+import { CardSkeleton, ChartSkeleton, PageHeader, PageShell, useInitialLoading } from "@/components/ui/kit";
 
 const emojis = [
   { label: "Ótimo", desc: "Estou bem!", value: 6 },
@@ -49,6 +49,8 @@ const StudentHome = () => {
   const [complaintIdentify, setComplaintIdentify] = useState(false);
   const [complaintSent, setComplaintSent] = useState(false);
   const [showCheckConfirm, setShowCheckConfirm] = useState(false);
+
+  const loading = useInitialLoading();
 
   const [showCalm, setShowCalm] = useState(false);
   const [calmIntro, setCalmIntro] = useState<string | undefined>(undefined);
@@ -103,6 +105,9 @@ const StudentHome = () => {
         />
 
         {/* Check-in emocional — grid 3x2 */}
+        {loading ? (
+          <CardSkeleton lines={4} />
+        ) : (
         <motion.section
           className="surface-card p-5 sm:p-6"
           initial={{ opacity: 0, y: 12 }}
@@ -183,10 +188,15 @@ const StudentHome = () => {
             )}
           </AnimatePresence>
         </motion.section>
+        )}
+
 
         <FacialCheckin />
 
         {/* Histórico da semana */}
+        {loading ? (
+          <ChartSkeleton height={144} />
+        ) : (
         <motion.section
           className="surface-card p-5 sm:p-6"
           initial={{ opacity: 0, y: 12 }}
@@ -221,6 +231,8 @@ const StudentHome = () => {
             ))}
           </div>
         </motion.section>
+        )}
+
 
 
         {/* Conquistas e streaks */}

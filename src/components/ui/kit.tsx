@@ -3,7 +3,7 @@
  * Superfícies de vidro, cabeçalhos e blocos de estatística reutilizáveis
  * para unificar o UI de aluno, professor, direção e família.
  */
-import { forwardRef, type ElementType, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, useEffect, useState, type ElementType, type HTMLAttributes, type ReactNode } from "react";
 import { motion, type HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { statusBg, statusLabels, type StatusKey } from "@/lib/design-tokens";
@@ -228,3 +228,115 @@ export const PageShell = ({
     {children}
   </div>
 );
+
+/* ─────────── Estados de carregamento ─────────── */
+
+/** Bloco base de skeleton com o pulso e o raio padrão do design system. */
+export const SkeletonBlock = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
+  <div
+    aria-hidden="true"
+    className={cn("animate-pulse rounded-xl bg-muted/70", className)}
+    {...props}
+  />
+);
+
+/** Skeleton de um `StatTile`. */
+export const StatTileSkeleton = ({ className }: { className?: string | undefined }) => (
+  <div className={cn("surface-card p-4 sm:p-5", className)} aria-hidden="true">
+    <div className="flex items-center gap-2 mb-3">
+      <SkeletonBlock className="w-9 h-9 rounded-2xl" />
+      <SkeletonBlock className="h-3.5 w-20" />
+    </div>
+    <SkeletonBlock className="h-7 w-14" />
+    <SkeletonBlock className="mt-2.5 h-1.5 w-full rounded-full" />
+    <SkeletonBlock className="mt-2 h-3 w-24" />
+  </div>
+);
+
+/** Grade de skeletons de estatística. */
+export const StatGridSkeleton = ({ count = 4, className }: { count?: number; className?: string | undefined }) => (
+  <div className={cn("grid grid-cols-2 md:grid-cols-4 gap-3", className)}>
+    {Array.from({ length: count }).map((_, i) => (
+      <StatTileSkeleton key={i} />
+    ))}
+  </div>
+);
+
+/** Skeleton genérico de card com cabeçalho + linhas de conteúdo. */
+export const CardSkeleton = ({
+  lines = 3,
+  header = true,
+  className,
+}: {
+  lines?: number;
+  header?: boolean;
+  className?: string | undefined;
+}) => (
+  <div className={cn("surface-card p-5 sm:p-6", className)} aria-hidden="true">
+    {header && (
+      <div className="flex items-center gap-2.5 mb-4">
+        <SkeletonBlock className="w-9 h-9 rounded-2xl" />
+        <div className="space-y-1.5">
+          <SkeletonBlock className="h-3.5 w-32" />
+          <SkeletonBlock className="h-3 w-24" />
+        </div>
+      </div>
+    )}
+    <div className="space-y-2.5">
+      {Array.from({ length: lines }).map((_, i) => (
+        <SkeletonBlock key={i} className="h-4" style={{ width: `${100 - i * 12}%` }} />
+      ))}
+    </div>
+  </div>
+);
+
+/** Skeleton para blocos de gráfico/grade visual. */
+export const ChartSkeleton = ({
+  height = 200,
+  className,
+}: {
+  height?: number;
+  className?: string | undefined;
+}) => (
+  <div className={cn("surface-card p-5 sm:p-6", className)} aria-hidden="true">
+    <div className="flex items-center justify-between mb-4">
+      <SkeletonBlock className="h-3.5 w-28" />
+      <SkeletonBlock className="h-3 w-36" />
+    </div>
+    <div className="surface-inset p-3 flex items-end justify-between gap-2" style={{ height }}>
+      {[62, 84, 46, 92, 55, 74, 38].map((h, i) => (
+        <SkeletonBlock key={i} className="flex-1 rounded-lg" style={{ height: `${h}%` }} />
+      ))}
+    </div>
+  </div>
+);
+
+/** Skeleton de grade de itens (radar da turma, links rápidos, listas). */
+export const GridSkeleton = ({
+  count = 10,
+  columns = "grid-cols-5 sm:grid-cols-10",
+  className,
+}: {
+  count?: number;
+  columns?: string;
+  className?: string | undefined;
+}) => (
+  <div className={cn("grid gap-2", columns, className)} aria-hidden="true">
+    {Array.from({ length: count }).map((_, i) => (
+      <SkeletonBlock key={i} className="aspect-square rounded-xl" />
+    ))}
+  </div>
+);
+
+/**
+ * Estado de carregamento inicial padronizado.
+ * Mantém o skeleton visível por um instante curto na montagem da página.
+ */
+export const useInitialLoading = (ms = 600) => {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), ms);
+    return () => clearTimeout(t);
+  }, [ms]);
+  return loading;
+};

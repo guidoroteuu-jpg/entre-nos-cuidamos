@@ -3,7 +3,7 @@ import { Users, Lightbulb } from "lucide-react";
 import { motion } from "framer-motion";
 import MoodCat, { type CatMoodKey } from "@/components/MoodCat";
 import FacialMoodPanel from "@/components/FacialMoodPanel";
-import { GlassCard, PageHeader, PageShell, SectionHeader, StatTile, StatusPill } from "@/components/ui/kit";
+import { CardSkeleton, GlassCard, GridSkeleton, PageHeader, PageShell, SectionHeader, StatGridSkeleton, StatTile, StatusPill, useInitialLoading } from "@/components/ui/kit";
 import { statusBg, statusLabels, type StatusKey } from "@/lib/design-tokens";
 
 const students = [
@@ -32,12 +32,16 @@ const suggestions = [
   "Dinâmica \"eu no lugar do outro\" — promove empatia e reduz conflitos.",
 ];
 
-const TeacherDashboard = () => (
+const TeacherDashboard = () => {
+  const loading = useInitialLoading();
+
+  return (
   <TeacherLayout>
     <PageShell>
       <PageHeader eyebrow="Visão geral" title="Dashboard da Turma" description="Turma 5A · 20 alunos" />
 
       {/* Estatísticas */}
+      {loading ? <StatGridSkeleton /> : (
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {stats.map((s, i) => (
           <StatTile
@@ -52,8 +56,15 @@ const TeacherDashboard = () => (
           />
         ))}
       </div>
+      )}
 
       {/* Radar */}
+      {loading ? (
+        <div className="surface-card p-5 sm:p-6 space-y-4" aria-hidden="true">
+          <CardSkeleton lines={0} className="!p-0 !bg-transparent !shadow-none !border-0" />
+          <GridSkeleton count={20} className="surface-inset p-3" />
+        </div>
+      ) : (
       <GlassCard delay={0.28}>
         <SectionHeader
           title="Radar da Turma"
@@ -83,6 +94,7 @@ const TeacherDashboard = () => (
           ))}
         </div>
       </GlassCard>
+      )}
 
       <FacialMoodPanel turmaNome="5A" />
 
@@ -108,6 +120,7 @@ const TeacherDashboard = () => (
       </GlassCard>
     </PageShell>
   </TeacherLayout>
-);
+  );
+};
 
 export default TeacherDashboard;

@@ -226,6 +226,8 @@ const StudentHome = () => {
             ))}
           </div>
         </motion.section>
+        )}
+
 
 
         {/* Conquistas e streaks */}

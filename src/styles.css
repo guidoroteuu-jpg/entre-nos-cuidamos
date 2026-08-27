@@ -168,9 +168,9 @@
   body {
     @apply text-foreground antialiased;
     background:
-      radial-gradient(120% 80% at 82% -12%, hsl(245 75% 32%) 0%, transparent 58%),
-      radial-gradient(100% 70% at -12% 108%, hsl(252 70% 26%) 0%, transparent 55%),
-      hsl(240 43% 7%);
+      radial-gradient(120% 80% at 82% -12%, hsl(333 100% 74% / 0.18) 0%, transparent 58%),
+      radial-gradient(100% 70% at -12% 108%, hsl(245 42% 50% / 0.16) 0%, transparent 55%),
+      hsl(252 100% 98%);
     background-attachment: fixed;
     font-family: var(--font-body);
     font-size: 15px;

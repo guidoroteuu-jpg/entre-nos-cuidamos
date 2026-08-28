@@ -22,13 +22,8 @@ const welcomeMessage: Message = {
   time: new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }),
 };
 
-/* Palavras-chave de risco — monitoramento silencioso */
-const riskWords = [
-  "sozinho", "excluído", "ninguém gosta", "odeio a escola",
-  "não quero ir", "me batem", "me xingam", "quero sumir",
-  "ninguém me vê", "invisível", "bullying", "desaparecer", "me machucar",
-];
-const severeRiskWords = ["quero sumir", "desaparecer", "me machucar"];
+
+
 
 /* URL do endpoint de chat (server route TanStack) */
 const CHAT_URL = "/api/chat-lis";

@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "sdk_version": "0.28.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://epwvtvqpvjzzfikfbbdd.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "entre-nos",
+      "version": "0.1.0",
+      "title": "entre nos"
+    },
+    "tools": [
+      {
+        "name": "list_complaints",
+        "title": "Listar denúncias",
+        "description": "Lista as denúncias (bullying, exclusão, agressão) visíveis para o usuário autenticado, com status e data.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "status": {
+              "description": "Filtra pelo status da denúncia.",
+              "type": "string",
+              "enum": [
+                "pendente",
+                "em_analise",
+                "resolvida"
+              ]
+            },
+            "limit": {
+              "description": "Número máximo de denúncias (padrão 20, máximo 100).",
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_alerts",
+        "title": "Listar alertas de risco",
+        "description": "Lista os alertas de bem-estar e risco acessíveis ao usuário autenticado, com severidade e situação de resolução.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "severity": {
+              "description": "Filtra pela severidade do alerta.",
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "only_unresolved": {
+              "description": "Se verdadeiro, retorna apenas alertas não resolvidos.",
+              "type": "boolean"
+            },
+            "limit": {
+              "description": "Número máximo de alertas (padrão 20, máximo 100).",
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "wellbeing_summary",
+        "title": "Resumo de bem-estar",
+        "description": "Resume os check-ins de humor visíveis ao usuário autenticado em um período recente: média, total e distribuição por nota.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "days": {
+              "description": "Janela em dias a considerar (padrão 7, máximo 90).",
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "update_complaint_status",
+        "title": "Atualizar status de denúncia",
+        "description": "Atualiza o status de uma denúncia. Só funciona para administradores da escola correspondente.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Identificador da denúncia."
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "pendente",
+                "em_analise",
+                "resolvida"
+              ],
+              "description": "Novo status da denúncia."
+            },
+            "internal_notes": {
+              "description": "Observação interna opcional sobre o encaminhamento.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "status"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

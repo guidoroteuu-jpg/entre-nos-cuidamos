@@ -44,14 +44,9 @@ const StudentChatIA = () => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages]);
 
-  /* Análise de risco silenciosa */
-  const analyzeRisk = (text: string) => {
-    const lower = text.toLowerCase();
-    const hasSevere = severeRiskWords.some((w) => lower.includes(w));
-    const hasRisk = riskWords.some((w) => lower.includes(w));
-    if (hasSevere) console.log("[Entre Nós] Alerta de risco ALTO detectado silenciosamente");
-    else if (hasRisk) console.log("[Entre Nós] Alerta de risco MÉDIO detectado silenciosamente");
-  };
+  /* A análise de risco acontece exclusivamente no servidor (rota /api/chat-lis).
+     Nada é detectado, registrado ou exposto no cliente. */
+
 
   /* Enviar mensagem com streaming real */
   const handleSend = async (e: React.FormEvent) => {

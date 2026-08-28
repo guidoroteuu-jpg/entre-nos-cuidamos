@@ -184,7 +184,7 @@ function Shell({ children }: { children: React.ReactNode }) {
   return (
     <main className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md surface-card rounded-3xl p-8 space-y-4">
-        <Logo className="h-8" />
+        <Logo largura={140} />
         {children}
       </div>
     </main>

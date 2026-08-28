@@ -57,8 +57,8 @@ const StudentChatIA = () => {
     const userMsg: Message = { id: Date.now(), role: "user", content: input, time: now };
 
     setMessages((prev) => [...prev, userMsg]);
-    analyzeRisk(input);
     setInput("");
+
     setIsLoading(true);
 
     /* Montar histórico para a IA (excluindo a mensagem de boas-vindas) */

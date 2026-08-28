@@ -10,6 +10,12 @@ export default defineTool({
   inputSchema: {
     days: z.number().int().optional().describe("Janela em dias a considerar (padrão 7, máximo 90)."),
   },
+  outputSchema: {
+    days: z.number(),
+    total: z.number(),
+    average: z.number().nullable(),
+    distribution: z.record(z.string(), z.number()),
+  },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: async ({ days }, ctx) => {
     if (!ctx.isAuthenticated()) {

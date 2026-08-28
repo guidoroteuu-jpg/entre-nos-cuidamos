@@ -12,6 +12,18 @@ export default defineTool({
     only_unresolved: z.boolean().optional().describe("Se verdadeiro, retorna apenas alertas não resolvidos."),
     limit: z.number().int().optional().describe("Número máximo de alertas (padrão 20, máximo 100)."),
   },
+  outputSchema: {
+    alerts: z.array(
+      z.object({
+        id: z.string(),
+        type: z.string(),
+        description: z.string().nullable(),
+        severity: z.string(),
+        resolved: z.boolean().nullable(),
+        created_at: z.string(),
+      }),
+    ),
+  },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: async ({ severity, only_unresolved, limit }, ctx) => {
     if (!ctx.isAuthenticated()) {

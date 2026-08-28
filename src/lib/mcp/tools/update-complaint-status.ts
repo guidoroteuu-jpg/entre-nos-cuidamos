@@ -12,6 +12,9 @@ export default defineTool({
     status: z.enum(["pendente", "em_analise", "resolvida"]).describe("Novo status da denúncia."),
     internal_notes: z.string().optional().describe("Observação interna opcional sobre o encaminhamento."),
   },
+  outputSchema: {
+    complaint: z.object({ id: z.string(), status: z.string(), updated_at: z.string() }),
+  },
   annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false },
   handler: async ({ id, status, internal_notes }, ctx) => {
     if (!ctx.isAuthenticated()) {

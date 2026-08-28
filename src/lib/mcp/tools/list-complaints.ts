@@ -14,6 +14,18 @@ export default defineTool({
       .describe("Filtra pelo status da denúncia."),
     limit: z.number().int().optional().describe("Número máximo de denúncias (padrão 20, máximo 100)."),
   },
+  outputSchema: {
+    complaints: z.array(
+      z.object({
+        id: z.string(),
+        type: z.string(),
+        description: z.string(),
+        status: z.string(),
+        is_anonymous: z.boolean().nullable(),
+        created_at: z.string(),
+      }),
+    ),
+  },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: async ({ status, limit }, ctx) => {
     if (!ctx.isAuthenticated()) {

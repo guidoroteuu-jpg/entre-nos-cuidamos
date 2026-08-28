@@ -22,13 +22,8 @@ const welcomeMessage: Message = {
   time: new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }),
 };
 
-/* Palavras-chave de risco — monitoramento silencioso */
-const riskWords = [
-  "sozinho", "excluído", "ninguém gosta", "odeio a escola",
-  "não quero ir", "me batem", "me xingam", "quero sumir",
-  "ninguém me vê", "invisível", "bullying", "desaparecer", "me machucar",
-];
-const severeRiskWords = ["quero sumir", "desaparecer", "me machucar"];
+
+
 
 /* URL do endpoint de chat (server route TanStack) */
 const CHAT_URL = "/api/chat-lis";
@@ -44,14 +39,9 @@ const StudentChatIA = () => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages]);
 
-  /* Análise de risco silenciosa */
-  const analyzeRisk = (text: string) => {
-    const lower = text.toLowerCase();
-    const hasSevere = severeRiskWords.some((w) => lower.includes(w));
-    const hasRisk = riskWords.some((w) => lower.includes(w));
-    if (hasSevere) console.log("[Entre Nós] Alerta de risco ALTO detectado silenciosamente");
-    else if (hasRisk) console.log("[Entre Nós] Alerta de risco MÉDIO detectado silenciosamente");
-  };
+  /* A análise de risco acontece exclusivamente no servidor (rota /api/chat-lis).
+     Nada é detectado, registrado ou exposto no cliente. */
+
 
   /* Enviar mensagem com streaming real */
   const handleSend = async (e: React.FormEvent) => {
@@ -62,8 +52,8 @@ const StudentChatIA = () => {
     const userMsg: Message = { id: Date.now(), role: "user", content: input, time: now };
 
     setMessages((prev) => [...prev, userMsg]);
-    analyzeRisk(input);
     setInput("");
+
     setIsLoading(true);
 
     /* Montar histórico para a IA (excluindo a mensagem de boas-vindas) */

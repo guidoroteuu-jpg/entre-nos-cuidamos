@@ -556,16 +556,7 @@ export type Database = {
       }
     }
     Functions: {
-      get_admin_escola_ids: { Args: { _user_id: string }; Returns: string[] }
-      get_student_turma_ids: { Args: { _user_id: string }; Returns: string[] }
-      get_teacher_turma_ids: { Args: { _user_id: string }; Returns: string[] }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
+      [_ in never]: never
     }
     Enums: {
       app_role: "admin" | "teacher" | "student"

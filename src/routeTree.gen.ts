@@ -14,10 +14,7 @@ import { Route as BemVindoRouteImport } from './routes/bem-vindo'
 import { Route as BrandRouteImport } from './routes/brand'
 import { Route as CadastroRouteImport } from './routes/cadastro'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as McpRouteImport } from './routes/mcp'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
-import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AlunoAcessibilidadeRouteImport } from './routes/aluno/acessibilidade'
 import { Route as AlunoApoioRouteImport } from './routes/aluno/apoio'
 import { Route as AlunoChatRouteImport } from './routes/aluno/chat'
@@ -55,8 +52,6 @@ import { Route as ProfessorEspecialistaRouteImport } from './routes/professor/es
 import { Route as ProfessorFamiliaRouteImport } from './routes/professor/familia'
 import { Route as ProfessorPlanoIndividualRouteImport } from './routes/professor/plano-individual'
 import { Route as ProfessorRelatorioRouteImport } from './routes/professor/relatorio'
-import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
-import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -83,28 +78,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PrivacidadeRoute = PrivacidadeRouteImport.update({
   id: '/privacidade',
   path: '/privacidade',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Char91DotmcpChar93ListToolsRoute =
-  Char91DotmcpChar93ListToolsRouteImport.update({
-    id: '/.mcp/list-tools',
-    path: '/.mcp/list-tools',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const Char91DotwellKnownChar93OauthProtectedResourceRoute =
-  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
-    id: '/.well-known/oauth-protected-resource',
-    path: '/.well-known/oauth-protected-resource',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const AlunoAcessibilidadeRoute = AlunoAcessibilidadeRouteImport.update({
   id: '/aluno/acessibilidade',
   path: '/aluno/acessibilidade',
@@ -292,17 +270,6 @@ const ProfessorRelatorioRoute = ProfessorRelatorioRouteImport.update({
   path: '/professor/relatorio',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
-  id: '/.lovable/oauth/consent',
-  path: '/.lovable/oauth/consent',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Char91DotmcpChar93InvokeToolToolRoute =
-  Char91DotmcpChar93InvokeToolToolRouteImport.update({
-    id: '/.mcp/invoke-tool/$tool',
-    path: '/.mcp/invoke-tool/$tool',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -310,10 +277,7 @@ export interface FileRoutesByFullPath {
   '/brand': typeof BrandRoute
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
-  '/mcp': typeof McpRoute
   '/privacidade': typeof PrivacidadeRoute
-  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
-  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/aluno/acessibilidade': typeof AlunoAcessibilidadeRoute
   '/aluno/apoio': typeof AlunoApoioRoute
   '/aluno/chat': typeof AlunoChatRoute
@@ -351,8 +315,6 @@ export interface FileRoutesByFullPath {
   '/professor/plano-individual': typeof ProfessorPlanoIndividualRoute
   '/professor/relatorio': typeof ProfessorRelatorioRoute
   '/familia/': typeof FamiliaIndexRoute
-  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
-  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -360,10 +322,7 @@ export interface FileRoutesByTo {
   '/brand': typeof BrandRoute
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
-  '/mcp': typeof McpRoute
   '/privacidade': typeof PrivacidadeRoute
-  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
-  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/aluno/acessibilidade': typeof AlunoAcessibilidadeRoute
   '/aluno/apoio': typeof AlunoApoioRoute
   '/aluno/chat': typeof AlunoChatRoute
@@ -401,8 +360,6 @@ export interface FileRoutesByTo {
   '/professor/plano-individual': typeof ProfessorPlanoIndividualRoute
   '/professor/relatorio': typeof ProfessorRelatorioRoute
   '/familia': typeof FamiliaIndexRoute
-  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
-  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -411,10 +368,7 @@ export interface FileRoutesById {
   '/brand': typeof BrandRoute
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
-  '/mcp': typeof McpRoute
   '/privacidade': typeof PrivacidadeRoute
-  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
-  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/aluno/acessibilidade': typeof AlunoAcessibilidadeRoute
   '/aluno/apoio': typeof AlunoApoioRoute
   '/aluno/chat': typeof AlunoChatRoute
@@ -452,8 +406,6 @@ export interface FileRoutesById {
   '/professor/plano-individual': typeof ProfessorPlanoIndividualRoute
   '/professor/relatorio': typeof ProfessorRelatorioRoute
   '/familia/': typeof FamiliaIndexRoute
-  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
-  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -463,10 +415,7 @@ export interface FileRouteTypes {
     | '/brand'
     | '/cadastro'
     | '/login'
-    | '/mcp'
     | '/privacidade'
-    | '/.mcp/list-tools'
-    | '/.well-known/oauth-protected-resource'
     | '/aluno/acessibilidade'
     | '/aluno/apoio'
     | '/aluno/chat'
@@ -504,8 +453,6 @@ export interface FileRouteTypes {
     | '/professor/plano-individual'
     | '/professor/relatorio'
     | '/familia/'
-    | '/.lovable/oauth/consent'
-    | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -513,10 +460,7 @@ export interface FileRouteTypes {
     | '/brand'
     | '/cadastro'
     | '/login'
-    | '/mcp'
     | '/privacidade'
-    | '/.mcp/list-tools'
-    | '/.well-known/oauth-protected-resource'
     | '/aluno/acessibilidade'
     | '/aluno/apoio'
     | '/aluno/chat'
@@ -554,8 +498,6 @@ export interface FileRouteTypes {
     | '/professor/plano-individual'
     | '/professor/relatorio'
     | '/familia'
-    | '/.lovable/oauth/consent'
-    | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
     | '/'
@@ -563,10 +505,7 @@ export interface FileRouteTypes {
     | '/brand'
     | '/cadastro'
     | '/login'
-    | '/mcp'
     | '/privacidade'
-    | '/.mcp/list-tools'
-    | '/.well-known/oauth-protected-resource'
     | '/aluno/acessibilidade'
     | '/aluno/apoio'
     | '/aluno/chat'
@@ -604,8 +543,6 @@ export interface FileRouteTypes {
     | '/professor/plano-individual'
     | '/professor/relatorio'
     | '/familia/'
-    | '/.lovable/oauth/consent'
-    | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -614,10 +551,7 @@ export interface RootRouteChildren {
   BrandRoute: typeof BrandRoute
   CadastroRoute: typeof CadastroRoute
   LoginRoute: typeof LoginRoute
-  McpRoute: typeof McpRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
-  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
-  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AlunoAcessibilidadeRoute: typeof AlunoAcessibilidadeRoute
   AlunoApoioRoute: typeof AlunoApoioRoute
   AlunoChatRoute: typeof AlunoChatRoute
@@ -655,8 +589,6 @@ export interface RootRouteChildren {
   ProfessorPlanoIndividualRoute: typeof ProfessorPlanoIndividualRoute
   ProfessorRelatorioRoute: typeof ProfessorRelatorioRoute
   FamiliaIndexRoute: typeof FamiliaIndexRoute
-  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
-  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -696,32 +628,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/privacidade': {
       id: '/privacidade'
       path: '/privacidade'
       fullPath: '/privacidade'
       preLoaderRoute: typeof PrivacidadeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/.mcp/list-tools': {
-      id: '/.mcp/list-tools'
-      path: '/.mcp/list-tools'
-      fullPath: '/.mcp/list-tools'
-      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/aluno/acessibilidade': {
@@ -983,20 +894,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfessorRelatorioRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.lovable/oauth/consent': {
-      id: '/.lovable/oauth/consent'
-      path: '/.lovable/oauth/consent'
-      fullPath: '/.lovable/oauth/consent'
-      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/.mcp/invoke-tool/$tool': {
-      id: '/.mcp/invoke-tool/$tool'
-      path: '/.mcp/invoke-tool/$tool'
-      fullPath: '/.mcp/invoke-tool/$tool'
-      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -1006,11 +903,7 @@ const rootRouteChildren: RootRouteChildren = {
   BrandRoute: BrandRoute,
   CadastroRoute: CadastroRoute,
   LoginRoute: LoginRoute,
-  McpRoute: McpRoute,
   PrivacidadeRoute: PrivacidadeRoute,
-  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
-  Char91DotwellKnownChar93OauthProtectedResourceRoute:
-    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   AlunoAcessibilidadeRoute: AlunoAcessibilidadeRoute,
   AlunoApoioRoute: AlunoApoioRoute,
   AlunoChatRoute: AlunoChatRoute,
@@ -1048,8 +941,6 @@ const rootRouteChildren: RootRouteChildren = {
   ProfessorPlanoIndividualRoute: ProfessorPlanoIndividualRoute,
   ProfessorRelatorioRoute: ProfessorRelatorioRoute,
   FamiliaIndexRoute: FamiliaIndexRoute,
-  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
-  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

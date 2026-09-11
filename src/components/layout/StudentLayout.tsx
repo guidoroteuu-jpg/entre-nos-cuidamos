@@ -25,7 +25,7 @@ const StudentLayout = ({ children }: { children: ReactNode }) => {
       <CatBackground variant="subtle" />
 
       {/* Barra superior */}
-      <header className="glass-panel border-b px-4 h-14 flex items-center justify-between relative z-10">
+      <header className="glass-panel border px-4 sm:px-6 h-16 flex items-center justify-between sticky top-3 z-30 mx-3 mt-3 rounded-2xl shadow-card">
         <div className="flex items-center gap-2">
           <img
             src={lisAvatar}
@@ -43,7 +43,7 @@ const StudentLayout = ({ children }: { children: ReactNode }) => {
       </header>
 
       {/* Conteúdo */}
-      <main className="flex-1 px-4 py-6 pb-24 max-w-2xl mx-auto w-full relative z-10">
+      <main className="flex-1 px-4 sm:px-6 py-7 sm:py-10 pb-28 max-w-[1280px] mx-auto w-full relative z-10">
         <motion.div
           key={location.pathname}
           initial={{ opacity: 0, y: 12 }}
@@ -55,7 +55,7 @@ const StudentLayout = ({ children }: { children: ReactNode }) => {
       </main>
 
       {/* Navegação inferior */}
-      <nav className="fixed bottom-0 left-0 right-0 glass-panel border-t px-1 pt-1 pb-[max(0.25rem,env(safe-area-inset-bottom))] flex justify-around z-40 shadow-elevated">
+      <nav className="fixed bottom-3 left-3 right-3 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-auto glass-panel border px-1.5 py-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] flex justify-around z-40 shadow-elevated rounded-2xl">
         {navItems.map((item) => {
           const active = location.pathname === item.path;
           return (

@@ -21,9 +21,9 @@ type GlassCardProps = HTMLMotionProps<"div"> & {
 
 const paddings = {
   none: "",
-  sm: "p-3.5",
-  md: "p-5 sm:p-6",
-  lg: "p-6 sm:p-8",
+  sm: "p-4 sm:p-5",
+  md: "p-5 sm:p-7 lg:p-8",
+  lg: "p-6 sm:p-9 lg:p-10",
 } as const;
 
 export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
@@ -36,7 +36,7 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
       className={cn(
         tone === "card" && "surface-card",
         tone === "inset" && "surface-inset",
-        tone === "soft" && "glass-soft rounded-3xl",
+        tone === "soft" && "glass-soft rounded-2xl",
         paddings[padding],
         interactive && "micro-card cursor-pointer",
         className,
@@ -70,7 +70,7 @@ export const PageHeader = ({
     initial={{ opacity: 0, y: 12 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-    className={cn("flex flex-wrap items-start justify-between gap-3", className)}
+    className={cn("flex flex-wrap items-end justify-between gap-5 py-1 sm:py-2", className)}
   >
     <div className="flex items-start gap-3 min-w-0">
       {Icon && (
@@ -80,10 +80,10 @@ export const PageHeader = ({
       )}
       <div className="min-w-0">
         {eyebrow && <p className="section-eyebrow mb-1">{eyebrow}</p>}
-        <h1 className="font-heading text-[26px] leading-tight font-extrabold text-foreground tracking-tight">
+        <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl leading-[1.05] font-semibold text-foreground">
           {title}
         </h1>
-        {description && <p className="text-sm text-muted-foreground mt-1.5">{description}</p>}
+        {description && <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-2xl">{description}</p>}
       </div>
     </div>
     {actions && <div className="flex items-center gap-2">{actions}</div>}
@@ -111,7 +111,7 @@ export const SectionHeader = ({
         </span>
       )}
       <div className="min-w-0">
-        <h2 className="section-title text-base">{title}</h2>
+        <h2 className="section-title text-lg sm:text-xl">{title}</h2>
         {description && <p className="text-xs text-muted-foreground mt-0.5">{description}</p>}
       </div>
     </div>
@@ -224,7 +224,7 @@ export const PageShell = ({
   children,
   ...props
 }: HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn("w-full space-y-5 sm:space-y-6", className)} {...props}>
+  <div className={cn("w-full space-y-6 sm:space-y-8 lg:space-y-10", className)} {...props}>
     {children}
   </div>
 );

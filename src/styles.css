@@ -54,8 +54,8 @@
   --color-status-problem: hsl(var(--status-problem));
   --color-status-severe: hsl(var(--status-severe));
 
-  --font-heading: 'Syne', sans-serif;
-  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-heading: 'Urbanist', sans-serif;
+  --font-body: 'Epilogue', sans-serif;
 
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
@@ -80,26 +80,26 @@
   :root {
     /* Paleta Roxo Aurora Claro:
        #F7F5FF base · #EEEDFE lavanda · #534AB7 roxo · #3C3489 roxo profundo · #FF7AB6 rosa */
-    --background: 252 100% 98%;
-    --foreground: 246 45% 22%;
+    --background: 240 17% 97%;
+    --foreground: 255 12% 11%;
     --card: 0 0% 100%;
-    --card-foreground: 246 45% 22%;
+    --card-foreground: 255 12% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 246 45% 22%;
-    --primary: 245 42% 50%;
+    --popover-foreground: 255 12% 11%;
+    --primary: 241 73% 63%;
     --primary-foreground: 0 0% 100%;
     --secondary: 333 100% 74%;
     --secondary-foreground: 246 45% 20%;
-    --muted: 245 88% 96%;
-    --muted-foreground: 246 26% 42%;
-    --accent: 245 88% 96%;
-    --accent-foreground: 246 45% 37%;
+    --muted: 246 28% 94%;
+    --muted-foreground: 255 8% 39%;
+    --accent: 248 42% 92%;
+    --accent-foreground: 245 44% 37%;
     --destructive: 0 74% 52%;
     --destructive-foreground: 0 0% 100%;
-    --border: 246 45% 88%;
-    --input: 246 45% 88%;
-    --ring: 245 42% 50%;
-    --radius: 1.25rem;
+    --border: 246 20% 84%;
+    --input: 246 20% 84%;
+    --ring: 241 73% 63%;
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 246 45% 22%;
@@ -120,21 +120,23 @@
     --status-problem: 12 82% 55%;
     --status-severe: 0 72% 48%;
 
-    --gradient-hero: linear-gradient(135deg, hsl(246 45% 37%), hsl(245 42% 50%) 52%, hsl(318 60% 58%));
-    --gradient-card: linear-gradient(160deg, hsl(0 0% 100% / 0.85), hsl(245 88% 97% / 0.6));
-    --gradient-accent: linear-gradient(135deg, hsl(245 42% 50%), hsl(333 100% 74%));
-    --gradient-surface: linear-gradient(180deg, hsl(252 100% 99%), hsl(245 88% 97%));
+    --gradient-hero: linear-gradient(145deg, hsl(255 12% 11%), hsl(246 20% 17%) 52%, hsl(241 42% 28%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100% / 0.72), hsl(248 42% 96% / 0.38));
+    --gradient-accent: linear-gradient(135deg, hsl(241 73% 63%), hsl(267 62% 62%));
+    --gradient-surface: linear-gradient(180deg, hsl(240 17% 98%), hsl(248 26% 94%));
 
     --shadow-card:
-      0 1px 2px -1px hsl(246 45% 37% / 0.06),
-      0 18px 40px -22px hsl(245 42% 50% / 0.32);
+      0 1px 2px hsl(255 12% 11% / 0.04),
+      0 20px 70px -36px hsl(241 40% 35% / 0.42),
+      inset 0 1px 0 hsl(0 0% 100% / 0.88);
     --shadow-elevated:
-      0 2px 6px -2px hsl(246 45% 37% / 0.08),
-      0 40px 100px -20px hsl(245 42% 50% / 0.28);
-    --shadow-glow: 0 0 60px -12px hsl(333 100% 74% / 0.45);
+      0 2px 8px hsl(255 12% 11% / 0.06),
+      0 44px 120px -42px hsl(241 50% 36% / 0.48),
+      inset 0 1px 0 hsl(0 0% 100% / 0.92);
+    --shadow-glow: 0 0 80px -18px hsl(241 73% 63% / 0.5);
 
-    --font-heading: 'Syne', sans-serif;
-    --font-body: 'Plus Jakarta Sans', sans-serif;
+    --font-heading: 'Urbanist', sans-serif;
+    --font-body: 'Epilogue', sans-serif;
   }
 
 
@@ -168,14 +170,14 @@
   body {
     @apply text-foreground antialiased;
     background:
-      radial-gradient(120% 80% at 82% -12%, hsl(333 100% 74% / 0.18) 0%, transparent 58%),
-      radial-gradient(100% 70% at -12% 108%, hsl(245 42% 50% / 0.16) 0%, transparent 55%),
-      hsl(252 100% 98%);
+      radial-gradient(80% 55% at 88% -8%, hsl(241 73% 63% / 0.16) 0%, transparent 62%),
+      radial-gradient(70% 55% at 8% 104%, hsl(267 62% 70% / 0.15) 0%, transparent 60%),
+      hsl(var(--background));
     background-attachment: fixed;
     font-family: var(--font-body);
     font-size: 15px;
     line-height: 1.65;
-    letter-spacing: 0.005em;
+    letter-spacing: 0;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -192,13 +194,13 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
     line-height: 1.22;
     text-wrap: balance;
   }
-  h1 { letter-spacing: -0.028em; }
+  h1 { letter-spacing: 0; }
   p { text-wrap: pretty; }
-  small, .text-xs { letter-spacing: 0.01em; }
+  small, .text-xs { letter-spacing: 0; }
   /* Foco visível consistente em toda a plataforma */
   a:focus-visible,
   button:focus-visible,
@@ -243,26 +245,26 @@
 
   /* ─── Superfícies de vidro (Roxo Aurora Claro) ─── */
   .surface-card {
-    background: linear-gradient(150deg, hsl(0 0% 100% / 0.78), hsl(245 88% 97% / 0.5));
-    backdrop-filter: blur(28px) saturate(160%);
-    border: 1px solid hsl(0 0% 100% / 0.85);
+    background: linear-gradient(145deg, hsl(0 0% 100% / 0.66), hsl(248 38% 96% / 0.36));
+    backdrop-filter: blur(38px) saturate(145%);
+    border: 1px solid hsl(0 0% 100% / 0.8);
     box-shadow: var(--shadow-card);
-    border-radius: 1.75rem;
+    border-radius: 1.5rem;
     transition: box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1),
       transform 320ms cubic-bezier(0.22, 1, 0.36, 1), background 320ms ease,
       border-color 320ms ease;
   }
   .surface-card:hover {
-    background: linear-gradient(150deg, hsl(0 0% 100% / 0.92), hsl(245 88% 97% / 0.7));
+    background: linear-gradient(145deg, hsl(0 0% 100% / 0.78), hsl(248 38% 96% / 0.48));
     box-shadow: var(--shadow-elevated);
     border-color: hsl(0 0% 100%);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
   }
 
   /* Vidro global: toda superfície de card vira vidro fosco */
   .bg-card {
-    background-color: hsl(0 0% 100% / 0.72);
-    backdrop-filter: blur(24px) saturate(160%);
+    background-color: hsl(0 0% 100% / 0.62);
+    backdrop-filter: blur(32px) saturate(145%);
   }
   .dark .bg-card {
     background-color: hsl(240 45% 12% / 0.66);
@@ -276,13 +278,13 @@
 
   /* Painel de vidro genérico (navs, barras, popovers) */
   .glass-panel {
-    background: hsl(0 0% 100% / 0.7);
-    backdrop-filter: blur(28px) saturate(170%);
-    border: 1px solid hsl(0 0% 100% / 0.9);
+    background: hsl(0 0% 100% / 0.58);
+    backdrop-filter: blur(38px) saturate(150%);
+    border: 1px solid hsl(0 0% 100% / 0.78);
   }
   .glass-soft {
-    background: hsl(245 88% 97% / 0.55);
-    backdrop-filter: blur(20px) saturate(150%);
+    background: hsl(248 38% 96% / 0.48);
+    backdrop-filter: blur(30px) saturate(140%);
     border: 1px solid hsl(0 0% 100% / 0.75);
   }
   .dark .surface-card {
@@ -345,10 +347,10 @@
   }
 
   .surface-inset {
-    background: hsl(245 88% 97% / 0.75);
-    backdrop-filter: blur(14px) saturate(150%);
+    background: hsl(0 0% 100% / 0.42);
+    backdrop-filter: blur(20px) saturate(135%);
     border: 1px solid hsl(0 0% 100% / 0.8);
-    border-radius: 1.25rem;
+    border-radius: 1rem;
   }
   .dark .surface-inset {
     background: hsl(243 45% 18% / 0.5);
@@ -359,13 +361,13 @@
   .section-title {
     font-family: var(--font-heading);
     font-weight: 700;
-    letter-spacing: -0.015em;
+    letter-spacing: 0;
     color: hsl(var(--foreground));
   }
   .section-eyebrow {
     font-size: 0.6875rem;
     font-weight: 600;
-    letter-spacing: 0.09em;
+    letter-spacing: 0;
     text-transform: uppercase;
     color: hsl(var(--muted-foreground));
   }
@@ -373,7 +375,7 @@
   .stat-value {
     font-family: var(--font-heading);
     font-weight: 800;
-    letter-spacing: -0.03em;
+    letter-spacing: 0;
     font-variant-numeric: tabular-nums;
     color: hsl(var(--foreground));
   }

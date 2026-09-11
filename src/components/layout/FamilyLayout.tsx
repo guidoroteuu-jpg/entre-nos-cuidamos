@@ -20,7 +20,7 @@ const FamilyLayout = ({ children }: { children: ReactNode }) => {
     <div className="min-h-screen bg-transparent flex flex-col relative">
       <CatBackground variant="subtle" />
 
-      <header className="glass-panel border-b px-4 h-14 flex items-center justify-between relative z-10">
+      <header className="glass-panel border px-4 sm:px-6 h-16 flex items-center justify-between sticky top-3 z-30 mx-3 mt-3 rounded-2xl shadow-card">
         <div className="flex items-center gap-2">
           <img
             src={lisAvatar}
@@ -38,7 +38,7 @@ const FamilyLayout = ({ children }: { children: ReactNode }) => {
         </Link>
       </header>
 
-      <main className="flex-1 px-4 py-6 pb-24 max-w-3xl mx-auto w-full relative z-10">
+      <main className="flex-1 px-4 sm:px-6 py-7 sm:py-10 pb-28 max-w-[1280px] mx-auto w-full relative z-10">
         <motion.div
           key={location.pathname}
           initial={{ opacity: 0, y: 12 }}
@@ -49,7 +49,7 @@ const FamilyLayout = ({ children }: { children: ReactNode }) => {
         </motion.div>
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 glass-panel border-t px-2 pt-1 pb-[max(0.25rem,env(safe-area-inset-bottom))] flex justify-around z-40 shadow-elevated">
+      <nav className="fixed bottom-3 left-3 right-3 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-auto glass-panel border px-2 py-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] flex justify-around z-40 shadow-elevated rounded-2xl">
         {navItems.map((item) => {
           const active = location.pathname === item.path;
           return (

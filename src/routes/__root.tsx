@@ -12,7 +12,6 @@ import appCss from "../styles.css?url";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import AccessibilityControls from "@/components/AccessibilityControls";
 import { I18nProvider } from "@/lib/i18n";
 import { initAccessibility } from "@/lib/accessibility";
 import { reportLovableError } from "@/lib/lovable-error-reporting";
@@ -104,7 +103,6 @@ function RootComponent() {
           </div>
           <Toaster />
           <Sonner />
-          <AccessibilityControls />
           <Outlet />
         </TooltipProvider>
       </I18nProvider>

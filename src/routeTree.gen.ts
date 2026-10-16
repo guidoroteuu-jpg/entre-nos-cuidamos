@@ -10,11 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BemVindoRouteImport } from './routes/bem-vindo'
 import { Route as BrandRouteImport } from './routes/brand'
 import { Route as CadastroRouteImport } from './routes/cadastro'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
+import { Route as AuthenticatedAdministracaoRouteImport } from './routes/_authenticated/administracao'
 import { Route as AlunoAcessibilidadeRouteImport } from './routes/aluno/acessibilidade'
 import { Route as AlunoApoioRouteImport } from './routes/aluno/apoio'
 import { Route as AlunoChatRouteImport } from './routes/aluno/chat'
@@ -58,6 +61,15 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BemVindoRoute = BemVindoRouteImport.update({
   id: '/bem-vindo',
   path: '/bem-vindo',
@@ -83,6 +95,12 @@ const PrivacidadeRoute = PrivacidadeRouteImport.update({
   path: '/privacidade',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdministracaoRoute =
+  AuthenticatedAdministracaoRouteImport.update({
+    id: '/administracao',
+    path: '/administracao',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AlunoAcessibilidadeRoute = AlunoAcessibilidadeRouteImport.update({
   id: '/aluno/acessibilidade',
   path: '/aluno/acessibilidade',
@@ -273,11 +291,13 @@ const ProfessorRelatorioRoute = ProfessorRelatorioRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/bem-vindo': typeof BemVindoRoute
   '/brand': typeof BrandRoute
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
   '/privacidade': typeof PrivacidadeRoute
+  '/administracao': typeof AuthenticatedAdministracaoRoute
   '/aluno/acessibilidade': typeof AlunoAcessibilidadeRoute
   '/aluno/apoio': typeof AlunoApoioRoute
   '/aluno/chat': typeof AlunoChatRoute
@@ -318,11 +338,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/bem-vindo': typeof BemVindoRoute
   '/brand': typeof BrandRoute
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
   '/privacidade': typeof PrivacidadeRoute
+  '/administracao': typeof AuthenticatedAdministracaoRoute
   '/aluno/acessibilidade': typeof AlunoAcessibilidadeRoute
   '/aluno/apoio': typeof AlunoApoioRoute
   '/aluno/chat': typeof AlunoChatRoute
@@ -364,11 +386,14 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/bem-vindo': typeof BemVindoRoute
   '/brand': typeof BrandRoute
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
   '/privacidade': typeof PrivacidadeRoute
+  '/_authenticated/administracao': typeof AuthenticatedAdministracaoRoute
   '/aluno/acessibilidade': typeof AlunoAcessibilidadeRoute
   '/aluno/apoio': typeof AlunoApoioRoute
   '/aluno/chat': typeof AlunoChatRoute
@@ -411,11 +436,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/bem-vindo'
     | '/brand'
     | '/cadastro'
     | '/login'
     | '/privacidade'
+    | '/administracao'
     | '/aluno/acessibilidade'
     | '/aluno/apoio'
     | '/aluno/chat'
@@ -456,11 +483,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/bem-vindo'
     | '/brand'
     | '/cadastro'
     | '/login'
     | '/privacidade'
+    | '/administracao'
     | '/aluno/acessibilidade'
     | '/aluno/apoio'
     | '/aluno/chat'
@@ -501,11 +530,14 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
+    | '/auth'
     | '/bem-vindo'
     | '/brand'
     | '/cadastro'
     | '/login'
     | '/privacidade'
+    | '/_authenticated/administracao'
     | '/aluno/acessibilidade'
     | '/aluno/apoio'
     | '/aluno/chat'
@@ -547,6 +579,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   BemVindoRoute: typeof BemVindoRoute
   BrandRoute: typeof BrandRoute
   CadastroRoute: typeof CadastroRoute
@@ -600,6 +634,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/bem-vindo': {
       id: '/bem-vindo'
       path: '/bem-vindo'
@@ -634,6 +682,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/privacidade'
       preLoaderRoute: typeof PrivacidadeRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/administracao': {
+      id: '/_authenticated/administracao'
+      path: '/administracao'
+      fullPath: '/administracao'
+      preLoaderRoute: typeof AuthenticatedAdministracaoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/aluno/acessibilidade': {
       id: '/aluno/acessibilidade'
@@ -897,8 +952,21 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdministracaoRoute: typeof AuthenticatedAdministracaoRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdministracaoRoute: AuthenticatedAdministracaoRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   BemVindoRoute: BemVindoRoute,
   BrandRoute: BrandRoute,
   CadastroRoute: CadastroRoute,

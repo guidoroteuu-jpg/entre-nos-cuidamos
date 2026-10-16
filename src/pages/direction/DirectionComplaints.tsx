@@ -107,10 +107,10 @@ const DirectionComplaints = () => {
           data: c.data,
           descricao: n,
         })),
-        resolvedAt: c.status === "resolvida" ? c.data : undefined,
-        followupAt: c.status === "resolvida"
-          ? new Date(new Date(c.data).getTime() + 30 * 86400000).toISOString().slice(0, 10)
-          : undefined,
+        ...(c.status === "resolvida" ? {
+          resolvedAt: c.data,
+          followupAt: new Date(new Date(c.data).getTime() + 30 * 86400000).toISOString().slice(0, 10),
+        } : {}),
       };
     });
   });

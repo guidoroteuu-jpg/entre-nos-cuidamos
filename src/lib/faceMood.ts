@@ -61,7 +61,8 @@ export const emotionsToMoodScore = (e: EmotionScores): number => {
 
 const CONSENT_KEY = "entre_nos_consent_camera";
 
-export const hasCameraConsent = () => localStorage.getItem(CONSENT_KEY) === "1";
+export const hasCameraConsent = () =>
+  typeof window !== "undefined" && localStorage.getItem(CONSENT_KEY) === "1";
 export const setCameraConsent = (value: boolean) => {
   if (value) localStorage.setItem(CONSENT_KEY, "1");
   else localStorage.removeItem(CONSENT_KEY);

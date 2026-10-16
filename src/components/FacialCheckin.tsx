@@ -24,7 +24,7 @@ const FacialCheckin = () => {
   const streamRef = useRef<MediaStream | null>(null);
   const cancelRef = useRef(false);
 
-  const [fase, setFase] = useState<Fase>(hasCameraConsent() ? "pronto" : "consentimento");
+  const [fase, setFase] = useState<Fase>("consentimento");
   const [progresso, setProgresso] = useState(0);
   const [emocoes, setEmocoes] = useState<EmotionScores>(emptyEmotions());
   const [erro, setErro] = useState("");
@@ -37,6 +37,7 @@ const FacialCheckin = () => {
   };
 
   useEffect(() => {
+    setFase(hasCameraConsent() ? "pronto" : "consentimento");
     return () => {
       cancelRef.current = true;
       pararCamera();

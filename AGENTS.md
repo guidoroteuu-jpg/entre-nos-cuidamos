@@ -1,2 +1,3 @@
 # Architecture rules
 - Browser-persisted React state must restore after hydration and defer writes until restoration completes; use `usePersistedState` for editable JSON state so SSR stays browser-independent and saved data is not overwritten.
+- Vitest uses its own config with deduplicated, inlined React dependencies so hook tests share the renderer's React instance without running application build plugins.

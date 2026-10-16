@@ -214,6 +214,7 @@ const Login = () => {
         </div>
 
         <p className="text-center text-xs text-muted-foreground mt-6">
+          <Link to="/auth" className="block text-primary font-medium mb-4">Administração e contas cadastradas</Link>
           {t("login.privacyPrefix")} {" "}
           <Link to="/privacidade" className="text-secondary underline">{t("login.privacyLink")}</Link>.
         </p>

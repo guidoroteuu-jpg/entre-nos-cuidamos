@@ -443,8 +443,47 @@ export type Database = {
         }
         Relationships: []
       }
+      school_members: {
+        Row: {
+          created_at: string
+          email: string
+          escola_id: string
+          full_name: string
+          id: string
+          school_role: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          escola_id: string
+          full_name: string
+          id?: string
+          school_role: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          escola_id?: string
+          full_name?: string
+          id?: string
+          school_role?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "school_members_escola_id_fkey"
+            columns: ["escola_id"]
+            isOneToOne: false
+            referencedRelation: "escolas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       turmas: {
         Row: {
+          access_code: string | null
           created_at: string
           escola_id: string
           id: string
@@ -455,6 +494,7 @@ export type Database = {
           year: number
         }
         Insert: {
+          access_code?: string | null
           created_at?: string
           escola_id: string
           id?: string
@@ -465,6 +505,7 @@ export type Database = {
           year?: number
         }
         Update: {
+          access_code?: string | null
           created_at?: string
           escola_id?: string
           id?: string
@@ -556,7 +597,7 @@ export type Database = {
       }
     }
     Functions: {
-      [_ in never]: never
+      setup_own_school: { Args: { school_name: string }; Returns: string }
     }
     Enums: {
       app_role: "admin" | "teacher" | "student"

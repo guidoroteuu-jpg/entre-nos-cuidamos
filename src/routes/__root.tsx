@@ -17,6 +17,7 @@ import { I18nProvider } from "@/lib/i18n";
 import { initAccessibility } from "@/lib/accessibility";
 import { reportLovableError } from "@/lib/lovable-error-reporting";
 import NotFound from "@/pages/NotFound";
+import { supabase } from '@/integrations/supabase/client';
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
@@ -36,19 +37,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "Aqui, ninguém fica de fora. Plataforma de cuidado emocional para escolas.",
       },
       { property: "og:type", content: "website" },
-      {
-        property: "og:image",
-        content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a1c2097f-5b82-4589-a37f-d9cd2d7f63b6/id-preview-80524c55--f562642f-7ca1-44b1-87cb-1ceb224dcd85.lovable.app-1775158505315.png",
-      },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Entre Nós — Bem-estar escolar inteligente" },
       { name: "twitter:description", content: "Aqui, ninguém fica de fora." },
-      {
-        name: "twitter:image",
-        content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a1c2097f-5b82-4589-a37f-d9cd2d7f63b6/id-preview-80524c55--f562642f-7ca1-44b1-87cb-1ceb224dcd85.lovable.app-1775158505315.png",
-      },
       { name: "theme-color", content: "#F7F5FF" },
     ],
     links: [
@@ -88,6 +79,16 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+
+  useEffect(() => {
+    const { data } = supabase.auth.onAuthStateChange(event => {
+      if (event !== 'SIGNED_IN' && event !== 'SIGNED_OUT' && event !== 'USER_UPDATED') return;
+      void router.invalidate();
+      if (event !== 'SIGNED_OUT') void queryClient.invalidateQueries();
+    });
+    return () => data.subscription.unsubscribe();
+  }, [router, queryClient]);
 
   useEffect(() => {
     initAccessibility();

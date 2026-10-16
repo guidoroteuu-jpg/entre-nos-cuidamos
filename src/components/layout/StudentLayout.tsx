@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Logo from "@/components/Logo";
 import CatBackground from "@/components/CatBackground";
 import lisAvatar from "@/assets/lis-cat-logo.png";
+import { AccountSignOut } from '@/components/AccountSignOut';
 
 const navItems = [
   { path: "/aluno/home", label: "Início", icon: Home },
@@ -37,9 +38,7 @@ const StudentLayout = ({ children }: { children: ReactNode }) => {
           />
           <Logo variante="clara" largura={110} />
         </div>
-        <Link to="/login" className="text-muted-foreground hover:text-foreground transition-colors micro-btn">
-          <LogOut className="w-4 h-4" />
-        </Link>
+        <AccountSignOut />
       </header>
 
       {/* Conteúdo */}

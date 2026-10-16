@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useHydrated } from "@tanstack/react-router";
 import StudentLayout from "@/components/layout/StudentLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,7 +31,8 @@ const getInitials = (name: string) => {
 const StudentChat = () => {
   const [messages, setMessages] = useState(mockMessages);
   const [input, setInput] = useState("");
-  const studentName = localStorage.getItem("entre_nos_nome") || "Você";
+  const hydrated = useHydrated();
+  const studentName = hydrated ? localStorage.getItem("entre_nos_nome") || "Você" : "Você";
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();

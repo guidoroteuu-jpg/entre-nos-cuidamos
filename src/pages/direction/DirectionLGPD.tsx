@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { usePersistedState } from "@/hooks/use-persisted-state";
 import DirectionLayout from "@/components/layout/DirectionLayout";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -25,18 +26,13 @@ interface Consentimento {
 
 const DirectionLGPD = () => {
   const [logs, setLogs] = useState<AcessoLog[]>([]);
-  const [consent, setConsent] = useState<Consentimento>(() => {
-    const stored = localStorage.getItem(CONSENT_KEY);
-    return stored ? JSON.parse(stored) : { uso_dados_pedagogicos: true, retencao_egressos_dias: 365, exportacao_familia: true };
+  const [consent, setConsent] = usePersistedState<Consentimento>(CONSENT_KEY, {
+    uso_dados_pedagogicos: true, retencao_egressos_dias: 365, exportacao_familia: true,
   });
 
   useEffect(() => {
     setLogs(JSON.parse(localStorage.getItem(ACCESS_LOG_KEY) || "[]"));
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem(CONSENT_KEY, JSON.stringify(consent));
-  }, [consent]);
 
   const apagarEgressos = () => {
     toast.success("Comando enviado: dados de alunos egressos serão apagados conforme política de retenção");

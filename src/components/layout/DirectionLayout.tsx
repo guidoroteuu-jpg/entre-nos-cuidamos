@@ -37,6 +37,8 @@ const DirectionLayout = ({ children }: { children: ReactNode }) => {
               <Link
                 key={item.path}
                 to={item.path}
+                aria-label={item.label}
+                title={item.label}
                 aria-current={active ? "page" : undefined}
                 className={`relative flex items-center justify-center lg:justify-start gap-3 px-3 py-2.5 min-h-[44px] rounded-xl text-sm transition-all group ${
                   active
@@ -57,7 +59,7 @@ const DirectionLayout = ({ children }: { children: ReactNode }) => {
             );
           })}
         </nav>
-        <Link to="/login" className="mt-2 flex items-center justify-center lg:justify-start gap-3 px-3 py-2.5 min-h-[44px] rounded-xl text-sm text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-colors micro-btn">
+        <Link to="/login" aria-label="Sair" title="Sair" className="mt-2 flex items-center justify-center lg:justify-start gap-3 px-3 py-2.5 min-h-[44px] rounded-xl text-sm text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-colors micro-btn">
           <LogOut className="w-4 h-4" /> <span className="hidden lg:inline">Sair</span>
         </Link>
       </aside>

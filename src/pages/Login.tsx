@@ -21,10 +21,9 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const existingToken = localStorage.getItem("entre_nos_token");
-
   const handleStudentLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    const existingToken = localStorage.getItem("entre_nos_token");
     setError("");
     if (!classCode.trim()) { setError(t("login.errorClassCode")); return; }
     if (!existingToken && !isFirstAccess) { setIsFirstAccess(true); return; }

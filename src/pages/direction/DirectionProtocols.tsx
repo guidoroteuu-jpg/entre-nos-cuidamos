@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { usePersistedState } from "@/hooks/use-persisted-state";
 import DirectionLayout from "@/components/layout/DirectionLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -56,15 +57,8 @@ const protocolosPadrao: Protocolo[] = [
 ];
 
 const DirectionProtocols = () => {
-  const [protocolos, setProtocolos] = useState<Protocolo[]>(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : protocolosPadrao;
-  });
+  const [protocolos, setProtocolos] = usePersistedState<Protocolo[]>(STORAGE_KEY, protocolosPadrao);
   const [editing, setEditing] = useState<string | null>(null);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(protocolos));
-  }, [protocolos]);
 
   const addProtocolo = () => {
     const novo: Protocolo = {

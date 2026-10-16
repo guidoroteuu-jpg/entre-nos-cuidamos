@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useHydrated } from "@tanstack/react-router";
 import { Link } from "@/lib/router-compat";
 import StudentLayout from "@/components/layout/StudentLayout";
 import { Button } from "@/components/ui/button";
@@ -93,7 +94,8 @@ const StudentHome = () => {
     }
   };
 
-  const studentName = localStorage.getItem("entre_nos_nome") || "Aluno";
+  const hydrated = useHydrated();
+  const studentName = hydrated ? localStorage.getItem("entre_nos_nome") || "Aluno" : "Aluno";
 
   return (
     <StudentLayout>

@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+import { usePersistedState } from "@/hooks/use-persisted-state";
 import DirectionLayout from "@/components/layout/DirectionLayout";
 import {
   AlertTriangle, Clock, CheckCircle, Search, MessageSquare, ChevronDown, ChevronUp,
@@ -92,9 +93,7 @@ const logAccess = (acao: string, recurso: string) => {
 };
 
 const DirectionComplaints = () => {
-  const [complaints, setComplaints] = useState<Complaint[]>(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) return JSON.parse(stored);
+  const [complaints, setComplaints] = usePersistedState<Complaint[]>(STORAGE_KEY, () => {
     return initialComplaints.map((c) => {
       const categoria = triarCategoria(c.tipo, c.gravidade);
       return {
@@ -122,10 +121,6 @@ const DirectionComplaints = () => {
   const [novaAcao, setNovaAcao] = useState<{ tipo: AcaoTipo; descricao: string; responsavel: string }>({
     tipo: "conversa_aluno", descricao: "", responsavel: orientadores[0]!,
   });
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(complaints));
-  }, [complaints]);
 
   const filtered = complaints.filter((c) => {
     const matchSearch =

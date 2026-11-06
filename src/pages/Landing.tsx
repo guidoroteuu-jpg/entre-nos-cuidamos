@@ -123,7 +123,7 @@ const Landing = () => {
                   </div>
                   <span className="w-28 h-1.5 rounded-full bg-white/20" aria-hidden="true" />
                 </div>
-                <img
+                <img fetchPriority="high" decoding="async"
                   src={heroStudents}
                   alt="Alunos acolhidos na escola com a mascote Lis, a dálmata roxa"
                   width={1200}

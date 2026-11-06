@@ -48,7 +48,7 @@ interface MoodCatProps {
 const MoodCat = ({ mood, className = "w-8 h-8", alt }: MoodCatProps) => {
   const item = catMoods[mood] ?? catMoods.neutro;
   return (
-    <img
+    <img loading="lazy" decoding="async"
       src={item.src}
       alt={alt ?? item.label}
       width={512}

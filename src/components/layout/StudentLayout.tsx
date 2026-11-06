@@ -4,7 +4,7 @@ import { Home, BookOpen, Users, MessageSquare, LogOut, HeartHandshake, LifeBuoy,
 import { motion } from "framer-motion";
 import Logo from "@/components/Logo";
 import CatBackground from "@/components/CatBackground";
-import lisAvatar from "@/assets/lis-cat-logo.png";
+import lisAvatar from "@/assets/lis-cat-logo.webp";
 import { AccountSignOut } from '@/components/AccountSignOut';
 
 const navItems = [

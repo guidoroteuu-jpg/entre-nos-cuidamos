@@ -1,9 +1,9 @@
-import catOtimo from "@/assets/cat-mood-otimo.png";
-import catNeutro from "@/assets/cat-mood-neutro.png";
-import catTriste from "@/assets/cat-mood-triste.png";
-import catFrustrado from "@/assets/cat-mood-frustrado.png";
-import catExcluido from "@/assets/cat-mood-excluido.png";
-import catMuitoTriste from "@/assets/cat-mood-muito-triste.png";
+import catOtimo from "@/assets/cat-mood-otimo.webp";
+import catNeutro from "@/assets/cat-mood-neutro.webp";
+import catTriste from "@/assets/cat-mood-triste.webp";
+import catFrustrado from "@/assets/cat-mood-frustrado.webp";
+import catExcluido from "@/assets/cat-mood-excluido.webp";
+import catMuitoTriste from "@/assets/cat-mood-muito-triste.webp";
 
 /**
  * Cachorrinhos de humor padronizados — fonte única para todas as telas

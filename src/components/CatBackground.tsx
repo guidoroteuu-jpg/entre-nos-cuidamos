@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import catSitting from "@/assets/lis-cat-logo.png";
-import catSleeping from "@/assets/lis-cat-sleeping.png";
-import catPlaying from "@/assets/lis-cat-playing.png";
-import catWaving from "@/assets/lis-cat-waving.png";
+import catSitting from "@/assets/lis-cat-logo.webp";
+import catSleeping from "@/assets/lis-cat-sleeping.webp";
+import catPlaying from "@/assets/lis-cat-playing.webp";
+import catWaving from "@/assets/lis-cat-waving.webp";
 
 interface CatBackgroundProps {
   /** Densidade visual: "subtle" (default, ideal para conteúdo), "lively" (mais visível, telas de boas-vindas) */

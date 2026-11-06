@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import lisCat from "@/assets/lis-cat-sleeping.png";
+import lisCat from "@/assets/lis-cat-sleeping.webp";
 
 interface EmptyStateProps {
   /** Título principal — curto, gentil */

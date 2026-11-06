@@ -7,7 +7,7 @@ import Logo from "@/components/Logo";
 import CatBackground from "@/components/CatBackground";
 import { ScrollReveal } from "@/components/MotionStagger";
 import { useI18n, type TranslationKey } from "@/lib/i18n";
-import heroStudents from "@/assets/hero-students.jpg";
+import heroStudents from "@/assets/hero-students.webp";
 
 const features = [
   { icon: ShieldCheck, title: "landing.feature.checkin.title", description: "landing.feature.checkin.desc" },

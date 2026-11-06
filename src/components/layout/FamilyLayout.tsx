@@ -22,7 +22,7 @@ const FamilyLayout = ({ children }: { children: ReactNode }) => {
 
       <header className="glass-panel border px-4 sm:px-6 h-16 flex items-center justify-between sticky top-3 z-30 mx-3 mt-3 rounded-2xl shadow-card">
         <div className="flex items-center gap-2">
-          <img
+          <img decoding="async"
             src={lisAvatar}
             alt="Lis"
             width={32}

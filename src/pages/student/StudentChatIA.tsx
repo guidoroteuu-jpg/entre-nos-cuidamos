@@ -6,7 +6,7 @@ import { Send, Trash2, Lock, Wind } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import CalmExercise from "@/components/CalmExercise";
-import lisAvatar from "@/assets/lis-cat-logo.png";
+import lisAvatar from "@/assets/lis-cat-logo.webp";
 
 interface Message {
   id: number;

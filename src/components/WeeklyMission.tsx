@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, RefreshCw } from "lucide-react";
-import lisAvatar from "@/assets/lis-cat-logo.png";
+import lisAvatar from "@/assets/lis-cat-logo.webp";
 
 interface Mission {
   id: string;

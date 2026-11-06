@@ -4,7 +4,7 @@ import { Home, GraduationCap, Heart, CalendarCheck, LogOut } from "lucide-react"
 import { motion } from "framer-motion";
 import Logo from "@/components/Logo";
 import CatBackground from "@/components/CatBackground";
-import lisAvatar from "@/assets/lis-cat-logo.png";
+import lisAvatar from "@/assets/lis-cat-logo.webp";
 
 const navItems = [
   { path: "/familia/painel", label: "Resumo", icon: Home },
